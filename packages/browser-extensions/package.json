@@ -1,0 +1,15 @@
+{
+  "name": "browser-extensions",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "npm run build:live",
+    "build": "npx tsc ./index.ts --outDir './lib'",
+    "build:live": "NODE_ENV=DEVELOPMENT nodemon --watch './**/*.ts' --exec 'ts-node' ./index.ts"
+  },
+  "author": "",
+  "license": "ISC",
+  "private": false
+}
