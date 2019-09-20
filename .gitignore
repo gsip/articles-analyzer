@@ -1,3 +1,5 @@
 node_modules
 .idea
 packages/**/lib
+dist
+build
