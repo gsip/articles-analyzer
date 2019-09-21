@@ -1,12 +1,15 @@
 {
-  "name": "articles-summary",
+  "name": "reservoir-dogs",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "npx lerna run start",
+    "build": "npx lerna run build",
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "npx eslint 'packages/**/*.ts'",
-    "typecheck": "npx tsc --noEmit"
+    "typecheck": "npx tsc --noEmit",
+    "postinstall": "npx lerna bootstrap"
   },
   "author": "",
   "private": true,
@@ -15,9 +18,9 @@
     "@typescript-eslint/parser": "^2.2.0",
     "eslint": "^6.4.0",
     "eslint-config-prettier": "^6.1.0",
-    "eslint-plugin-prettier": "^3.1.0",
     "eslint-plugin-import": "^2.18.2",
     "husky": "^3.0.5",
+    "lerna": "^3.16.4",
     "lint-staged": "^9.2.5",
     "nodemon": "^1.19.2",
     "prettier": "^1.18.2",
@@ -32,5 +35,8 @@
     "*.ts": [
       "npx eslint"
     ]
-  }
+  },
+  "workspaces": [
+    "packages/*"
+  ]
 }
