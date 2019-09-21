@@ -1,16 +1,5 @@
-"use strict";
-
-const express = require('express');
+import express from 'express';
 const app = express();
-const port = 3000;
 
-app.get(`/`, (request: any, response: any) => {
-    response.send('Hello from Express!')
-});
-
-app.listen(port, (err: Error) => {
-    if (err) {
-        return console.log('something bad happened', err)
-    }
-    console.log(`server is listening on ${port}`)
-});
+app.get('/', (req, res) => res.send('Hello World!'));
+app.listen(3000, () => console.log('Example app listening on port 3000!'));
