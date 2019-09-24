@@ -7,8 +7,7 @@
     "start": "npx lerna run start",
     "build": "npx lerna run build",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "lint": "npx lerna run lint",
-    "postinstall": "npx lerna bootstrap"
+    "lint": "npx lerna run lint"
   },
   "author": "",
   "private": true,
