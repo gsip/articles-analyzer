@@ -1,10 +1,7 @@
-// eslint-disable-next-line @typescript-eslint/no-var-requires
+/* eslint-disable @typescript-eslint/no-var-requires */
 const { CheckerPlugin } = require('awesome-typescript-loader');
-// eslint-disable-next-line @typescript-eslint/no-var-requires
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-// eslint-disable-next-line @typescript-eslint/no-var-requires
 const { optimize } = require('webpack');
-// eslint-disable-next-line @typescript-eslint/no-var-requires
 const { join } = require('path');
 const prodPlugins = [];
 
