@@ -1,0 +1,14 @@
+runtime: python
+env: flex
+entrypoint: gunicorn -b :$PORT --log-level debug --workers 3 --timeout 480 app:app
+
+runtime_config:
+  python_version: 3
+
+# https://cloud.google.com/appengine/docs/flexible/python/configuring-your-app-with-app-yaml
+manual_scaling:
+  instances: 1
+resources:
+  cpu: 4
+  memory_gb: 16
+  disk_size_gb: 20
