@@ -53,3 +53,10 @@ Node.js + Python (для машин лёрнинг) на бэкенде, еба�
 
 ## Добавление в браузер
 ![chrome](https://c.radikal.ru/c22/1909/b1/f2ac29fffad4.png)
+
+## Google Cloud configuration
+1. Install gcloud
+2. Authenticate to your Google Account
+`gcloud auth login`
+3. Set project, it's necessary to deploy anything on App Engine
+`gcloud config set project PROJECT_ID`
