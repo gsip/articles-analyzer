@@ -1,0 +1,10 @@
+{
+  "extends": "../build/tsconfig",
+  "compilerOptions": {
+    "outDir": "dist",
+    "types": ["node"]
+  },
+  "include": [
+    "src/**/*"
+  ]
+}
