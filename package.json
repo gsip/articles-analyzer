@@ -8,7 +8,8 @@
     "build": "npx lerna run build",
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "npx lerna run lint",
-    "postinstall": "npx lerna bootstrap"
+    "postinstall": "npx lerna bootstrap",
+    "deploy-ner": "gcloud app deploy packages/ner/app.yaml"
   },
   "author": "",
   "private": true,
