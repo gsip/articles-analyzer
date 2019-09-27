@@ -2,3 +2,5 @@ node_modules
 .idea
 packages/**/lib
 dist
+venv
+__pycache__
