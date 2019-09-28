@@ -34,9 +34,9 @@ def count_ents(entities):
 
     for token, arr in counted.items():
         orig_token = arr[0]['t']
-        res.append([orig_token, len(arr)])
+        res.append({"word": orig_token, "count": len(arr)})
 
-    res.sort(key=lambda x: x[1], reverse=True)
+    res.sort(key=lambda x: x["count"], reverse=True)
 
     return res
 
