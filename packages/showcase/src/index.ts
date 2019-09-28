@@ -5,16 +5,6 @@ import bodyParser from 'koa-bodyparser';
 const app = new Koa();
 const router = new KoaRouter();
 
-const generateRandomString = (): string => {
-    return Math.random()
-        .toString(36)
-        .substring(2, 15);
-};
-
-const generateToken = (): string => {
-    return generateRandomString() + generateRandomString();
-};
-
 router.get('/', (ctx, next) => {
     ctx.body = 'Hello World!';
     next();
@@ -23,8 +13,7 @@ router.get('/', (ctx, next) => {
 router.post('/api/process', (ctx, next) => {
     const text: string = ctx.request.body.text;
     if (text && text.length > 0) {
-        const tokenString: string = generateToken();
-        ctx.body = { token: tokenString.toUpperCase() };
+        ctx.body = {};
     } else {
         ctx.status = 422;
     }
