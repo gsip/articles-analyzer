@@ -13,7 +13,10 @@ router.get('/', (ctx, next) => {
 router.post('/api/process', (ctx, next) => {
     const text: string = ctx.request.body.text;
     if (text && text.length > 0) {
-        ctx.body = {};
+        ctx.body = {
+            ner: { PER: [{ word: 'John', count: 5 }, { word: 'Mark', count: 1 }], LOC: [{ word: 'Paris', count: 5 }] },
+            summary: 'Your summary',
+        };
     } else {
         ctx.status = 422;
     }
