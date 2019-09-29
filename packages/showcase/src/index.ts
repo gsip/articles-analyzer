@@ -1,6 +1,9 @@
 import Koa from 'koa';
 import KoaRouter from 'koa-router';
 import bodyParser from 'koa-bodyparser';
+import { mockResponse } from './requestProcessing';
+import nerMock from './mock/ner.json';
+import summaryMock from './mock/summary.json';
 
 const app = new Koa();
 const router = new KoaRouter();
@@ -10,16 +13,13 @@ router.get('/', (ctx, next) => {
     next();
 });
 
-router.post('/api/process', (ctx, next) => {
-    const text: string = ctx.request.body.text;
-    if (text && text.length > 0) {
-        ctx.body = {
-            ner: { PER: [{ word: 'John', count: 5 }, { word: 'Mark', count: 1 }], LOC: [{ word: 'Paris', count: 5 }] },
-            summary: 'Your summary',
-        };
-    } else {
-        ctx.status = 422;
-    }
+router.post('/api/ner', (ctx, next) => {
+    mockResponse(ctx, nerMock);
+    next();
+});
+
+router.post('/api/summary', (ctx, next) => {
+    mockResponse(ctx, summaryMock);
     next();
 });
 
