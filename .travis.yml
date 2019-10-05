@@ -5,3 +5,8 @@ node_js:
 
 script:
   - npm run lint
+
+cache:
+  yarn: true
+  directories:
+    - node_modules
