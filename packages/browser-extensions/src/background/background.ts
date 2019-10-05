@@ -1,1 +1,1 @@
-console.log('!!!! backgorund.js 2');
+console.log('!!!! backgorund.js 1');
