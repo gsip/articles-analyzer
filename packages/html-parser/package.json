@@ -1,0 +1,20 @@
+{
+  "name": "@reservoir-dogs/html-parser",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "nodemon --watch 'src/**/*.ts' --exec 'npx ts-node' src/index.ts",
+    "lint": "npx tsc --noEmit -p tsconfig.json && npx eslint './src/**/*.ts'"
+  },
+  "author": "",
+  "devDependencies": {
+    "nodemon": "^1.18.3"
+  },
+  "dependencies": {
+    "@reservoir-dogs/build": "1.0.0",
+    "typescript": "^3.6.3"
+  },
+  "private": true
+}

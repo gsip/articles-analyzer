@@ -1,0 +1,9 @@
+{
+  "extends": "@reservoir-dogs/build/tsconfig",
+  "compilerOptions": {
+    "outDir": "dist"
+  },
+  "include": [
+    "src/**/*"
+  ]
+}
