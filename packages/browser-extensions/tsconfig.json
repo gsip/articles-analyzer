@@ -1,7 +1,7 @@
 {
   "extends": "../build/tsconfig",
   "compilerOptions": {
-    "types": ["chrome", "node"]
+
   },
   "include": ["src/background/*", "src/contentscript/*"],
   "exclude": [

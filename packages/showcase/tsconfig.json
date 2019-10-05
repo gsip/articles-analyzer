@@ -1,8 +1,7 @@
 {
-  "extends": "../build/tsconfig",
+  "extends": "@reservoir-dogs/build/tsconfig",
   "compilerOptions": {
-    "outDir": "dist",
-    "types": ["node"]
+    "outDir": "dist"
   },
   "include": [
     "src/**/*"
