@@ -1,48 +1,25 @@
-import Mark from 'mark.js';
-import { generateClassNamesForMarkHTML } from '../modules/markHTML/markHTML';
+import { colorizeEntities } from '../modules/markHTML/markHTML';
 import { parseHTML } from '../modules/parseHTML/parseHTML';
+import { Messenger } from '../modules/messages';
+import { extractRequest, extractResponse } from '../modules/messages/actions/extract';
 
-console.log('!! YES ');
-
-document.addEventListener('DOMContentLoaded', () => {
-    generateClassNamesForMarkHTML();
-
+document.addEventListener('DOMContentLoaded', async () => {
     const body = document.getElementsByTagName('body')[0];
     const text = parseHTML(body.outerHTML);
+    const messenger = new Messenger();
+    const response = await messenger.send<ReturnType<typeof extractResponse>>(extractRequest(text));
 
-    chrome.runtime.sendMessage({ type: 'parseText', text }, function(response) {
-        console.log('!! YES parseText', response);
-        if (response && response.data) {
-            const { FAC, EVENT, GPE, PERSON, PRODUCT, LOC, ORG, wikiResult } = response.data;
-            const instance = new Mark(body);
+    if (!response || !response.payload) {
+        return;
+    }
 
-            const props = { accuracy: 'exactly', separateWordSearch: false };
+    const { FAC, EVENT, GPE, PERSON, PRODUCT, LOC, ORG } = response.payload;
 
-            // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-            // @ts-ignore
-            instance.mark(FAC, { className: 'mark-fac', ...props });
-            // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-            // @ts-ignore
-            instance.mark(EVENT, { className: 'mark-event', accuracy: 'exactly', ...props });
-            // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-            // @ts-ignore
-            instance.mark(GPE, { className: 'mark-gpe', accuracy: 'exactly', ...props });
-            // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-            // @ts-ignore
-            instance.mark(PERSON, { className: 'mark-person', accuracy: 'exactly', ...props });
-            // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-            // @ts-ignore
-            instance.mark(PRODUCT, { className: 'mark-product', accuracy: 'exactly', ...props });
-            // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-            // @ts-ignore
-            instance.mark(LOC, { className: 'mark-loc', accuracy: 'exactly', ...props });
-            // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-            // @ts-ignore
-            instance.mark(ORG, { className: 'mark-org', accuracy: 'exactly', ...props });
-
-            if (wikiResult) {
-                console.log('!!! wikiResult', wikiResult);
-            }
-        }
-    });
+    FAC && colorizeEntities(body, FAC, 'peru');
+    EVENT && colorizeEntities(body, EVENT, 'yellow');
+    GPE && colorizeEntities(body, GPE, 'violet');
+    PERSON && colorizeEntities(body, PERSON, 'magenta');
+    PRODUCT && colorizeEntities(body, PRODUCT, 'skyblue');
+    LOC && colorizeEntities(body, LOC, 'silver');
+    ORG && colorizeEntities(body, ORG, 'mediumorchid');
 });

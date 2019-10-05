@@ -7,7 +7,7 @@ type Response = {
 };
 
 export const ExtractText = (text: string): Promise<Response> => {
-    return new Promise<Response>((resolve, reject) => {
+    return new Promise<Response>((resolve, reject): void => {
         $.ajax({
             type: 'POST',
             url: EXTRACT_API_URL,
@@ -18,7 +18,7 @@ export const ExtractText = (text: string): Promise<Response> => {
                 'Access-Control-Allow-Methods': '*',
                 'Access-Control-Allow-Headers': '*',
             },
-            error: (request, error) => {
+            error: (_request, error) => {
                 reject(error);
             },
         }).done(resolve);

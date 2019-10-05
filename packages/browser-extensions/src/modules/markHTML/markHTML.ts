@@ -1,29 +1,35 @@
-function getStyles(rules: string[]) {
+import Mark from 'mark.js';
+import { Entity } from '../types';
+
+function createStyleElement(rule: string): HTMLStyleElement {
     const style = document.createElement('style');
     if (style && style.sheet) {
-        rules.forEach((rule) => {
-            // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-            // @ts-ignore
-            style.sheet.insertRule(rule);
-        });
+        const sheet = style.sheet as CSSStyleSheet;
+        sheet.insertRule(rule);
     }
 
     return style;
 }
 
-function addStyles(rules: string[]): void {
-    const styleElement = getStyles(rules);
+function addStyle(rule: string): void {
+    const styleElement = createStyleElement(rule);
     document.head.appendChild(styleElement);
 }
 
-export function generateClassNamesForMarkHTML(): void {
-    const rules = [
-        '.mark-event {background-color: yellow}',
-        '.mark-gpe {background-color: green}',
-        '.mark-person {background-color: violet}',
-        '.mark-product {background-color: magenta}',
-        '.mark-loc {background-color: skyblue}',
-        '.mark-org {background-color: silver}',
-    ];
-    addStyles(rules);
+function addClassNameToWords(htmlElement: HTMLElement, words: string[], className: string): void {
+    const instance = new Mark(htmlElement);
+    instance.mark(words, { className, accuracy: 'exactly', separateWordSearch: false });
+}
+
+function colorizeWords(htmlElement: HTMLElement, words: string[], color: string): void {
+    const className = `mark-${color}`;
+    const style = `${className} {background-color: ${color}`;
+
+    addStyle(style);
+    addClassNameToWords(htmlElement, words, className);
+}
+
+export function colorizeEntities(htmlElement: HTMLElement, entities: Entity[], color: string): void {
+    const words = entities.map((entity) => entity.word);
+    colorizeWords(htmlElement, words, color);
 }

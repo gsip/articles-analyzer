@@ -6,27 +6,24 @@ export const DEFAULT_MESSENGER_NAME = 'DEFAULT_MESSENGER_NAME';
 export class Messenger<T extends ExtractActionsType = ExtractActionsType> implements MessengerInterface<T> {
     allSubscribers: Map<string, MessengerCallback<T, T>[]> = new Map<string, MessengerCallback<T, T>[]>();
 
-    constructor(name: string = DEFAULT_MESSENGER_NAME) {
-        chrome.runtime.onMessage.addListener(
-            (request: { type: string; payload: T }, _sender, sendResponse: (action: T) => void) => {
-                if (request && request.type === name) {
-                    const subscribers = this.allSubscribers.get(request.payload.type);
-                    if (subscribers) {
-                        subscribers.map(async (callback) => {
-                            const result = await callback(request.payload);
-                            if (result) {
-                                sendResponse(result);
-                            }
-                        });
+    constructor() {
+        chrome.runtime.onMessage.addListener((request: T, _sender, sendResponse: (action: T) => void) => {
+            const subscribers = this.allSubscribers.get(request.type);
+            if (subscribers) {
+                subscribers.map(async (callback) => {
+                    const result = await callback(request);
+                    if (sendResponse) {
+                        sendResponse(result);
                     }
-                }
-                return true;
-            },
-        );
+                });
+            }
+
+            return true;
+        });
     }
 
     send<D>(action: T): Promise<D> {
-        return new Promise<D>((resolve) => {
+        return new Promise<D>((resolve): void => {
             chrome.runtime.sendMessage(action, resolve);
         });
     }

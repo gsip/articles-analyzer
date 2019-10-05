@@ -10,13 +10,11 @@ export type Entity = {
     count: number;
 };
 
-export type EntitiesBackendResponse<T extends string = EntitiesTypesList> = Record<T, Entity[]>;
+export type EntitiesBackendResponse<T extends string = EntitiesTypesList> = Record<T, Entity[] | undefined>;
 
 export type EntitiesTypesList = 'FAC' | 'EVENT' | 'GPE' | 'PERSON' | 'PRODUCT' | 'LOC' | 'ORG';
 
-export type MessengerCallback<P extends ExtractActionsType, R extends ExtractActionsType> = (
-    action: P,
-) => Promise<R> | undefined;
+export type MessengerCallback<P extends ExtractActionsType, R extends ExtractActionsType> = (action: P) => Promise<R>;
 
 export interface MessengerInterface<T extends ExtractActionsType> {
     send<P extends T, R extends T>(action: P): Promise<R>;
