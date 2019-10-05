@@ -1,0 +1,187 @@
+0 silly argv {
+0 silly argv   _: [ 'run' ],
+0 silly argv   lernaVersion: '3.16.4',
+0 silly argv   '$0': 'node_modules/.bin/lerna',
+0 silly argv   script: 'start'
+0 silly argv }
+1 notice cli v3.16.4
+2 verbose rootPath /Users/ivanpakhotin/Documents/code/articles-summary
+3 info Executing command in 2 packages: "npm run start"
+4 silly npmRunScript start [] @reservoir-dogs/browser-extensions
+5 silly getExecOpts /Users/ivanpakhotin/Documents/code/articles-summary/packages/browser-extensions undefined
+6 silly npmRunScript start [] @reservoir-dogs/showcase
+7 silly getExecOpts /Users/ivanpakhotin/Documents/code/articles-summary/packages/showcase undefined
+8 error Error: Command failed: npm run start
+8 error
+8 error webpack is watching the files…
+8 error
+8 error - Update webpack configuration
+8 error [32m✔[39m Update webpack configuration
+8 error - Clear destination folder
+8 error [32m✔[39m Clear destination folder
+8 error - Start webpack watch
+8 error (node:47509) DeprecationWarning: Tapable.apply is deprecated. Call apply on the plugin directly instead
+8 error [31m✖[39m [90m｢atl｣[39m: [31mChecking finished with 11 errors[39m
+8 error [32m✔[39m Start webpack watch
+8 error [31m✖[39m [90m｢atl｣[39m: [31mChecking finished with 10 errors[39m
+8 error
+8 error > @reservoir-dogs/browser-extensions@1.0.0 start /Users/ivanpakhotin/Documents/code/articles-summary/packages/browser-extensions
+8 error > npm-run-all --parallel watch:*
+8 error
+8 error
+8 error > @reservoir-dogs/browser-extensions@1.0.0 watch:popup /Users/ivanpakhotin/Documents/code/articles-summary/packages/browser-extensions
+8 error > npm run watch:build --prefix src/popup
+8 error
+8 error
+8 error > @reservoir-dogs/browser-extensions@1.0.0 watch:static /Users/ivanpakhotin/Documents/code/articles-summary/packages/browser-extensions
+8 error > npm run prepare-static
+8 error
+8 error
+8 error > @reservoir-dogs/browser-extensions@1.0.0 watch:contentscript-background /Users/ivanpakhotin/Documents/code/articles-summary/packages/browser-extensions
+8 error > NODE_ENV=development webpack --config webpack.config.js -w
+8 error
+8 error
+8 error > @reservoir-dogs/browser-extensions@1.0.0 prepare-static /Users/ivanpakhotin/Documents/code/articles-summary/packages/browser-extensions
+8 error > cpy static/manifest.json dist
+8 error
+8 error
+8 error > popup@0.1.0 watch:build /Users/ivanpakhotin/Documents/code/articles-summary/packages/browser-extensions/src/popup
+8 error > cra-build-watch -v --build-path ../../dist/popup
+8 error
+8 error [34mℹ[39m [90m｢atl｣[39m: Using typescript@[1m3.6.3[22m from [1mtypescript[22m
+8 error [34mℹ[39m [90m｢atl｣[39m: Using [1mtsconfig.json[22m from [1m/Users/ivanpakhotin/Documents/code/articles-summary/packages/browser-extensions/tsconfig.json[22m (in a forked process)
+8 error
+8 error [34mℹ[39m [90m｢atl｣[39m: Checking started in a separate process...
+8 error Hash: [1m982d57cb42e141969510[39m[22m
+8 error Version: webpack [1m4.41.0[39m[22m
+8 error Time: [1m7374[39m[22mms
+8 error Built at: 10/02/2019 [1m11:01:10 PM[39m[22m
+8 error            [1mAsset[39m[22m      [1mSize[39m[22m         [1mChunks[39m[22m  [1m[39m[22m           [1m[39m[22m[1mChunk Names[39m[22m
+8 error    [1m[32mbackground.js[39m[22m   773 KiB     [1mbackground[39m[22m  [1m[32m[emitted][39m[22m  background
+8 error [1m[32mcontentscript.js[39m[22m  1.17 MiB  [1mcontentscript[39m[22m  [1m[32m[emitted][39m[22m  contentscript
+8 error Entrypoint [1mcontentscript[39m[22m = [1m[32mcontentscript.js[39m[22m
+8 error Entrypoint [1mbackground[39m[22m = [1m[32mbackground.js[39m[22m
+8 error [0] [1mreadable-stream (ignored)[39m[22m 15 bytes {[1m[33mcontentscript[39m[22m}[1m[32m [built][39m[22m
+8 error [../../node_modules/webpack/buildin/global.js] [1m(webpack)/buildin/global.js[39m[22m 472 bytes {[1m[33mcontentscript[39m[22m}[1m[32m [built][39m[22m
+8 error [../../node_modules/webpack/buildin/module.js] [1m(webpack)/buildin/module.js[39m[22m 497 bytes {[1m[33mcontentscript[39m[22m}[1m[32m [built][39m[22m
+8 error [[1m./src/background/background.ts[39m[22m] 5.65 KiB {[1m[33mbackground[39m[22m}[1m[32m [built][39m[22m
+8 error [[1m./src/contentscript/contentscript.ts[39m[22m] 4.13 KiB {[1m[33mcontentscript[39m[22m}[1m[32m [built][39m[22m
+8 error     + 135 hidden modules
+8 error [at-loader] [31m./src/background/background.ts[39m:16:38
+8 error     TS2339: [31mProperty 'flat' does not exist on type 'any[]'.[39m
+8 error
+8 error [at-loader] [31m./src/background/background.ts[39m:16:60
+8 error     TS7031: [31mBinding element 'word' implicitly has an 'any' type.[39m
+8 error
+8 error [at-loader] [31m./src/background/background.ts[39m:67:21
+8 error     TS18004: [31mNo value exists in scope for the shorthand property 'wikiResult'. Either declare one or provide an initializer.[39m
+8 error
+8 error [at-loader] [31m./src/contentscript/contentscript.ts[39m:10:21
+8 error     TS2339: [31mProperty 'insertRule' does not exist on type 'StyleSheet'.[39m
+8 error
+8 error [at-loader] [31m./src/contentscript/contentscript.ts[39m:11:21
+8 error     TS2339: [31mProperty 'insertRule' does not exist on type 'StyleSheet'.[39m
+8 error
+8 error [at-loader] [31m./src/contentscript/contentscript.ts[39m:12:21
+8 error     TS2339: [31mProperty 'insertRule' does not exist on type 'StyleSheet'.[39m
+8 error
+8 error [at-loader] [31m./src/contentscript/contentscript.ts[39m:13:21
+8 error     TS2339: [31mProperty 'insertRule' does not exist on type 'StyleSheet'.[39m
+8 error
+8 error [at-loader] [31m./src/contentscript/contentscript.ts[39m:14:21
+8 error     TS2339: [31mProperty 'insertRule' does not exist on type 'StyleSheet'.[39m
+8 error
+8 error [at-loader] [31m./src/contentscript/contentscript.ts[39m:15:21
+8 error     TS2339: [31mProperty 'insertRule' does not exist on type 'StyleSheet'.[39m
+8 error
+8 error [at-loader] [31m./src/contentscript/contentscript.ts[39m:16:21
+8 error     TS2339: [31mProperty 'insertRule' does not exist on type 'StyleSheet'.[39m
+8 error
+8 error [at-loader] [31m./src/contentscript/contentscript.ts[39m:70:68
+8 error     TS6133: [31m'sendResponse' is declared but its value is never read.[39m
+8 error
+8 error
+8 error Hash: [1m29846378143528387248[39m[22m
+8 error Version: webpack [1m4.40.2[39m[22m
+8 error Time: [1m5028[39m[22mms
+8 error Built at: 10/02/2019 [1m11:01:13 PM[39m[22m
+8 error                [1mAsset[39m[22m       [1mSize[39m[22m        [1mChunks[39m[22m  [1m[39m[22m                 [1m[39m[22m[1mChunk Names[39m[22m
+8 error  [1m[32masset-manifest.json[39m[22m  306 bytes              [1m[39m[22m  [1m[32m[emitted][39m[22m
+8 error           [1m[32mindex.html[39m[22m   1.74 KiB              [1m[39m[22m  [1m[32m[emitted][39m[22m
+8 error        [1m[32mjs/0.chunk.js[39m[22m   1.11 MiB             [1m0[39m[22m  [1m[32m[emitted][39m[22m
+8 error    [1m[32mjs/0.chunk.js.map[39m[22m   1.28 MiB             [1m0[39m[22m  [1m[32m[emitted] [dev][39m[22m
+8 error         [1m[32mjs/bundle.js[39m[22m   6.17 KiB  [1mruntime-main[39m[22m  [1m[32m[emitted][39m[22m        runtime-main
+8 error     [1m[32mjs/bundle.js.map[39m[22m   6.14 KiB  [1mruntime-main[39m[22m  [1m[32m[emitted] [dev][39m[22m  runtime-main
+8 error     [1m[32mjs/main.chunk.js[39m[22m   6.24 KiB          [1mmain[39m[22m  [1m[32m[emitted][39m[22m        main
+8 error [1m[32mjs/main.chunk.js.map[39m[22m   2.38 KiB          [1mmain[39m[22m  [1m[32m[emitted] [dev][39m[22m  main
+8 error Entrypoint [1mmain[39m[22m = [1m[32mjs/bundle.js[39m[22m [1m[32mjs/bundle.js.map[39m[22m [1m[32mjs/0.chunk.js[39m[22m [1m[32mjs/0.chunk.js.map[39m[22m [1m[32mjs/main.chunk.js[39m[22m [1m[32mjs/main.chunk.js.map[39m[22m
+8 error [0] [1mmulti ./src/index.tsx[39m[22m 28 bytes {[1m[33mmain[39m[22m}[1m[32m [built][39m[22m
+8 error [./node_modules/css-loader/dist/cjs.js?!./node_modules/postcss-loader/src/index.js?!./node_modules/resolve-url-loader/index.js?!./node_modules/sass-loader/lib/loader.js?!./src/test.scss] [1m./node_modules/css-loader/dist/cjs.js??ref--6-oneOf-5-1!./node_modules/postcss-loader/src??postcss!./node_modules/resolve-url-loader??ref--6-oneOf-5-3!./node_modules/sass-loader/lib/loader.js??ref--6-oneOf-5-4!./src/test.scss[39m[22m 217 bytes {[1m[33mmain[39m[22m}[1m[32m [built][39m[22m
+8 error [[1m./node_modules/css-loader/dist/runtime/api.js[39m[22m] 2.35 KiB {[1m[33m0[39m[22m}[1m[32m [built][39m[22m
+8 error [[1m./node_modules/object-assign/index.js[39m[22m] 2.17 KiB {[1m[33m0[39m[22m}[1m[32m [built][39m[22m
+8 error [[1m./node_modules/prop-types/checkPropTypes.js[39m[22m] 3.55 KiB {[1m[33m0[39m[22m}[1m[32m [built][39m[22m
+8 error [[1m./node_modules/react-dom/cjs/react-dom.development.js[39m[22m] 989 KiB {[1m[33m0[39m[22m}[1m[32m [built][39m[22m
+8 error [[1m./node_modules/react-dom/index.js[39m[22m] 1.32 KiB {[1m[33m0[39m[22m}[1m[32m [built][39m[22m
+8 error [[1m./node_modules/react/cjs/react.development.js[39m[22m] 79.5 KiB {[1m[33m0[39m[22m}[1m[32m [built][39m[22m
+8 error [[1m./node_modules/react/index.js[39m[22m] 189 bytes {[1m[33m0[39m[22m}[1m[32m [built][39m[22m
+8 error [[1m./node_modules/scheduler/index.js[39m[22m] 197 bytes {[1m[33m0[39m[22m}[1m[32m [built][39m[22m
+8 error [[1m./node_modules/scheduler/tracing.js[39m[22m] 213 bytes {[1m[33m0[39m[22m}[1m[32m [built][39m[22m
+8 error [[1m./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js[39m[22m] 6.75 KiB {[1m[33m0[39m[22m}[1m[32m [built][39m[22m
+8 error [[1m./src/App.tsx[39m[22m] 1.05 KiB {[1m[33mmain[39m[22m}[1m[32m [built][39m[22m
+8 error [[1m./src/index.tsx[39m[22m] 372 bytes {[1m[33mmain[39m[22m}[1m[32m [built][39m[22m
+8 error [[1m./src/test.scss[39m[22m] 596 bytes {[1m[33mmain[39m[22m}[1m[32m [built][39m[22m
+8 error     + 3 hidden modules
+8 error Child [1mHtmlWebpackCompiler[39m[22m:
+8 error                           [1mAsset[39m[22m     [1mSize[39m[22m               [1mChunks[39m[22m  [1m[39m[22m[1m[39m[22m[1mChunk Names[39m[22m
+8 error     [1m[32m__child-HtmlWebpackPlugin_0[39m[22m  536 KiB  [1mHtmlWebpackPlugin_0[39m[22m  [1m[32m[39m[22mHtmlWebpackPlugin_0
+8 error     Entrypoint [1mHtmlWebpackPlugin_0[39m[22m = [1m[32m__child-HtmlWebpackPlugin_0[39m[22m
+8 error     [[1m./node_modules/html-webpack-plugin/lib/loader.js!./public/index.html[39m[22m] 1.91 KiB {[1m[33mHtmlWebpackPlugin_0[39m[22m}[1m[32m [built][39m[22m
+8 error     [[1m./node_modules/lodash/lodash.js[39m[22m] 528 KiB {[1m[33mHtmlWebpackPlugin_0[39m[22m}[1m[32m [built][39m[22m
+8 error     [./node_modules/webpack/buildin/global.js] [1m(webpack)/buildin/global.js[39m[22m 475 bytes {[1m[33mHtmlWebpackPlugin_0[39m[22m}[1m[32m [built][39m[22m
+8 error     [./node_modules/webpack/buildin/module.js] [1m(webpack)/buildin/module.js[39m[22m 546 bytes {[1m[33mHtmlWebpackPlugin_0[39m[22m}[1m[32m [built][39m[22m
+8 error
+8 error [34mℹ[39m [90m｢atl｣[39m: Checking started in a separate process...
+8 error [at-loader] [31m./src/background/background.ts[39m:16:38
+8 error     TS2339: [31mProperty 'flat' does not exist on type 'any[]'.[39m
+8 error
+8 error [at-loader] [31m./src/background/background.ts[39m:16:60
+8 error     TS7031: [31mBinding element 'word' implicitly has an 'any' type.[39m
+8 error
+8 error [at-loader] [31m./src/contentscript/contentscript.ts[39m:10:21
+8 error     TS2339: [31mProperty 'insertRule' does not exist on type 'StyleSheet'.[39m
+8 error
+8 error [at-loader] [31m./src/contentscript/contentscript.ts[39m:11:21
+8 error     TS2339: [31mProperty 'insertRule' does not exist on type 'StyleSheet'.[39m
+8 error
+8 error [at-loader] [31m./src/contentscript/contentscript.ts[39m:12:21
+8 error     TS2339: [31mProperty 'insertRule' does not exist on type 'StyleSheet'.[39m
+8 error
+8 error [at-loader] [31m./src/contentscript/contentscript.ts[39m:13:21
+8 error     TS2339: [31mProperty 'insertRule' does not exist on type 'StyleSheet'.[39m
+8 error
+8 error [at-loader] [31m./src/contentscript/contentscript.ts[39m:14:21
+8 error     TS2339: [31mProperty 'insertRule' does not exist on type 'StyleSheet'.[39m
+8 error
+8 error [at-loader] [31m./src/contentscript/contentscript.ts[39m:15:21
+8 error     TS2339: [31mProperty 'insertRule' does not exist on type 'StyleSheet'.[39m
+8 error
+8 error [at-loader] [31m./src/contentscript/contentscript.ts[39m:16:21
+8 error     TS2339: [31mProperty 'insertRule' does not exist on type 'StyleSheet'.[39m
+8 error
+8 error [at-loader] [31m./src/contentscript/contentscript.ts[39m:70:68
+8 error     TS6133: [31m'sendResponse' is declared but its value is never read.[39m
+8 error
+8 error Hash: [1m9e4fb8d1c86a257b6477[39m[22m
+8 error Version: webpack [1m4.41.0[39m[22m
+8 error Time: [1m157[39m[22mms
+8 error Built at: 10/02/2019 [1m11:01:37 PM[39m[22m
+8 error         [1mAsset[39m[22m     [1mSize[39m[22m      [1mChunks[39m[22m  [1m[39m[22m           [1m[39m[22m[1mChunk Names[39m[22m
+8 error [1m[32mbackground.js[39m[22m  773 KiB  [1mbackground[39m[22m  [1m[32m[emitted][39m[22m  background
+8 error  + 1 hidden asset
+8 error Entrypoint [1mcontentscript[39m[22m = [1m[32mcontentscript.js[39m[22m
+8 error Entrypoint [1mbackground[39m[22m = [1m[32mbackground.js[39m[22m
+8 error [[1m./src/background/background.ts[39m[22m] 5.6 KiB {[1m[33mbackground[39m[22m}[1m[32m [built][39m[22m
+8 error     + 139 hidden modules
+8 error
+8 error     at makeError (/Users/ivanpakhotin/Documents/code/articles-summary/node_modules/execa/index.js:174:9)
+8 error     at /Users/ivanpakhotin/Documents/code/articles-summary/node_modules/execa/index.js:278:16
