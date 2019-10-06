@@ -4,3 +4,4 @@ packages/**/lib
 dist
 venv
 __pycache__
+lerna-debug.log
