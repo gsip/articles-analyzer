@@ -1,17 +1,15 @@
 import { EntitiesBackendResponse, EntitiesTypesList } from '../../types';
 
-// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 export function extractRequest(parsedText: string) {
     return {
-        type: 'EXTRACT_REQUEST' as const,
+        type: 'EXTRACT_REQUEST',
         payload: parsedText,
     } as const;
 }
 
-// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 export function extractResponse(entities: EntitiesBackendResponse<EntitiesTypesList>) {
     return {
-        type: 'EXTRACT_RESPONSE' as const,
+        type: 'EXTRACT_RESPONSE',
         payload: entities,
     } as const;
 }

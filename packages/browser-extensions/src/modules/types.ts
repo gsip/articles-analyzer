@@ -10,7 +10,7 @@ export type Entity = {
     count: number;
 };
 
-export type EntitiesBackendResponse<T extends string = EntitiesTypesList> = Record<T, Entity[] | undefined>;
+export type EntitiesBackendResponse<T extends EntitiesTypesList = EntitiesTypesList> = Record<T, Entity[] | undefined>;
 
 export type EntitiesTypesList = 'FAC' | 'EVENT' | 'GPE' | 'PERSON' | 'PRODUCT' | 'LOC' | 'ORG';
 

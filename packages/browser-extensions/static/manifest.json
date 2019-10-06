@@ -34,7 +34,6 @@
     "contentSettings",
     "tabs",
     "*://focus-student-254007.appspot.com/*",
-    "https://focus-student-254007.appspot.com/extract",
     "*://*.wikipedia.org/*"
   ],
   "web_accessible_resources": ["inpage.js"]

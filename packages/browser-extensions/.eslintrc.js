@@ -15,5 +15,8 @@ module.exports = {
         node: true,
         webextensions: true,
         es6: true,
+    },
+    rules: {
+        "@typescript-eslint/explicit-function-return-type": 0,
     }
 };
