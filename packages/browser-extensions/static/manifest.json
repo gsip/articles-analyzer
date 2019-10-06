@@ -25,13 +25,16 @@
   ],
   "permissions": [
     "storage",
-     "unlimitedStorage",
+    "unlimitedStorage",
     "clipboardWrite",
     "idle",
     "activeTab",
     "webRequest",
     "notifications",
-    "tabs"
+    "contentSettings",
+    "tabs",
+    "*://focus-student-254007.appspot.com/*",
+    "*://*.wikipedia.org/*"
   ],
   "web_accessible_resources": ["inpage.js"]
 }
