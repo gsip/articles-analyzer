@@ -1,8 +1,5 @@
 {
-  "extends": "../build/tsconfig",
-  "compilerOptions": {
-
-  },
+  "extends": "@reservoir-dogs/build/tsconfig",
   "include": ["src/background/*", "src/contentscript/*"],
   "exclude": [
     "node_modules",

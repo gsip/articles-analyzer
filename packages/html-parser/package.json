@@ -4,15 +4,16 @@
   "description": "",
   "main": "dist/index.js",
   "scripts": {
-    "build": "tsc",
-    "start": "nodemon --watch 'src/**/*.ts' --exec 'npx ts-node' src/index.ts",
+    "build": "npx tsc",
+    "start": "npx tsc --watch",
     "lint": "npx tsc --noEmit -p tsconfig.json && npx eslint './src/**/*.ts'"
   },
   "author": "",
   "devDependencies": {
-    "nodemon": "^1.18.3"
+    "@types/html-to-text": "^1.4.31"
   },
   "dependencies": {
+    "html-to-text": "^5.1.1",
     "@reservoir-dogs/build": "1.0.0",
     "typescript": "^3.6.3"
   },

@@ -1,3 +1,5 @@
+import htmlToText from 'html-to-text';
+
 type Parser = (document: Document) => string;
 
 interface ParserByURL {
@@ -6,7 +8,11 @@ interface ParserByURL {
 }
 
 const getHTMLStringContent = (htmlElement: Element): string | null => {
-    return htmlElement.textContent;
+    return htmlToText.fromString(htmlElement.outerHTML, {
+        wordwrap: false,
+        ignoreHref: true,
+        ignoreImage: true,
+    });
 };
 
 const commonParser = (document: Document): string => {
