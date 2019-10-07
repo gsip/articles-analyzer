@@ -7,7 +7,8 @@
     "build": "tsc",
     "start": "NODE_ENV=DEVELOPMENT nodemon --watch 'src/**/*.ts' --exec 'npx ts-node' src/index.ts",
     "serve": "node dist/index.js",
-    "lint": "npx tsc --noEmit -p tsconfig.json && npx eslint './src/**/*.ts'"
+    "lint": "npx tsc --noEmit -p tsconfig.json && npx eslint './src/**/*.ts'",
+    "uploadConfig": "gsutil cp .env gs://browser-extension-configuration/"
   },
   "author": "",
   "devDependencies": {
@@ -25,12 +26,16 @@
     "@types/koa-bodyparser": "4.2.1",
     "nodemon": "^1.18.3",
     "typescript": "^3.6.3",
-    "ts-node": "^8.4.1"
+    "ts-node": "^8.4.1",
+    "@types/dotenv": "8.1.0"
   },
   "dependencies": {
     "koa": "2.8.1",
     "koa-router": "^7.4.0",
-    "koa-bodyparser": "4.2.1"
+    "koa-bodyparser": "4.2.1",
+    "@google-cloud/storage": "3.3.1",
+    "dotenv": "8.1.0",
+    "path": "0.12.7"
   },
   "private": true
 }
