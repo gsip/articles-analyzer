@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "postinstall": "npx lerna link",
     "start": "npx lerna run start",
     "build": "npx lerna run build",
     "test": "echo \"Error: no test specified\" && exit 1",
