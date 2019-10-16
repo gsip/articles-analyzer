@@ -15,8 +15,8 @@ const getHTMLStringContent = (htmlElement: Element): string | null => {
     });
 };
 
-const commonParser = (document: Document): string => {
-    const articles = Array.from(document.querySelectorAll('article'));
+const commonParser = (document: Document, selector = 'article'): string => {
+    const articles = Array.from(document.querySelectorAll(selector));
     const articlesContent = articles
         .map(getHTMLStringContent)
         .filter((article): article is string => article !== null && article !== '');
@@ -28,12 +28,13 @@ const parserByURLS: ParserByURL[] = [
     {
         url: /bbc.com/,
         parser: (document) => {
-            const articles = Array.from(document.querySelectorAll('.column--primary'));
-            const articlesContent = articles
-                .map(getHTMLStringContent)
-                .filter((article): article is string => article !== null && article !== '');
-
-            return articlesContent.join(' ');
+            return commonParser(document, '.column--primary');
+        },
+    },
+    {
+        url: /cnn.com/,
+        parser: (document) => {
+            return commonParser(document, '.l-container');
         },
     },
 ];
