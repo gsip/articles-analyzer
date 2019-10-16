@@ -17,12 +17,26 @@ const getHTMLStringContent = (htmlElement: Element): string | null => {
 
 const commonParser = (document: Document): string => {
     const articles = Array.from(document.querySelectorAll('article'));
-    const articlesContent = articles.map(getHTMLStringContent).filter((article): article is string => article !== null);
+    const articlesContent = articles
+        .map(getHTMLStringContent)
+        .filter((article): article is string => article !== null && article !== '');
 
     return articlesContent.join(' ');
 };
 
-const parserByURLS: ParserByURL[] = [];
+const parserByURLS: ParserByURL[] = [
+    {
+        url: /bbc.com/,
+        parser: (document) => {
+            const articles = Array.from(document.querySelectorAll('.column--primary'));
+            const articlesContent = articles
+                .map(getHTMLStringContent)
+                .filter((article): article is string => article !== null && article !== '');
+
+            return articlesContent.join(' ');
+        },
+    },
+];
 
 export const findParserByURL = (url: string): Parser => {
     const parserByURL = parserByURLS.find((parser) => {
