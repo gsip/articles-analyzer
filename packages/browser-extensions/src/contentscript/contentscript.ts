@@ -7,6 +7,10 @@ document.addEventListener('DOMContentLoaded', async () => {
     const body = document.getElementsByTagName('body')[0];
     const text = parseMainContent(document, location.href);
 
+    if (text.length === 0) {
+        return;
+    }
+
     const messenger = new Messenger();
     const response = await messenger.send<ReturnType<typeof extractResponse>>(extractRequest(text));
 
