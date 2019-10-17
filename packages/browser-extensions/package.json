@@ -11,7 +11,6 @@
     "watch:static": "yarn run prepare-static",
     "build:static": "yarn run prepare-static",
     "build:contentscript-background": "NODE_ENV=production webpack --config webpack.config.js",
-    "build:popup": "cd src/popup && yarn run build && cd build && cpy * /static/* ../../../dist/popup --parents",
     "watch:contentscript-background": "NODE_ENV=development webpack --config webpack.config.js -w",
     "watch:popup": "cd src/popup && yarn run watch:build",
     "zip": "bestzip extension.zip dist/*"
