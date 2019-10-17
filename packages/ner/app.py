@@ -8,7 +8,8 @@ from entities_converter import clean, to_counted_ents
 app = Flask(__name__)
 nlp = spacy.load('en_core_web_sm')
 
-N = 400000
+BATCH_SIZE = 50000
+MAX_TEXT_LENGTH = 150000
 
 
 def remove_whitespace_entities(doc):
@@ -24,48 +25,29 @@ def hello_world():
     return 'Hello World!'
 
 
-@app.route('/entities', methods=['post'])
-def html_entities():
-    data = json.loads(request.data)
-    text = data['text']
-    print(text)
-    if not text:
-        return jsonify({'error': "specify 'text' parameter"}), 200
-    html = ''
-    for i in range(0, len(text), N):
-        part = text[i:i + N]
-        doc = nlp(part)
-        print(doc.ents)
-        html += displacy.render([doc], style='ent')
-        gc.collect()
-
-    return render_template_string(html)
-
-
 @app.route('/extract', methods=['post'])
 def extract_entities():
     data = json.loads(request.data)
     text = data['text']
     if not text:
         return jsonify({'error': "specify 'text' parameter"}), 200
+    text_length = len(text)
+    if text_length > MAX_TEXT_LENGTH:
+        return jsonify({'error': f"Max text length exceeded: {text_length} > {MAX_TEXT_LENGTH}"}), 200
 
     ents = []
-    html = ''
-    print(f'Start NER extraction: {len(text) / N} parts')
-    for i in range(0, len(text), N):
-        print(f'part {i}')
-        part = text[i:i + N]
+    print(f'Start NER extraction: {text_length / BATCH_SIZE} parts')
+    for i in range(0, text_length, BATCH_SIZE):
+        part = text[i:i + BATCH_SIZE]
         doc = nlp(part)
-        html += displacy.render([doc], style='ent')
         ents += [{"t": clean(e.text),
                   "search_key": clean(e.text).lower(),
-                  "s": e.start_char,
-                  "e": e.end_char,
+                  #   "s": e.start_char,
+                  #   "e": e.end_char,
                   "l": e.label_
                   } for e in doc.ents]
 
-    print('Return result')
-    return jsonify({"html": html, "ents": to_counted_ents(ents)})
+    return jsonify({"ents": to_counted_ents(ents)})
 
 
 if __name__ == '__main__':
