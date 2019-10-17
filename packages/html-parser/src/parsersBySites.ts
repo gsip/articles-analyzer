@@ -27,15 +27,11 @@ const commonParser = (document: Document, selector = 'article'): string => {
 const parserByURLS: ParserByURL[] = [
     {
         url: /bbc.com/,
-        parser: (document) => {
-            return commonParser(document, '.column--primary');
-        },
+        parser: (document) => commonParser(document, '.column--primary'),
     },
     {
         url: /cnn.com/,
-        parser: (document) => {
-            return commonParser(document, '.l-container');
-        },
+        parser: (document) => commonParser(document, '.l-container'),
     },
 ];
 
