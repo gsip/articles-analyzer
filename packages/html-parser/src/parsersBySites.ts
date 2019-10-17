@@ -40,9 +40,7 @@ const parserByURLS: ParserByURL[] = [
 ];
 
 export const findParserByURL = (url: string): Parser => {
-    const parserByURL = parserByURLS.find((parser) => {
-        return url.search(parser.url) !== -1;
-    });
+    const parserByURL = parserByURLS.find((parser) => parser.url.test(url));
 
     return parserByURL ? parserByURL.parser : commonParser;
 };
