@@ -18,5 +18,8 @@ jobs: # a collection of steps
           paths:
             - ~/.cache/yarn
       - run:
+          run: build
+          command: yarn run build
+      - run:
           name: lint
           command: yarn run lint
