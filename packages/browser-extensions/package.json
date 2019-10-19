@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "postinstall": "cd src/popup && yarn",
     "build": "npm-run-all --parallel build:*",
     "start": "npm-run-all --parallel watch:*",
     "lint": "npx tsc --noEmit -p tsconfig.json && npx eslint './src/**/*.ts'",
@@ -12,7 +11,6 @@
     "build:static": "yarn run prepare-static",
     "build:contentscript-background": "NODE_ENV=production webpack --config webpack.config.js",
     "watch:contentscript-background": "NODE_ENV=development webpack --config webpack.config.js -w",
-    "watch:popup": "cd src/popup && yarn run watch:build",
     "zip": "bestzip extension.zip dist/*"
   },
   "devDependencies": {

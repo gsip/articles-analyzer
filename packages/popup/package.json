@@ -1,14 +1,15 @@
 {
-  "name": "popup",
-  "version": "0.1.0",
+  "name": "@reservoir-dogs/popup",
+  "version": "1.0.0",
   "private": true,
   "dependencies": {
+    "@reservoir-dogs/build": "1.0.0",
     "@types/jest": "24.0.18",
     "@types/node": "12.7.5",
-    "@types/react": "16.9.2",
+    "@types/react": "16.9.0",
     "@types/react-dom": "16.9.0",
-    "react": "^16.9.0",
-    "react-dom": "^16.9.0",
+    "react": "16.9.0",
+    "react-dom": "16.9.0",
     "react-scripts": "3.1.2",
     "typescript": "3.6.3"
   },
@@ -16,11 +17,12 @@
     "cra-build-watch": "^2.0.1"
   },
   "scripts": {
-    "watch:build": "cra-build-watch -v --build-path ../../dist/popup",
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "start": "cra-build-watch -v --build-path ../browser-extensions/dist/popup",
+    "build": "react-scripts build && yarn run copy",
+    "copy": "mkdir -p ../browser-extensions/dist/popup && cp -r build/* ../browser-extensions/dist/popup",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "lint": "npx tsc --noEmit -p tsconfig.json && npx eslint './src/**/*.ts' './src/**/*.tsx'"
   },
   "eslintConfig": {
     "extends": "react-app"
