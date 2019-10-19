@@ -42,6 +42,11 @@ Node.js + Python (для машин лёрнинг) на бэкенде, еба�
 2. Научиться друг у друга чему-то
 3. Если удастся договориться с Розой (мой бывший шеф в стартапе), поучимся работать с пиндосами🇺🇸, ну и будем сами диктовать свои правила.
 
+## Branches
+Please use branch naming using the initials of a project name and an issue id. For example, if a project is `Articles Summary` and an issue id is `7` branch will be `AS-7`. 
+
+Also please start all commit messages with issue id like `#7 initialize the package`.
+
 ## Launch
 ##### install
 `yarn`
