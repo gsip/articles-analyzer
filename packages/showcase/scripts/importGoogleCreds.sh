@@ -1,0 +1,1 @@
+export GOOGLE_APPLICATION_CREDENTIALS=/home/azeevg/proust/browser-extension-8ef43e6f2e7c.json

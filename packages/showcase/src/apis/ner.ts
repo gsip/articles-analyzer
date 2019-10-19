@@ -1,8 +1,7 @@
 import Koa from 'koa';
 import KoaRouter from 'koa-router';
-import Axios from 'axios';
 import { isTextValid } from '../validation';
-
+import fetch from 'node-fetch';
 const NER_ENTITIES_API = '/extract';
 
 export async function execute(ctx: Koa.ParameterizedContext<any, KoaRouter.IRouterParamContext<any, {}>>) {
@@ -17,14 +16,18 @@ export async function execute(ctx: Koa.ParameterizedContext<any, KoaRouter.IRout
         ctx.status = 500;
     }
     const nerEntitiesExtractionUrl = process.env.NER_API + NER_ENTITIES_API;
-    console.log(`Axios.post to ${nerEntitiesExtractionUrl}: ${textToProcess}`);
+    console.log(`post to ${nerEntitiesExtractionUrl}: ${textToProcess}`);
 
-    await Axios.post(nerEntitiesExtractionUrl, {
-        text: textToProcess,
+    const body = { text: textToProcess };
+    await fetch(nerEntitiesExtractionUrl, {
+        method: 'post',
+        body: JSON.stringify(body),
+        headers: { 'Content-Type': 'application/json' },
     })
-        .then((res) => {
-            console.log('Success', res.data);
-            ctx.body = { ner: res.data.ents };
+        .then((res) => res.json())
+        .then((json) => {
+            console.log('Success', json);
+            ctx.body = { ner: json.entities };
             ctx.status = 200;
         })
         .catch(console.error);
