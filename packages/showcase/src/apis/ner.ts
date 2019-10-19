@@ -10,18 +10,17 @@ export async function execute(ctx: Koa.ParameterizedContext<any, KoaRouter.IRout
         ctx.body = 'Wrong NER location';
         ctx.status = 503;
     }
-    const textToProcess = ctx.request.body.text;
-    if (!isTextValid(textToProcess)) {
+    const { text } = ctx.request.body;
+    if (!isTextValid(text)) {
         ctx.body = 'Invalid text';
         ctx.status = 500;
     }
     const nerEntitiesExtractionUrl = process.env.NER_API + NER_ENTITIES_API;
-    console.log(`post to ${nerEntitiesExtractionUrl}: ${textToProcess}`);
+    console.log(`post to ${nerEntitiesExtractionUrl}: ${text}`);
 
-    const body = { text: textToProcess };
     await fetch(nerEntitiesExtractionUrl, {
         method: 'post',
-        body: JSON.stringify(body),
+        body: JSON.stringify({ text }),
         headers: { 'Content-Type': 'application/json' },
     })
         .then((res) => res.json())

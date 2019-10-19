@@ -5,7 +5,7 @@
   "main": "dist/index.js",
   "scripts": {
     "build": "npx tsc",
-    "start": "npx tsc --watch",
+    "start": "npx tsc --watch && yarn serve",
     "serve": "node dist/index.js",
     "lint": "npx tsc --noEmit -p tsconfig.json && npx eslint './src/**/*.ts'",
     "uploadConfig": "gsutil cp .env gs://browser-extension-configuration/"
