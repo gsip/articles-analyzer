@@ -1,0 +1,1 @@
+export { NERConfig } from './ner';

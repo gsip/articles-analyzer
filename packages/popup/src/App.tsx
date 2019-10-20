@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { messenger } from '@reservoir-dogs/browser-transport';
+import { NERConfig } from '@reservoir-dogs/model';
 
 import './test.scss';
 
@@ -15,7 +16,7 @@ type Word = {
 };
 
 export const App: React.FC = () => {
-    const [words, setWords] = useState([] as Word[]);
+    const [entities, setEntities] = useState([] as [string, Word[]][]);
     const [summary, setSummary] = useState('');
 
     useEffect(() => {
@@ -25,10 +26,10 @@ export const App: React.FC = () => {
                 type: 'hello',
             });
 
-            const words: Word[] = Object.values(response.ner).flat();
+            const entities: [string, Word[]][] = Object.entries(response.ner);
 
             setSummary(response.summary);
-            setWords(words);
+            setEntities(entities);
         })();
     }, []);
 
@@ -38,10 +39,18 @@ export const App: React.FC = () => {
             <div className="content">
                 <p className="summary">{summary}</p>
                 <div className="ner">
-                    {words.map((word) => {
+                    {entities.map(([entityName, words]) => {
                         return (
-                            <div key={word.word}>
-                                <span>{word.word}</span>: <span>{word.count}</span>
+                            <div key={entityName}>
+                                <h4>{entityName}</h4>
+                                <p>{NERConfig[entityName].description}</p>
+                                {words.map((word) => {
+                                    return (
+                                        <div key={word.word} style={{ backgroundColor: NERConfig[entityName].color }}>
+                                            <span>{word.word}</span>: <span>{word.count}</span>
+                                        </div>
+                                    );
+                                })}
                             </div>
                         );
                     })}

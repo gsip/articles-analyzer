@@ -11,7 +11,7 @@ export const ExtractText = (text: string): Promise<Response> => {
         $.ajax({
             type: 'POST',
             url: EXTRACT_API_URL,
-            contentType: 'text/plain',
+            contentType: 'text/json',
             data: text,
             headers: {
                 'Access-Control-Allow-Origin': '*',
