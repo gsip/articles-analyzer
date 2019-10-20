@@ -1,4 +1,4 @@
-const commonConfig = require('@reservoir-dogs/build').eslint;
+const commonConfig = require('@reservoir-dogs/project-config').eslint;
 
 module.exports = {
     ...commonConfig,

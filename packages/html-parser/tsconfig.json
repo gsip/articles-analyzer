@@ -1,5 +1,5 @@
 {
-  "extends": "@reservoir-dogs/build/tsconfig",
+  "extends": "@reservoir-dogs/project-config/tsconfig",
   "compilerOptions": {
     "outDir": "dist"
   },
