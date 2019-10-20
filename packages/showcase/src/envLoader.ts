@@ -2,6 +2,7 @@ import * as dotenv from 'dotenv';
 import * as path from 'path';
 import { Storage } from '@google-cloud/storage';
 import { existsSync } from 'fs';
+import { getConfigBucket, getConfigFilename } from './constProvider';
 
 const storage = new Storage();
 
@@ -9,8 +10,8 @@ const destination = path.resolve(process.cwd(), '.env');
 const options = { destination };
 
 async function downloadConfig(): Promise<void> {
-    const bucketName = process.env.CONFIG_BUCKET || '';
-    const envConfigurationFile = process.env.CONFIG_FILE || '';
+    const bucketName = getConfigBucket();
+    const envConfigurationFile = getConfigFilename();
 
     await storage
         .bucket(bucketName)
