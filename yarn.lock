@@ -2074,7 +2074,7 @@ chardet@^0.7.0:
   resolved "https://registry.yarnpkg.com/chardet/-/chardet-0.7.0.tgz#90094849f0937f2eedc2425d0d28a9e5f0cbad9e"
   integrity sha512-mT8iDcrh03qDGRRmoA2hmBJnxpllMR+0/0qlzjqZES6NdiWDcZkCNAk4rPFZ9Q85r27unkiNNg8ZOiwZXBHwcA==
 
-chokidar@^2.0.2, chokidar@^2.1.8:
+chokidar@^2.0.2, chokidar@^2.1.5:
   version "2.1.8"
   resolved "https://registry.yarnpkg.com/chokidar/-/chokidar-2.1.8.tgz#804b3a7b6a99358c3c5c61e71d8728f041cff917"
   integrity sha512-ZmZUazfOzf0Nve7duiCKD23PFSCs4JPoYyccjUFF3aQkQadqBhfzhjkwBH2mNOG9cTBwhamM37EIsIkZw3nRgg==
@@ -3082,11 +3082,6 @@ enhanced-resolve@4.1.0, enhanced-resolve@^4.0.0, enhanced-resolve@^4.1.0:
     graceful-fs "^4.1.2"
     memory-fs "^0.4.0"
     tapable "^1.0.0"
-
-ent@^2.2.0:
-  version "2.2.0"
-  resolved "https://registry.yarnpkg.com/ent/-/ent-2.2.0.tgz#e964219325a21d05f44466a2f686ed6ce5f5dd1d"
-  integrity sha1-6WQhkyWiHQX0RGai9obtbOX13R0=
 
 entities@^1.1.1:
   version "1.1.2"
@@ -5725,7 +5720,7 @@ node-fetch-npm@^2.0.2:
     json-parse-better-errors "^1.0.0"
     safe-buffer "^5.1.1"
 
-node-fetch@^2.2.0, node-fetch@^2.3.0, node-fetch@^2.5.0, node-fetch@^2.5.2:
+node-fetch@^2.3.0, node-fetch@^2.5.0:
   version "2.6.0"
   resolved "https://registry.yarnpkg.com/node-fetch/-/node-fetch-2.6.0.tgz#e633456386d4aa55863f676a7ab0daa8fdecb0fd"
   integrity sha512-8dG4H5ujfvFiqDmVu9fQ5bOHUC15JMjMY/Zumv26oOvvVJjM67KF8koCWIabKQ1GJIa9r2mMZscBq/TbdOcmNA==
