@@ -39,6 +39,7 @@
     "webpack-cli": "^3.3.9"
   },
   "dependencies": {
+    "@reservoir-dogs/browser-transport": "1.0.0",
     "@reservoir-dogs/html-parser": "1.0.0",
     "mark.js": "^8.11.1",
     "jquery": "^3.4.1"
