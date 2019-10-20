@@ -14,5 +14,10 @@ module.exports = {
         browser: true,
         node: true,
         es6: true,
+    },
+    rules: {
+        "@typescript-eslint/explicit-function-return-type": ['error', {
+            "allowExpressions": true
+        }]
     }
 };

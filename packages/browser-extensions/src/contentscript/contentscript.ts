@@ -1,11 +1,16 @@
+import { parseMainContent } from '@reservoir-dogs/html-parser';
 import { colorizeEntities } from '../modules/markHTML/markHTML';
-import { parseHTML } from '../modules/parseHTML/parseHTML';
 import { Messenger } from '../modules/messages';
 import { extractRequest, extractResponse } from '../modules/messages/actions/extract';
 
 document.addEventListener('DOMContentLoaded', async () => {
     const body = document.getElementsByTagName('body')[0];
-    const text = parseHTML(body.outerHTML);
+    const text = parseMainContent(document, location.href);
+
+    if (text.length === 0) {
+        return;
+    }
+
     const messenger = new Messenger();
     const response = await messenger.send<ReturnType<typeof extractResponse>>(extractRequest(text));
 

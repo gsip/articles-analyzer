@@ -1,13 +1,14 @@
 import * as dotenv from 'dotenv';
 import * as path from 'path';
 import { Storage } from '@google-cloud/storage';
+import { existsSync } from 'fs';
 
 const storage = new Storage();
 
 const destination = path.resolve(process.cwd(), '.env');
 const options = { destination };
 
-export async function loadConfiguration(): Promise<void> {
+async function downloadConfig(): Promise<void> {
     const bucketName = process.env.CONFIG_BUCKET || '';
     const envConfigurationFile = process.env.CONFIG_FILE || '';
 
@@ -16,10 +17,22 @@ export async function loadConfiguration(): Promise<void> {
         .file(envConfigurationFile)
         .download(options);
     console.log(`gs://${bucketName}/${envConfigurationFile} downloaded to ${destination}`);
+}
 
+export function loadEnv(): void {
     const config = dotenv.config({ path: destination });
 
     if (config.error) {
         throw config.error;
     }
 }
+
+try {
+    if (!existsSync(destination)) {
+        downloadConfig();
+    }
+} catch (err) {
+    console.error(err);
+}
+
+loadEnv();

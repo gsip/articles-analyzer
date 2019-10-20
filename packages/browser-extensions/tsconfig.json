@@ -1,9 +1,10 @@
 {
-  "extends": "../build/tsconfig",
-  "compilerOptions": {
-    "types": ["chrome", "node"]
-  },
+  "extends": "@reservoir-dogs/build/tsconfig",
   "include": ["src/background/*", "src/contentscript/*"],
+  "compilerOptions": {
+    "outDir": "dist",
+    "declaration": false
+  },
   "exclude": [
     "node_modules",
     "src/popup"

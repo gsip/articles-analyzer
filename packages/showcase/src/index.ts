@@ -1,13 +1,13 @@
 import Koa from 'koa';
 import KoaRouter from 'koa-router';
 import bodyParser from 'koa-bodyparser';
-import { loadConfiguration } from './envLoader';
 import { execute } from './apis/ner';
+import { loadEnv } from './envLoader';
 
 const app = new Koa();
 const router = new KoaRouter();
 
-loadConfiguration();
+loadEnv();
 
 router.get('/', (ctx, next) => {
     ctx.body = 'Hello World!';
