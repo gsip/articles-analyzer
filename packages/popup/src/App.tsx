@@ -1,19 +1,21 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { messenger } from '@reservoir-dogs/browser-transport';
+
 import './test.scss';
 
-const App: React.FC = () => {
-    return (
-        <div className="App">
-            <header className="App-header">
-                <p>
-                    Edit <code>src/App.tsx</code> and save to reload.
-                </p>
-                <a className="App-link" href="https://reactjs.org" target="_blank" rel="noopener noreferrer">
-                    {'THE MAGIC WORDS ARE SQUEAMISH OSSIFRAGE'}
-                </a>
-            </header>
-        </div>
-    );
-};
+export const App: React.FC = () => {
+    const [status, setStatus] = useState('');
 
-export default App;
+    useEffect(() => {
+        (async () => {
+            // #9 create common type
+            const response = await messenger.sendToActiveTab<string>({
+                type: 'hello',
+            });
+
+            setStatus('Success');
+        })();
+    }, []);
+
+    return <div className="app">{status}</div>;
+};

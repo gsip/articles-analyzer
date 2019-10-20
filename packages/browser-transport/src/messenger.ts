@@ -1,9 +1,9 @@
 type Message = {
     type: string;
-    payload?: any;
+    payload?: unknown;
 };
 
-export class Messenger<T extends Message> {
+class Messenger<T extends Message> {
     allSubscribers: Map<string, Function[]> = new Map();
 
     constructor() {
@@ -24,8 +24,21 @@ export class Messenger<T extends Message> {
     }
 
     send<D>(action: T): Promise<D> {
-        return new Promise<D>((resolve): void => {
+        return new Promise<D>((resolve) => {
+            console.log(this.allSubscribers);
             chrome.runtime.sendMessage(action, resolve);
+        });
+    }
+
+    sendToActiveTab<D>(action: T): Promise<D> {
+        return new Promise<D>((resolve) => {
+            chrome.tabs.getSelected((tab) => {
+                if (!tab || !tab.id) {
+                    throw new Error('Active tab does not exist');
+                }
+
+                chrome.tabs.sendMessage(tab.id, action, resolve);
+            });
         });
     }
 
@@ -39,3 +52,5 @@ export class Messenger<T extends Message> {
         subscribers.push(callback);
     }
 }
+
+export const messenger = new Messenger();
