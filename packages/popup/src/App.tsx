@@ -49,7 +49,7 @@ export const App: React.FC = () => {
                                 {words.map((word) => {
                                     return (
                                         <div className="word" key={word.word} style={{ backgroundColor: NERConfig[entityName].color }}>
-                                            <span>{word.word}</span>: <span>{word.count}</span>
+                                            <span>{word.word}</span>
                                         </div>
                                     );
                                 })}
