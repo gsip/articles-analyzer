@@ -3,6 +3,7 @@ import KoaRouter from 'koa-router';
 import bodyParser from 'koa-bodyparser';
 import { execute } from './apis/ner';
 import { loadEnv } from './envLoader';
+import { getAppPort } from './constProvider';
 
 const app = new Koa();
 const router = new KoaRouter();
@@ -26,5 +27,6 @@ router.post('/api/summary', (ctx, next) => {
 
 app.use(bodyParser());
 app.use(router.routes());
-app.listen(3000);
-console.log('listening on 3000');
+const port = getAppPort();
+app.listen(port);
+console.log(`listening on ${port}`);

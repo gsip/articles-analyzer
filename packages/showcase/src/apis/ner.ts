@@ -1,37 +1,34 @@
 import Koa from 'koa';
 import KoaRouter from 'koa-router';
-import { isTextValid } from '../validation';
+import { isEmpty } from '../validation';
 import fetch from 'node-fetch';
-const NER_ENTITIES_API = '/extract';
+import { newPostRequest, error } from './requests';
+import { getNer } from '../constProvider';
+
+const NER_ENTITIES_API = 'extract';
+
+export function getNerUrl(): string {
+    return `http://${getNer()}/${NER_ENTITIES_API}`;
+}
 
 export async function execute(
     ctx: Koa.ParameterizedContext<any, KoaRouter.IRouterParamContext<any, {}>>,
 ): Promise<void> {
-    if (typeof process.env.NER_API !== 'string') {
-        ctx.body = 'Wrong NER location';
-        ctx.status = 503;
-        return;
+    if (isEmpty(getNer())) {
+        return await error(ctx, 'Wrong NER location', 503);
     }
     const { text } = ctx.request.body;
-    if (!isTextValid(text)) {
-        ctx.body = 'Invalid text';
-        ctx.status = 500;
-        return;
+    if (isEmpty(text)) {
+        return await error(ctx, 'Text is empty', 500);
     }
-    const nerEntitiesExtractionUrl = process.env.NER_API + NER_ENTITIES_API;
 
-    await fetch(nerEntitiesExtractionUrl, {
-        method: 'post',
-        body: JSON.stringify({ text }),
-        headers: { 'Content-Type': 'application/json' },
-    })
+    await fetch(getNerUrl(), newPostRequest(text))
         .then((res) => res.json())
         .then((json) => {
             ctx.body = { ner: json.entities };
             ctx.status = 200;
         })
         .catch((err) => {
-            console.error(nerEntitiesExtractionUrl);
             console.error(err);
         });
 }

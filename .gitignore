@@ -5,4 +5,4 @@ dist
 venv
 __pycache__
 lerna-debug.log
-./packages/**/.env
+./**/.env

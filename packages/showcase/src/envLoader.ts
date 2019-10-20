@@ -19,20 +19,19 @@ async function downloadConfig(): Promise<void> {
     console.log(`gs://${bucketName}/${envConfigurationFile} downloaded to ${destination}`);
 }
 
-export function loadEnv(): void {
+export async function loadEnv(): Promise<void> {
+    try {
+        if (!existsSync(destination)) {
+            await downloadConfig();
+        }
+    } catch (err) {
+        console.error(err);
+    }
+
     const config = dotenv.config({ path: destination });
 
     if (config.error) {
         throw config.error;
     }
+    console.log('ENV configuration loaded');
 }
-
-try {
-    if (!existsSync(destination)) {
-        downloadConfig();
-    }
-} catch (err) {
-    console.error(err);
-}
-
-loadEnv();

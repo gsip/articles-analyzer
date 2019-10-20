@@ -4,10 +4,9 @@
   "description": "",
   "main": "dist/index.js",
   "scripts": {
-    "load-config": "npx ts-node ./src/envLoader.ts",
     "build": "npx tsc",
-    "start": "yarn load-config && nodemon",
-    "serve": "yarn load-config && node dist/index.js",
+    "start": "node dist/index.js",
+    "dev": "nodemon",
     "lint": "npx tsc --noEmit -p tsconfig.json && npx eslint './src/**/*.ts'"
   },
   "author": "",
