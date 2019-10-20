@@ -25,7 +25,6 @@ class Messenger<T extends Message> {
 
     send<D>(action: T): Promise<D> {
         return new Promise<D>((resolve) => {
-            console.log(this.allSubscribers);
             chrome.runtime.sendMessage(action, resolve);
         });
     }
