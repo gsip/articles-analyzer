@@ -4,7 +4,7 @@ export const NERConfig = Object.freeze({
         description: 'People, including fictional.',
     },
     NORP: {
-        color: 'none',
+        color: '#7ae04d',
         description: 'Nationalities or religious or political groups.',
     },
     FAC: {
@@ -32,43 +32,43 @@ export const NERConfig = Object.freeze({
         description: 'Named hurricanes, battles, wars, sports events, etc.',
     },
     WORK_OF_ART: {
-        color: 'none',
+        color: '#e56f4a',
         description: 'Titles of books, songs, etc.',
     },
     LAW: {
-        color: 'none',
+        color: '#a7b6ef',
         description: 'Named documents made into laws.',
     },
     LANGUAGE: {
-        color: 'none',
+        color: 'd60e22',
         description: 'Any named language.',
     },
     DATE: {
-        color: 'none',
+        color: '#742540',
         description: 'Absolute or relative dates or periods.',
     },
     TIME: {
-        color: 'none',
+        color: '#479113',
         description: 'Times smaller than a day.',
     },
     PERCENT: {
-        color: 'none',
+        color: '#5dc4ea',
         description: 'Percentage, including ”%“.',
     },
     MONEY: {
-        color: 'none',
+        color: '#f7c860',
         description: 'Monetary values, including unit.',
     },
     QUANTITY: {
-        color: 'none',
+        color: '#856310',
         description: 'Measurements, as of weight or distance.',
     },
     ORDINAL: {
-        color: 'none',
+        color: '#dce137',
         description: '“first”, “second”, etc.',
     },
     CARDINAL: {
-        color: 'none',
+        color: '#5d8770',
         description: 'Numerals that do not fall under another type.',
     },
 });

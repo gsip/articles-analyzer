@@ -35,9 +35,10 @@ export const App: React.FC = () => {
 
     return (
         <div className="app">
-            <h1 className="title">Articles summary</h1>
             <div className="content">
+                <h3>Summary</h3>
                 <p className="summary">{summary}</p>
+                <h3>NER</h3>
                 <div className="ner">
                     {entities.map(([entityName, words]) => {
                         return (
