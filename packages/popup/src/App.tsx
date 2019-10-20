@@ -35,6 +35,7 @@ export const App: React.FC = () => {
 
     return (
         <div className="app">
+            <h1>Ebat popup</h1>
             <div className="content">
                 <h3>Summary</h3>
                 <p className="summary">{summary}</p>
@@ -47,7 +48,7 @@ export const App: React.FC = () => {
                                 <p>{NERConfig[entityName].description}</p>
                                 {words.map((word) => {
                                     return (
-                                        <div key={word.word} style={{ backgroundColor: NERConfig[entityName].color }}>
+                                        <div className="word" key={word.word} style={{ backgroundColor: NERConfig[entityName].color }}>
                                             <span>{word.word}</span>: <span>{word.count}</span>
                                         </div>
                                     );
