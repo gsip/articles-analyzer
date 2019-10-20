@@ -18,8 +18,8 @@
   },
   "scripts": {
     "start": "cra-build-watch -v --build-path ../browser-extensions/dist/popup",
-    "build": "react-scripts build && yarn run copy",
-    "copy": "mkdir -p ../browser-extensions/dist/popup && cp -r build/* ../browser-extensions/dist/popup",
+    "build": "react-scripts build && yarn run copy-to-extension",
+    "copy-to-extension": "mkdir -p ../browser-extensions/dist/popup && cp -r build/* ../browser-extensions/dist/popup",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "lint": "npx tsc --noEmit -p tsconfig.json && npx eslint './src/**/*.ts' './src/**/*.tsx'"
