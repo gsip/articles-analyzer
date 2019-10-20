@@ -1,0 +1,17 @@
+{
+  "name": "@reservoir-dogs/browser-transport",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "npx tsc",
+    "start": "npx tsc --watch",
+    "lint": "npx tsc --noEmit -p tsconfig.json && npx eslint './src/**/*.ts'"
+  },
+  "author": "",
+  "dependencies": {
+    "@reservoir-dogs/project-config": "1.0.0",
+    "typescript": "^3.6.3"
+  },
+  "private": true
+}

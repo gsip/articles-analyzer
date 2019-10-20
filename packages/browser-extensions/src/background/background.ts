@@ -1,5 +1,5 @@
 import { ExtractText } from '../modules/api/extract';
-import { Messenger } from '../modules/messages';
+import { Messenger } from '@reservoir-dogs/browser-transport';
 import { extractRequest, extractResponse, ExtractType } from '../modules/messages/actions/extract';
 
 const messenger = new Messenger();

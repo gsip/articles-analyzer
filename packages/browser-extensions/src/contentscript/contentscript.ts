@@ -1,6 +1,6 @@
 import { parseMainContent } from '@reservoir-dogs/html-parser';
 import { colorizeEntities } from '../modules/markHTML/markHTML';
-import { Messenger } from '../modules/messages';
+import { Messenger } from '@reservoir-dogs/browser-transport';
 import { extractRequest, extractResponse } from '../modules/messages/actions/extract';
 
 document.addEventListener('DOMContentLoaded', async () => {
