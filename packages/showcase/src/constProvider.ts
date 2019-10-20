@@ -3,5 +3,5 @@ export const getNer = (): string | undefined => {
 };
 
 export const getAppPort = (): string => {
-    return process.env.APP_PORT || "3000";
+    return process.env.APP_PORT || '3000';
 };
