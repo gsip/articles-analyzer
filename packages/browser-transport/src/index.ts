@@ -1,1 +1,3 @@
-export { messenger } from './messenger';
+import { messenger } from './messenger';
+
+export { messenger };
