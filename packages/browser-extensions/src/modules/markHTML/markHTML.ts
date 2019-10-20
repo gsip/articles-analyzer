@@ -1,19 +1,16 @@
 import Mark from 'mark.js';
 import { Entity } from '../types';
 
-function createStyleElement(rule: string): HTMLStyleElement {
+function addStyle(rule: string): void {
     const style = document.createElement('style');
-    if (style && style.sheet) {
-        const sheet = style.sheet as CSSStyleSheet;
-        sheet.insertRule(rule);
+    document.head.appendChild(style);
+
+    if (!style.sheet) {
+        return;
     }
 
-    return style;
-}
-
-function addStyle(rule: string): void {
-    const styleElement = createStyleElement(rule);
-    document.head.appendChild(styleElement);
+    const sheet = style.sheet as CSSStyleSheet;
+    sheet.insertRule(rule);
 }
 
 function addClassNameToWords(htmlElement: HTMLElement, words: string[], className: string): void {
@@ -23,7 +20,7 @@ function addClassNameToWords(htmlElement: HTMLElement, words: string[], classNam
 
 function colorizeWords(htmlElement: HTMLElement, words: string[], color: string): void {
     const className = `mark-${color}`;
-    const style = `${className} {background-color: ${color}`;
+    const style = `.${className} {background-color: ${color}}`;
 
     addStyle(style);
     addClassNameToWords(htmlElement, words, className);
