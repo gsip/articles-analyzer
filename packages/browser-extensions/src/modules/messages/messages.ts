@@ -1,9 +1,9 @@
-import { ExtractActionsType } from './actions/extract';
 import { MessengerCallback, MessengerInterface } from '../types';
+import { ActionsType } from './actions';
 
 export const DEFAULT_MESSENGER_NAME = 'DEFAULT_MESSENGER_NAME';
 
-export class Messenger<T extends ExtractActionsType = ExtractActionsType> implements MessengerInterface<T> {
+export class Messenger<T extends ActionsType = ActionsType> implements MessengerInterface<T> {
     allSubscribers: Map<string, MessengerCallback<T, T>[]> = new Map<string, MessengerCallback<T, T>[]>();
 
     constructor() {

@@ -1,4 +1,4 @@
-import { ExtractActionsType } from './messages/actions/extract';
+import { ActionsType } from './messages/actions';
 
 export interface ActionReturnType<T> {
     type: string;
@@ -14,9 +14,14 @@ export type EntitiesBackendResponse<T extends EntitiesTypesList = EntitiesTypesL
 
 export type EntitiesTypesList = 'FAC' | 'EVENT' | 'GPE' | 'PERSON' | 'PRODUCT' | 'LOC' | 'ORG';
 
-export type MessengerCallback<P extends ExtractActionsType, R extends ExtractActionsType> = (action: P) => Promise<R>;
+export type MessengerCallback<P extends ActionsType, R extends ActionsType> = (action: P) => Promise<R>;
 
-export interface MessengerInterface<T extends ExtractActionsType> {
+export interface MessengerInterface<T extends ActionsType> {
     send<P extends T, R extends T>(action: P): Promise<R>;
     subscribe<P extends T, R extends T>(actionType: P['type'], callback: MessengerCallback<P, R>): void;
 }
+
+export type WikiData = {
+    summary?: string;
+    imageUrl?: string;
+};
