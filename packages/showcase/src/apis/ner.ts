@@ -1,7 +1,6 @@
 import Koa from 'koa';
 import KoaRouter from 'koa-router';
 import { isEmpty } from '../validation';
-import fetch from 'node-fetch';
 import { post, error } from './requests';
 import { getNer } from '../constProvider';
 
