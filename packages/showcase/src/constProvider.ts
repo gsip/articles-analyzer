@@ -1,5 +1,5 @@
-export const getNer = (): string | undefined => {
-    return process.env.NER_API;
+export const getNer = (): string => {
+    return process.env.NER_API as string;
 };
 
 export const getAppPort = (): string => {

@@ -2,7 +2,7 @@ import Koa from 'koa';
 import KoaRouter from 'koa-router';
 import { isEmpty } from '../validation';
 import fetch from 'node-fetch';
-import { newPostRequest, error } from './requests';
+import { post, error } from './requests';
 import { getNer } from '../constProvider';
 
 const NER_ENTITIES_API = 'extract';
@@ -22,7 +22,7 @@ export async function execute(
         return await error(ctx, 'Text is empty', 500);
     }
 
-    await fetch(getNerUrl(), newPostRequest(text))
+    await post(getNerUrl(), { text })
         .then((res) => res.json())
         .then((json) => {
             ctx.body = { ner: json.entities };
