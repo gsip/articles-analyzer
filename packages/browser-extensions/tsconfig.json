@@ -1,5 +1,5 @@
 {
-  "extends": "@reservoir-dogs/build/tsconfig",
+  "extends": "@reservoir-dogs/project-config/tsconfig",
   "include": ["src/background/*", "src/contentscript/*"],
   "compilerOptions": {
     "outDir": "dist",

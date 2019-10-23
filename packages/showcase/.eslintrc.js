@@ -1,1 +1,1 @@
-module.exports = require('@reservoir-dogs/build').eslint;
+module.exports = require('@reservoir-dogs/project-config').eslint;
