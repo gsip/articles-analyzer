@@ -1,0 +1,15 @@
+runtime: nodejs
+env: flex
+service: showcase
+
+env_variables:
+  CONFIG_BUCKET: "browser-extension-configuration"
+  CONFIG_FILE: ".env"
+  APP_PORT: 8080
+  
+manual_scaling:
+  instances: 1
+resources:
+  cpu: 1
+  memory_gb: 4
+  disk_size_gb: 10
