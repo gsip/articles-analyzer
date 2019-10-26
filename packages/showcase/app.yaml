@@ -1,6 +1,5 @@
 runtime: nodejs
 env: flex
-service: showcase
 
 env_variables:
   CONFIG_BUCKET: "browser-extension-configuration"
