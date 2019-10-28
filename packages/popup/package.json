@@ -2,6 +2,8 @@
   "name": "@reservoir-dogs/popup",
   "version": "1.0.0",
   "private": true,
+  "main": "./src/index.tsx",
+  "homepage": ".",
   "dependencies": {
     "@reservoir-dogs/project-config": "1.0.0",
     "@reservoir-dogs/model": "1.0.0",

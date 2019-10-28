@@ -22,7 +22,7 @@ export const App: React.FC = () => {
 
     useEffect(() => {
         (async () => {
-            // #9 create common type
+            //#9 create common type
             const response = await messenger.sendToActiveTab<Ner>({
                 type: 'hello',
             });

@@ -31,12 +31,15 @@ class Messenger<T extends Message> {
 
     sendToActiveTab<D>(action: T): Promise<D> {
         return new Promise<D>((resolve) => {
-            chrome.tabs.getSelected((tab) => {
-                if (!tab || !tab.id) {
+            chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+                if (!tabs) {
                     throw new Error('Active tab does not exist');
                 }
-
-                chrome.tabs.sendMessage(tab.id, action, resolve);
+                tabs.forEach((tab) => {
+                    if (tab.active && tab.id) {
+                        chrome.tabs.sendMessage(tab.id, action, resolve);
+                    }
+                });
             });
         });
     }
