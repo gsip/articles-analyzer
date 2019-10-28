@@ -6,8 +6,8 @@ const runtimeConfig = {
     memory: '128MB',
 };
 
-const isEmpty = (text) => typeof text !== 'string' || text.length == 0;
-const MAX_LENGTH = 400000;
+const isEmptyString = (text) => typeof text !== 'string' || text.length == 0;
+const MAX_TEXT_LENGTH = 250000;
 
 const post = (url, body) =>
     fetch(url, {
@@ -19,9 +19,8 @@ const post = (url, body) =>
 const checkStatus = (res) => {
     if (res.ok) {
         return res.json();
-    } else {
-        throw Error(res.statusText);
     }
+    throw Error(res.statusText);
 };
 
 const newResult = (error, status) => {
@@ -29,11 +28,11 @@ const newResult = (error, status) => {
 };
 
 const validateParameters = (text) => {
-    if (isEmpty(text)) {
+    if (isEmptyString(text)) {
         return newResult('[text] cannot be empty', 404);
     }
 
-    if (text.length > MAX_LENGTH) {
+    if (text.length > MAX_TEXT_LENGTH) {
         return newResult('[text] is too long', 413);
     }
 
@@ -64,8 +63,29 @@ exports.nerBody = (request, response) => {
         });
 };
 
-exports.ner = functions.runWith(runtimeConfig).https.onRequest(exports.nerBody);
+exports.sumBody = (request, response) => {
+    const text = request.body.text;
+    const checkResult = validateParameters(text);
 
-exports.sum = functions.runWith(runtimeConfig).https.onRequest((request, response) => {
-    response.send("Hello, it's SUM!");
-});
+    if (checkResult.status !== 200) {
+        console.error(checkResult.error);
+        response.send({ error: checkResult.error });
+        return new Promise(() => {
+            return { error: checkResult.error };
+        });
+    }
+    return post(process.env.SUM_API, { text, sentences: process.env.SUM_SENTENCES })
+        .then(checkStatus)
+        .then((res) => {
+            response.send({ ner: res.summary });
+            return { entities: res.summary };
+        })
+        .catch((error) => {
+            console.error(error);
+            response.send({ error: 'Error during summarization' });
+            return { error };
+        });
+}
+
+exports.ner = functions.runWith(runtimeConfig).https.onRequest(exports.nerBody);
+exports.sum = functions.runWith(runtimeConfig).https.onRequest(exports.sumBody);

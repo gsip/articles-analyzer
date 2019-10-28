@@ -22,8 +22,8 @@ it('should return error if [text] is empty', async () => {
     });
 });
 
-it('should return error if [text] is longer than 400k', async () => {
-    const req = { body: { text: 'a' * 500000 } };
+it('should return error if [text] is longer than 250k', async () => {
+    const req = { body: { text: 'a'.repeat(250001) } };
     const res = { send: sinon.stub() };
 
     nerBody(req, res).then(() => {
