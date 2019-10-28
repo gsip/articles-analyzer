@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { messenger } from '@reservoir-dogs/browser-transport';
 import { NERConfig } from '@reservoir-dogs/model';
+import { Word } from './components/word';
 
 import './test.scss';
 
@@ -16,7 +17,7 @@ type Word = {
 };
 
 export const App: React.FC = () => {
-    const [entities, setEntities] = useState([] as [string, Word[]][]);
+    const [entities, setEntities] = useState<[string, Word[]][]>([]);
     const [summary, setSummary] = useState('');
 
     useEffect(() => {
@@ -42,16 +43,13 @@ export const App: React.FC = () => {
                 <h3>NER</h3>
                 <div className="ner">
                     {entities.map(([entityName, words]) => {
+                        const entity = NERConfig[entityName as keyof typeof NERConfig];
                         return (
                             <div key={entityName}>
                                 <h4>{entityName}</h4>
-                                <p>{NERConfig[entityName].description}</p>
-                                {words.map((word) => {
-                                    return (
-                                        <div className="word" key={word.word} style={{ backgroundColor: NERConfig[entityName].color }}>
-                                            <span>{word.word}</span>
-                                        </div>
-                                    );
+                                <p>{entity.description}</p>
+                                {words.map(({ word }) => {
+                                    return <Word word={word} color={entity.color} key={word} />;
                                 })}
                             </div>
                         );

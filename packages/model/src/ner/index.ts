@@ -1,4 +1,4 @@
-export const NERConfig = Object.freeze({
+export const NERConfig = {
     PERSON: {
         color: 'magenta',
         description: 'People, including fictional.',
@@ -71,4 +71,4 @@ export const NERConfig = Object.freeze({
         color: '#5d8770',
         description: 'Numerals that do not fall under another type.',
     },
-});
+} as const;
