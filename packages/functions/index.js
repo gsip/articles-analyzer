@@ -74,11 +74,11 @@ exports.sumBody = (request, response) => {
             return { error: checkResult.error };
         });
     }
-    return post(process.env.SUM_API, { text, sentences: process.env.SUM_SENTENCES })
+    return post(process.env.SUM_API, { text, sentences: parseInt(process.env.SUM_SENTENCES, 10) })
         .then(checkStatus)
         .then((res) => {
-            response.send({ ner: res.summary });
-            return { entities: res.summary };
+            response.send({ summary: res.summary });
+            return { summary: res.summary };
         })
         .catch((error) => {
             console.error(error);
