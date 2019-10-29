@@ -21,6 +21,8 @@ RUN pip install gunicorn
 COPY requirements.txt requirements.txt
 RUN pip install -r requirements.txt
 
+RUN python -m nltk.downloader punkt -d /home/dog/nltk_data
+
 # Copy py-files
 COPY app.py boot.sh ./
 RUN chmod +x boot.sh
