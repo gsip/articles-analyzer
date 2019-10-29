@@ -19,9 +19,14 @@ export const App: React.FC = () => {
     useEffect(() => {
         (async () => {
             const response = await messenger.sendToActiveTab<ReturnType<typeof parsePageResponse>>(parsePageRequest());
-            const entities: [string, Entity[] | undefined][] = Object.entries(response.payload);
-            //setSummary(response.summary);
-            setEntities(entities);
+
+            if (response && response.payload) {
+                const entities: [string, Entity[] | undefined][] = Object.entries(response.payload);
+                //setSummary(response.summary);
+                setEntities(entities);
+            } else {
+                console.error('Error: Response Is Empty');
+            }
         })();
     }, []);
     return (
