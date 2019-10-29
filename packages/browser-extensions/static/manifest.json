@@ -34,6 +34,7 @@
     "contentSettings",
     "tabs",
     "*://focus-student-254007.appspot.com/*",
+    "*://us-central1-articles-summary-239.cloudfunctions.net/*",
     "*://*.wikipedia.org/*"
   ],
   "web_accessible_resources": ["inpage.js"],

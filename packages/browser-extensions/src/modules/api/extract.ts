@@ -1,26 +1,27 @@
-import $ from 'jquery';
+import axios from 'axios';
 import { EXTRACT_API_URL } from './urls';
-import { EntitiesBackendResponse } from '../types';
+import { EntitiesBackendResponse } from '@reservoir-dogs/browser-transport/src/types';
 
 type Response = {
-    ents: EntitiesBackendResponse;
+    ner: EntitiesBackendResponse;
 };
 
-export const ExtractText = (text: string): Promise<Response> => {
-    return new Promise<Response>((resolve, reject): void => {
-        $.ajax({
-            type: 'POST',
-            url: EXTRACT_API_URL,
-            contentType: 'text/json',
-            data: text,
-            headers: {
-                'Access-Control-Allow-Origin': '*',
-                'Access-Control-Allow-Methods': '*',
-                'Access-Control-Allow-Headers': '*',
+export const ExtractText = async (text: string): Promise<EntitiesBackendResponse> => {
+    try {
+        const response = await axios.post<Response>(
+            EXTRACT_API_URL,
+            {
+                text: JSON.stringify(text),
             },
-            error: (_request, error) => {
-                reject(error);
+            {
+                headers: {
+                    'Content-Type': 'application/json',
+                },
             },
-        }).done(resolve);
-    });
+        );
+        return response.data.ner;
+    } catch (error) {
+        console.error('error', error);
+        throw error;
+    }
 };

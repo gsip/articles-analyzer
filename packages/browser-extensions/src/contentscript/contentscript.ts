@@ -1,20 +1,19 @@
-import { parseMainContent } from '@reservoir-dogs/html-parser';
+import { parseMainContent, deleteNonASCIICharacters } from '@reservoir-dogs/html-parser';
 import { colorizeEntities } from '../modules/markHTML/markHTML';
 import { messenger } from '@reservoir-dogs/browser-transport';
-import { extractRequest, extractResponse } from '../modules/messages/actions/extract';
+import { extractResponse, extractRequest } from '@reservoir-dogs/browser-transport/src/messages/actions/extract';
+import { ParsePageType, parsePageResponse } from '@reservoir-dogs/browser-transport/src/messages/actions/parsePage';
 
 document.addEventListener('DOMContentLoaded', async () => {
     const body = document.getElementsByTagName('body')[0];
     const text = parseMainContent(document, location.href);
-
-    if (text.length === 0) {
+    const filteredText = deleteNonASCIICharacters(text);
+    if (filteredText.length === 0) {
         return;
     }
 
-    // #9 create common type
-    messenger.subscribe('hello', async () => {
-        const response = await messenger.send<ReturnType<typeof extractResponse>>(extractRequest(text));
-
+    messenger.subscribe(ParsePageType.PARSE_PAGE_REQUEST, async () => {
+        const response = await messenger.send<ReturnType<typeof extractResponse>>(extractRequest(filteredText));
         if (!response || !response.payload) {
             return;
         }
@@ -28,5 +27,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         PRODUCT && colorizeEntities(body, PRODUCT, 'skyblue');
         LOC && colorizeEntities(body, LOC, 'silver');
         ORG && colorizeEntities(body, ORG, 'mediumorchid');
+
+        return parsePageResponse(response.payload);
     });
 });

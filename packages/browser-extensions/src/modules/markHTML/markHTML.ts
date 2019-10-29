@@ -1,5 +1,5 @@
 import Mark from 'mark.js';
-import { Entity } from '../types';
+import { Entity } from '@reservoir-dogs/browser-transport/src/types';
 
 function addStyle(rule: string): void {
     const style = document.createElement('style');

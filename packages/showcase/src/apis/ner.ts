@@ -6,19 +6,19 @@ import { getNer } from '../constProvider';
 
 const NER_ENTITIES_API = 'extract';
 
+type ContextType = Koa.ParameterizedContext<any, KoaRouter.IRouterParamContext<any, {}>>;
+
 export function getNerUrl(): string {
     return `http://${getNer()}/${NER_ENTITIES_API}`;
 }
 
-export async function execute(
-    ctx: Koa.ParameterizedContext<any, KoaRouter.IRouterParamContext<any, {}>>,
-): Promise<void> {
+export async function execute(ctx: ContextType): Promise<void> {
     if (isEmpty(getNer())) {
-        return await error(ctx, 'Wrong NER location', 503);
+        return error(ctx, 'Wrong NER location', 503);
     }
     const { text } = ctx.request.body;
     if (isEmpty(text)) {
-        return await error(ctx, 'Text is empty', 500);
+        return error(ctx, 'Text is empty', 500);
     }
 
     await post(getNerUrl(), { text })
