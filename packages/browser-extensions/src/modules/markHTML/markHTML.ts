@@ -18,15 +18,10 @@ function addClassNameToWords(htmlElement: HTMLElement, words: string[], classNam
     instance.mark(words, { className, accuracy: 'exactly', separateWordSearch: false });
 }
 
-function colorizeWords(htmlElement: HTMLElement, words: string[], color: string): void {
-    const className = `mark-${color}`;
+export function colorizeWords(htmlElement: HTMLElement, words: string[], color: string): void {
+    const className = `mark-${color.replace('#', '')}`;
     const style = `.${className} {background-color: ${color}}`;
 
     addStyle(style);
     addClassNameToWords(htmlElement, words, className);
-}
-
-export function colorizeEntities(htmlElement: HTMLElement, entities: NEREntity[], color: string): void {
-    const words = entities.map((entity) => entity.word);
-    colorizeWords(htmlElement, words, color);
 }

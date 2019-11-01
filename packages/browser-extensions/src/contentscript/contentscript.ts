@@ -1,7 +1,15 @@
 import { parseMainContent } from '@reservoir-dogs/html-parser';
-import { colorizeEntities } from '../modules/markHTML/markHTML';
+import { colorizeWords } from '../modules/markHTML/markHTML';
 import { messenger } from '@reservoir-dogs/browser-transport';
-import { extractResponse, extractRequest, ParsePageType, parsePageResponse } from '@reservoir-dogs/model';
+import {
+    extractResponse,
+    extractRequest,
+    ParsePageType,
+    parsePageResponse,
+    NEREntitiesTypesList,
+    NEREntity,
+    NERConfig,
+} from '@reservoir-dogs/model';
 
 messenger.subscribe(ParsePageType.PARSE_PAGE_REQUEST, async () => {
     const body = document.getElementsByTagName('body')[0];
@@ -17,15 +25,17 @@ messenger.subscribe(ParsePageType.PARSE_PAGE_REQUEST, async () => {
         return;
     }
 
-    const { FAC, EVENT, GPE, PERSON, PRODUCT, LOC, ORG } = response.payload;
+    const NERList = Object.entries(response.payload) as [NEREntitiesTypesList, NEREntity[] | undefined][];
 
-    FAC && colorizeEntities(body, FAC, 'peru');
-    EVENT && colorizeEntities(body, EVENT, 'yellow');
-    GPE && colorizeEntities(body, GPE, 'violet');
-    PERSON && colorizeEntities(body, PERSON, 'magenta');
-    PRODUCT && colorizeEntities(body, PRODUCT, 'skyblue');
-    LOC && colorizeEntities(body, LOC, 'silver');
-    ORG && colorizeEntities(body, ORG, 'mediumorchid');
+    NERList.forEach(([NEREntityName, NEREntities]) => {
+        const color = NERConfig[NEREntityName] ? NERConfig[NEREntityName].color : '';
+
+        if (NEREntities && color) {
+            const words = NEREntities.map((entity) => entity.word);
+
+            colorizeWords(body, words, color);
+        }
+    });
 
     return parsePageResponse(response.payload);
 });
