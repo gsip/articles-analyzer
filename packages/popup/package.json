@@ -26,7 +26,7 @@
     "copy-to-extension": "mkdir -p ../browser-extensions/dist/popup && cp -r build/* ../browser-extensions/dist/popup",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "lint": "npx tsc --noEmit -p tsconfig.json && npx eslint './src/**/*.ts' './src/**/*.tsx'"
+    "lint": "npx eslint './src/**/*.ts' './src/**/*.tsx'"
   },
   "eslintConfig": {
     "extends": "react-app"

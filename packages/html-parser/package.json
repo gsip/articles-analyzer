@@ -6,7 +6,7 @@
   "scripts": {
     "build": "npx tsc",
     "start": "npx tsc --watch",
-    "lint": "npx tsc --noEmit -p tsconfig.json && npx eslint './src/**/*.ts'"
+    "lint": "npx eslint './src/**/*.ts'"
   },
   "author": "",
   "devDependencies": {

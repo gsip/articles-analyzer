@@ -5,7 +5,7 @@
   "scripts": {
     "build": "npm-run-all --parallel build:*",
     "start": "npm-run-all --parallel watch:*",
-    "lint": "npx tsc --noEmit -p tsconfig.json && npx eslint './src/**/*.ts'",
+    "lint": "npx eslint './src/**/*.ts'",
     "prepare-static": "cpy static/manifest.json dist",
     "watch:static": "yarn run prepare-static",
     "build:static": "yarn run prepare-static",
