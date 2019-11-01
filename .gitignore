@@ -2,7 +2,7 @@
 .idea
 packages/**/lib
 dist
-venv
+/**/venv
 __pycache__
 lerna-debug.log
 /packages/**/.env
