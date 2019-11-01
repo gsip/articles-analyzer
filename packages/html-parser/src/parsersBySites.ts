@@ -16,12 +16,19 @@ const getHTMLStringContent = (htmlElement: Element): string | null => {
 };
 
 const commonParser = (document: Document, selector = 'article'): string => {
+    const BODY_SELECTOR = 'body';
     const articles = Array.from(document.querySelectorAll(selector));
     const articlesContent = articles
         .map(getHTMLStringContent)
         .filter((article): article is string => article !== null && article !== '');
 
-    return articlesContent.join(' ');
+    const text = articlesContent.join(' ').trim();
+
+    if (text !== '' || selector === BODY_SELECTOR) {
+        return text;
+    }
+
+    return commonParser(document, BODY_SELECTOR);
 };
 
 const parserByURLS: ParserByURL[] = [
