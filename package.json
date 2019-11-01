@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "npx lerna run start",
+    "start": "npx lerna run start --stream",
     "build": "npx lerna run build",
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "npx lerna run lint",

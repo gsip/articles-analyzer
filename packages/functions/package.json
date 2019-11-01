@@ -1,6 +1,8 @@
 {
-  "name": "functions",
+  "name": "@reservoir-dogs/functions",
+  "version": "1.0.0",
   "description": "Cloud Functions for Firebase",
+  "author": "",
   "scripts": {
     "serve": "firebase serve --only functions",
     "shell": "firebase functions:shell",
@@ -9,7 +11,7 @@
     "logs": "firebase functions:log"
   },
   "engines": {
-    "node": "8"
+    "node": "10"
   },
   "dependencies": {
     "firebase-admin": "^8.6.0",
