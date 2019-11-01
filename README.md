@@ -54,7 +54,7 @@ Also please start all commit messages with issue id like `#7 initialize the pack
 `yarn run start`
 ##### build
 `yarn run build`
-##### check code style and types
+##### check code style
 `yarn run lint`
 
 ## Добавление в браузер
