@@ -1,5 +1,4 @@
 import Mark from 'mark.js';
-import { NEREntity } from '@reservoir-dogs/model';
 
 function addStyle(rule: string): void {
     const style = document.createElement('style');
@@ -13,21 +12,15 @@ function addStyle(rule: string): void {
     sheet.insertRule(rule);
 }
 
-function findHTMLElements(selector: string): HTMLElement[] {
-    return Array.from(document.querySelectorAll(selector));
-}
-
 function addClassNameToWords(htmlElement: HTMLElement, words: string[], className: string): void {
     const instance = new Mark(htmlElement);
     instance.mark(words, { className, accuracy: 'exactly', separateWordSearch: false });
 }
 
-export function colorizeWords(selector: string, words: string[], color: string): void {
+export function colorizeWords(htmlElements: HTMLElement[], words: string[], color: string): void {
     const className = `mark-${color.replace('#', '')}`;
     const style = `.${className} {background-color: ${color}}`;
     addStyle(style);
-
-    const htmlElements = findHTMLElements(selector);
 
     htmlElements.forEach((htmlElement) => {
         addClassNameToWords(htmlElement, words, className);
