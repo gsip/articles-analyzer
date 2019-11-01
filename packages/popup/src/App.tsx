@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { messenger } from '@reservoir-dogs/browser-transport/dist';
+import { messenger } from '@reservoir-dogs/browser-transport';
 import { NERConfig, NEREntity } from '@reservoir-dogs/model';
 import { Word } from './components/word';
-
-import './test.scss';
-import { parsePageResponse, parsePageRequest } from '@reservoir-dogs/browser-transport/dist/messages/actions/parsePage';
+import { parsePageResponse, parsePageRequest } from '@reservoir-dogs/model';
+import './styles.scss';
 
 type NEREntities = [string, NEREntity[] | undefined][];
 
