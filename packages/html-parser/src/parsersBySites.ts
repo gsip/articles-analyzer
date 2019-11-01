@@ -1,6 +1,11 @@
 import htmlToText from 'html-to-text';
 
-type Parser = (document: Document) => string;
+export type ParserResponse = {
+    text: string;
+    selector: string;
+};
+
+type Parser = (document: Document) => ParserResponse;
 
 interface ParserByURL {
     url: RegExp;
@@ -25,7 +30,7 @@ const getHTMLStringContent = (htmlElement: Element): string => {
     return deleteNonASCIICharacters(text);
 };
 
-const commonParser = (document: Document, selector = 'article'): string => {
+const commonParser = (document: Document, selector = 'article'): ParserResponse => {
     const BODY_SELECTOR = 'body';
     const articles = Array.from(document.querySelectorAll(selector));
     const articlesContent = articles.map(getHTMLStringContent).filter((article) => article !== '');
@@ -33,7 +38,7 @@ const commonParser = (document: Document, selector = 'article'): string => {
     const text = articlesContent.join(' ').trim();
 
     if (text !== '' || selector === BODY_SELECTOR) {
-        return text;
+        return { text, selector };
     }
 
     return commonParser(document, BODY_SELECTOR);
