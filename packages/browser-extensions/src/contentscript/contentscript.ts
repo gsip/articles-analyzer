@@ -1,4 +1,4 @@
-import { parseMainContent, deleteNonASCIICharacters } from '@reservoir-dogs/html-parser';
+import { parseMainContent } from '@reservoir-dogs/html-parser';
 import { colorizeEntities } from '../modules/markHTML/markHTML';
 import { messenger } from '@reservoir-dogs/browser-transport';
 import { extractResponse, extractRequest, ParsePageType, parsePageResponse } from '@reservoir-dogs/model';
@@ -6,13 +6,12 @@ import { extractResponse, extractRequest, ParsePageType, parsePageResponse } fro
 messenger.subscribe(ParsePageType.PARSE_PAGE_REQUEST, async () => {
     const body = document.getElementsByTagName('body')[0];
     const text = parseMainContent(document, location.href);
-    const filteredText = deleteNonASCIICharacters(text);
 
-    if (filteredText.length === 0) {
+    if (text.length === 0) {
         return;
     }
 
-    const response = await messenger.send<ReturnType<typeof extractResponse>>(extractRequest(filteredText));
+    const response = await messenger.send<ReturnType<typeof extractResponse>>(extractRequest(text));
 
     if (!response || !response.payload) {
         return;
