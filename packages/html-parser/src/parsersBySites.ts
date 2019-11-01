@@ -2,7 +2,7 @@ import htmlToText from 'html-to-text';
 
 export type ParserResponse = {
     text: string;
-    selector: string;
+    htmlElements: HTMLElement[];
 };
 
 type Parser = (document: Document) => ParserResponse;
@@ -19,7 +19,7 @@ const deleteNonASCIICharacters = (text: string): string => {
     return text.replace(NON_ASCII_CHARACTERS, '');
 };
 
-const getHTMLStringContent = (htmlElement: Element): string => {
+const getHTMLStringContent = (htmlElement: HTMLElement): string => {
     const text =
         htmlToText.fromString(htmlElement.outerHTML, {
             wordwrap: false,
@@ -32,13 +32,13 @@ const getHTMLStringContent = (htmlElement: Element): string => {
 
 const commonParser = (document: Document, selector = 'article'): ParserResponse => {
     const BODY_SELECTOR = 'body';
-    const articles = Array.from(document.querySelectorAll(selector));
-    const articlesContent = articles.map(getHTMLStringContent).filter((article) => article !== '');
+    const htmlElements = Array.from(document.querySelectorAll(selector)) as HTMLElement[];
+    const content = htmlElements.map(getHTMLStringContent).filter((htmlElement) => htmlElement !== '');
 
-    const text = articlesContent.join(' ').trim();
+    const text = content.join(' ').trim();
 
     if (text !== '' || selector === BODY_SELECTOR) {
-        return { text, selector };
+        return { text, htmlElements };
     }
 
     return commonParser(document, BODY_SELECTOR);

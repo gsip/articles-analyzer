@@ -12,7 +12,7 @@ import {
 } from '@reservoir-dogs/model';
 
 messenger.subscribe(ParsePageType.PARSE_PAGE_REQUEST, async () => {
-    const { text, selector } = parseMainContent(document, location.href);
+    const { text, htmlElements } = parseMainContent(document, location.href);
 
     if (text.length === 0) {
         return;
@@ -32,7 +32,7 @@ messenger.subscribe(ParsePageType.PARSE_PAGE_REQUEST, async () => {
         if (NEREntities && color) {
             const words = NEREntities.map((entity) => entity.word);
 
-            colorizeWords(selector, words, color);
+            colorizeWords(htmlElements, words, color);
         }
     });
 
