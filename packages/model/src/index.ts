@@ -1,1 +1,2 @@
-export { NERConfig } from './ner';
+export * from './ner';
+export * from './parsePage';

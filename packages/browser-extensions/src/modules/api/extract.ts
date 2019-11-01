@@ -1,12 +1,12 @@
 import axios from 'axios';
 import { EXTRACT_API_URL } from './urls';
-import { EntitiesBackendResponse } from '@reservoir-dogs/browser-transport/src/types';
+import { NEREntitiesBackendResponse } from '@reservoir-dogs/model';
 
 type Response = {
-    ner: EntitiesBackendResponse;
+    ner: NEREntitiesBackendResponse;
 };
 
-export const ExtractText = async (text: string): Promise<EntitiesBackendResponse> => {
+export const ExtractText = async (text: string): Promise<NEREntitiesBackendResponse> => {
     try {
         const response = await axios.post<Response>(
             EXTRACT_API_URL,

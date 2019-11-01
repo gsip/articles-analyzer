@@ -1,3 +1,5 @@
+export * from './messages';
+
 export const NERConfig = {
     PERSON: {
         color: 'magenta',
@@ -72,3 +74,15 @@ export const NERConfig = {
         description: 'Numerals that do not fall under another type.',
     },
 } as const;
+
+export interface NEREntity {
+    word: string;
+    count: number;
+}
+
+export type NEREntitiesTypesList = keyof typeof NERConfig;
+
+export type NEREntitiesBackendResponse<T extends NEREntitiesTypesList = NEREntitiesTypesList> = Record<
+    T,
+    NEREntity[] | undefined
+>;

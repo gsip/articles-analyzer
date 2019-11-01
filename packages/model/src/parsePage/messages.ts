@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
-import { EntitiesBackendResponse, EntitiesTypesList } from '../../types';
+import { NEREntitiesBackendResponse, NEREntitiesTypesList } from '../ner';
 
 export enum ParsePageType {
     PARSE_PAGE_REQUEST = 'PARSE_PAGE_REQUEST',
@@ -13,7 +13,7 @@ export function parsePageRequest() {
     } as const;
 }
 
-export function parsePageResponse(entities: EntitiesBackendResponse<EntitiesTypesList>) {
+export function parsePageResponse(entities: NEREntitiesBackendResponse<NEREntitiesTypesList>) {
     return {
         type: ParsePageType.PARSE_PAGE_RESPONSE,
         payload: entities,

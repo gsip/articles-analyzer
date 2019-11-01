@@ -1,19 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { messenger } from '@reservoir-dogs/browser-transport/dist';
-import { NERConfig } from '@reservoir-dogs/model';
+import { NERConfig, NEREntity } from '@reservoir-dogs/model';
 import { Word } from './components/word';
 
 import './test.scss';
 import { parsePageResponse, parsePageRequest } from '@reservoir-dogs/browser-transport/dist/messages/actions/parsePage';
-import { Entity } from '@reservoir-dogs/browser-transport/src/types';
 
-type Word = {
-    word: string;
-    count: string;
-};
+type NEREntities = [string, NEREntity[] | undefined][];
 
 export const App: React.FC = () => {
-    const [entities, setEntities] = useState<[string, Entity[] | undefined][]>([]);
+    const [entities, setEntities] = useState<NEREntities>([]);
     const [summary] = useState('');
 
     useEffect(() => {
@@ -21,8 +17,8 @@ export const App: React.FC = () => {
             const response = await messenger.sendToActiveTab<ReturnType<typeof parsePageResponse>>(parsePageRequest());
 
             if (response && response.payload) {
-                const entities: [string, Entity[] | undefined][] = Object.entries(response.payload);
-                //setSummary(response.summary);
+                const entities: NEREntities = Object.entries(response.payload);
+
                 setEntities(entities);
             } else {
                 console.error('Error: Response Is Empty');
@@ -47,7 +43,7 @@ export const App: React.FC = () => {
                                 <div key={entityName}>
                                     <h4>{entityName}</h4>
                                     <p>{entity.description}</p>
-                                    {(words as Entity[]).map(({ word }) => {
+                                    {(words as NEREntity[]).map(({ word }) => {
                                         return <Word word={word} color={entity.color} key={word} />;
                                     })}
                                 </div>

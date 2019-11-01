@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
-import { EntitiesBackendResponse, EntitiesTypesList } from '../../types';
+import { NEREntitiesBackendResponse, NEREntitiesTypesList } from './index';
 
 export enum ExtractType {
     EXTRACT_REQUEST = 'EXTRACT_REQUEST',
@@ -13,7 +13,7 @@ export function extractRequest(parsedText: string) {
     } as const;
 }
 
-export function extractResponse(entities: EntitiesBackendResponse<EntitiesTypesList>) {
+export function extractResponse(entities: NEREntitiesBackendResponse<NEREntitiesTypesList>) {
     return {
         type: ExtractType.EXTRACT_RESPONSE,
         payload: entities,

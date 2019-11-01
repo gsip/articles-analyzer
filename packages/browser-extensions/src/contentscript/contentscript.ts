@@ -1,8 +1,7 @@
 import { parseMainContent, deleteNonASCIICharacters } from '@reservoir-dogs/html-parser';
 import { colorizeEntities } from '../modules/markHTML/markHTML';
 import { messenger } from '@reservoir-dogs/browser-transport';
-import { extractResponse, extractRequest } from '@reservoir-dogs/browser-transport/src/messages/actions/extract';
-import { ParsePageType, parsePageResponse } from '@reservoir-dogs/browser-transport/src/messages/actions/parsePage';
+import { extractResponse, extractRequest, ParsePageType, parsePageResponse } from '@reservoir-dogs/model';
 
 messenger.subscribe(ParsePageType.PARSE_PAGE_REQUEST, async () => {
     const body = document.getElementsByTagName('body')[0];

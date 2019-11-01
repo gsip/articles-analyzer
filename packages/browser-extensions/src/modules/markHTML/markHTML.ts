@@ -1,5 +1,5 @@
 import Mark from 'mark.js';
-import { Entity } from '@reservoir-dogs/browser-transport/src/types';
+import { NEREntity } from '@reservoir-dogs/model';
 
 function addStyle(rule: string): void {
     const style = document.createElement('style');
@@ -26,7 +26,7 @@ function colorizeWords(htmlElement: HTMLElement, words: string[], color: string)
     addClassNameToWords(htmlElement, words, className);
 }
 
-export function colorizeEntities(htmlElement: HTMLElement, entities: Entity[], color: string): void {
+export function colorizeEntities(htmlElement: HTMLElement, entities: NEREntity[], color: string): void {
     const words = entities.map((entity) => entity.word);
     colorizeWords(htmlElement, words, color);
 }
