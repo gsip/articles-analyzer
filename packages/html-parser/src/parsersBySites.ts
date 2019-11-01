@@ -15,7 +15,7 @@ const getHTMLStringContent = (htmlElement: Element): string | null => {
     });
 };
 
-const commonParser = (document: Document, selector = 'body'): string => {
+const commonParser = (document: Document, selector = 'article'): string => {
     const articles = Array.from(document.querySelectorAll(selector));
     const articlesContent = articles
         .map(getHTMLStringContent)

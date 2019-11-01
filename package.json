@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "npx lerna run start --stream",
+    "start": "npx lerna run start '--ignore=@reservoir-dogs/*(functions|showcase)' --stream",
     "build": "npx lerna run build",
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "npx lerna run lint",
