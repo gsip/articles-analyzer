@@ -1,5 +1,5 @@
 {
-  "name": "@reservoir-dogs/html-parser",
+  "name": "@reservoir-dogs/model",
   "version": "1.0.0",
   "description": "",
   "main": "dist/index.js",
@@ -9,11 +9,7 @@
     "lint": "npx eslint './src/**/*.ts'"
   },
   "author": "",
-  "devDependencies": {
-    "@types/html-to-text": "^1.4.31"
-  },
   "dependencies": {
-    "html-to-text": "^5.1.1",
     "@reservoir-dogs/project-config": "1.0.0",
     "typescript": "^3.6.3"
   },

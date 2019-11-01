@@ -1,27 +1,47 @@
 import htmlToText from 'html-to-text';
 
-type Parser = (document: Document) => string;
+export type ParserResponse = {
+    text: string;
+    selector: string;
+};
+
+type Parser = (document: Document) => ParserResponse;
 
 interface ParserByURL {
     url: RegExp;
     parser: Parser;
 }
 
-const getHTMLStringContent = (htmlElement: Element): string | null => {
-    return htmlToText.fromString(htmlElement.outerHTML, {
-        wordwrap: false,
-        ignoreHref: true,
-        ignoreImage: true,
-    });
+const deleteNonASCIICharacters = (text: string): string => {
+    // eslint-disable-next-line no-control-regex
+    const NON_ASCII_CHARACTERS = /[^\x00-\x7F]/g;
+
+    return text.replace(NON_ASCII_CHARACTERS, '');
 };
 
-const commonParser = (document: Document, selector = 'article'): string => {
-    const articles = Array.from(document.querySelectorAll(selector));
-    const articlesContent = articles
-        .map(getHTMLStringContent)
-        .filter((article): article is string => article !== null && article !== '');
+const getHTMLStringContent = (htmlElement: Element): string => {
+    const text =
+        htmlToText.fromString(htmlElement.outerHTML, {
+            wordwrap: false,
+            ignoreHref: true,
+            ignoreImage: true,
+        }) || '';
 
-    return articlesContent.join(' ');
+    return deleteNonASCIICharacters(text);
+};
+
+const commonParser = (document: Document, selector = 'article'): ParserResponse => {
+    const BODY_SELECTOR = 'body';
+    const articles = Array.from(document.querySelectorAll(selector));
+    const articlesContent = articles.map(getHTMLStringContent).filter((article) => article !== '');
+
+    const text = articlesContent.join(' ').trim();
+
+    if (text !== '' || selector === BODY_SELECTOR) {
+        return { text, selector };
+    }
+
+    return commonParser(document, BODY_SELECTOR);
 };
 
 const parserByURLS: ParserByURL[] = [

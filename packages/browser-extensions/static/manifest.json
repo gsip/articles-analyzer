@@ -34,7 +34,9 @@
     "contentSettings",
     "tabs",
     "*://focus-student-254007.appspot.com/*",
+    "*://us-central1-articles-summary-239.cloudfunctions.net/*",
     "*://*.wikipedia.org/*"
   ],
-  "web_accessible_resources": ["inpage.js"]
+  "web_accessible_resources": ["inpage.js"],
+  "content_security_policy": "script-src 'self' 'sha256-O3AtX4TwmY1zTH5o2WAKUOpepku7gzpyslNj5QedJmM=' 'sha256-rtczERVEr3MbsTMlnhn0HnQ2GdKENHD5JRCxFRh9GDI'; object-src 'self'"
 }

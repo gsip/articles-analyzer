@@ -1,19 +1,20 @@
 import Mark from 'mark.js';
-import { Entity } from '../types';
-
-function createStyleElement(rule: string): HTMLStyleElement {
-    const style = document.createElement('style');
-    if (style && style.sheet) {
-        const sheet = style.sheet as CSSStyleSheet;
-        sheet.insertRule(rule);
-    }
-
-    return style;
-}
+import { NEREntity } from '@reservoir-dogs/model';
 
 function addStyle(rule: string): void {
-    const styleElement = createStyleElement(rule);
-    document.head.appendChild(styleElement);
+    const style = document.createElement('style');
+    document.head.appendChild(style);
+
+    if (!style.sheet) {
+        return;
+    }
+
+    const sheet = style.sheet as CSSStyleSheet;
+    sheet.insertRule(rule);
+}
+
+function findHTMLElements(selector: string): HTMLElement[] {
+    return Array.from(document.querySelectorAll(selector));
 }
 
 function addClassNameToWords(htmlElement: HTMLElement, words: string[], className: string): void {
@@ -21,15 +22,14 @@ function addClassNameToWords(htmlElement: HTMLElement, words: string[], classNam
     instance.mark(words, { className, accuracy: 'exactly', separateWordSearch: false });
 }
 
-function colorizeWords(htmlElement: HTMLElement, words: string[], color: string): void {
-    const className = `mark-${color}`;
-    const style = `${className} {background-color: ${color}`;
-
+export function colorizeWords(selector: string, words: string[], color: string): void {
+    const className = `mark-${color.replace('#', '')}`;
+    const style = `.${className} {background-color: ${color}}`;
     addStyle(style);
-    addClassNameToWords(htmlElement, words, className);
-}
 
-export function colorizeEntities(htmlElement: HTMLElement, entities: Entity[], color: string): void {
-    const words = entities.map((entity) => entity.word);
-    colorizeWords(htmlElement, words, color);
+    const htmlElements = findHTMLElements(selector);
+
+    htmlElements.forEach((htmlElement) => {
+        addClassNameToWords(htmlElement, words, className);
+    });
 }

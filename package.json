@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "npx lerna run start",
-    "build": "npx lerna run build",
+    "start": "npx lerna run start '--ignore=@reservoir-dogs/*(functions|showcase)' --stream --parallel",
+    "build": "npx lerna run build --stream",
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "npx lerna run lint",
     "deploy-ner": "gcloud app deploy packages/ner/app.yaml"

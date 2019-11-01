@@ -20,9 +20,8 @@ router.post('/ner', async (ctx, next) => {
     await next();
 });
 
-router.post('/api/summary', (ctx, next) => {
-    ctx;
-    next();
+router.post('/api/summary', async (_ctx, next) => {
+    await next();
 });
 
 app.use(bodyParser());

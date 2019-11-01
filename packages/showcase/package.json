@@ -7,7 +7,7 @@
     "build": "npx tsc",
     "start": "node dist/index.js",
     "dev": "nodemon",
-    "lint": "npx tsc --noEmit -p tsconfig.json && npx eslint './src/**/*.ts'"
+    "lint": "npx eslint './src/**/*.ts'"
   },
   "author": "",
   "devDependencies": {

@@ -1,1 +1,1 @@
-export const EXTRACT_API_URL = 'https://focus-student-254007.appspot.com/extract';
+export const EXTRACT_API_URL = 'https://us-central1-articles-summary-239.cloudfunctions.net/ner';

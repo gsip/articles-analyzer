@@ -2,8 +2,12 @@
   "name": "@reservoir-dogs/popup",
   "version": "1.0.0",
   "private": true,
+  "main": "./src/index.tsx",
+  "homepage": ".",
   "dependencies": {
     "@reservoir-dogs/project-config": "1.0.0",
+    "@reservoir-dogs/model": "1.0.0",
+    "@reservoir-dogs/browser-transport": "1.0.0",
     "@types/jest": "24.0.18",
     "@types/node": "12.7.5",
     "@types/react": "16.9.0",
@@ -22,7 +26,7 @@
     "copy-to-extension": "mkdir -p ../browser-extensions/dist/popup && cp -r build/* ../browser-extensions/dist/popup",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "lint": "npx tsc --noEmit -p tsconfig.json && npx eslint './src/**/*.ts' './src/**/*.tsx'"
+    "lint": "npx eslint './src/**/*.ts' './src/**/*.tsx'"
   },
   "eslintConfig": {
     "extends": "react-app"
