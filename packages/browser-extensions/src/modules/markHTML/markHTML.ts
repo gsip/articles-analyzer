@@ -14,7 +14,12 @@ function addStyle(rule: string): void {
 
 function addClassNameToWords(htmlElement: HTMLElement, words: string[], className: string): void {
     const instance = new Mark(htmlElement);
-    instance.mark(words, { element: 'span', className, accuracy: 'exactly', separateWordSearch: false });
+    instance.mark(words, {
+        element: 'span',
+        className: `articles-summary-keyword ${className}`,
+        accuracy: 'exactly',
+        separateWordSearch: false,
+    });
 }
 
 export function colorizeWords(htmlElements: HTMLElement[], words: string[], color: string): void {
