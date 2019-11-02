@@ -1,17 +1,41 @@
 import axios from 'axios';
-import { EXTRACT_API_URL } from './urls';
+import { NER_API_URL, SUMMARY_API_URL } from './urls';
 import { NEREntitiesBackendResponse } from '@reservoir-dogs/model';
 
-type Response = {
+export type NERResponse = {
     ner: NEREntitiesBackendResponse;
 };
 
-export const ExtractText = async (text: string): Promise<NEREntitiesBackendResponse> => {
+export type SummaryResponse = {
+    summary: string;
+};
+
+export const getSummary = async (text: string): Promise<string> => {
     try {
-        const response = await axios.post<Response>(
-            EXTRACT_API_URL,
+        const response = await axios.post<SummaryResponse>(
+            SUMMARY_API_URL,
             {
-                text: JSON.stringify(text),
+                text,
+            },
+            {
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            },
+        );
+        return response.data.summary;
+    } catch (error) {
+        console.error('error', error);
+        throw error;
+    }
+};
+
+export const getNER = async (text: string): Promise<NEREntitiesBackendResponse> => {
+    try {
+        const response = await axios.post<NERResponse>(
+            NER_API_URL,
+            {
+                text,
             },
             {
                 headers: {

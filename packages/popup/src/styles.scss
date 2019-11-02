@@ -7,13 +7,33 @@
   margin-top: 0;
 }
 
-.content {
-  font-size: 15px;
-}
-
 .word {
+  font-size: 14px;
   padding: 5px;
   display: inline-block;
   margin-right: 5px;
   margin-bottom: 5px;
+}
+
+.description {
+  margin: 10px 0;
+  font-size: 14px;
+}
+
+.summary {
+  font-size: 14px;
+
+  .row {
+    margin: 5px 0;
+  }
+  //white-space: pre;
+}
+
+.ner-title {
+  margin: 10px 0;
+  font-size: 14px;
+}
+
+h3 {
+  font-size: 16px;
 }
