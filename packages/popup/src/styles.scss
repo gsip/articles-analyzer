@@ -3,12 +3,12 @@
   padding: 10px;
 }
 
-.title {
-  margin-top: 0;
+.content {
+  font-size: 14px;
 }
 
-.content {
-  font-size: 15px;
+.title {
+  margin-top: 0;
 }
 
 .word {
@@ -16,4 +16,22 @@
   display: inline-block;
   margin-right: 5px;
   margin-bottom: 5px;
+}
+
+.description {
+  margin: 10px 0;
+}
+
+.summary {
+  .row {
+    margin: 5px 0;
+  }
+}
+
+.ner-title {
+  margin: 10px 0;
+}
+
+h3 {
+  font-size: 16px;
 }
