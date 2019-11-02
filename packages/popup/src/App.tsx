@@ -33,8 +33,10 @@ export const App: React.FC = () => {
                 <h3>NER</h3>
                 <div className="ner">
                     {entities
-                        .filter(([_entityName, words]) => {
-                            return words !== undefined;
+                        .filter(([entityName, words]) => {
+                            const entity = NERConfig[entityName as keyof typeof NERConfig];
+
+                            return entity && words !== undefined;
                         })
                         .map(([entityName, words]) => {
                             const entity = NERConfig[entityName as keyof typeof NERConfig];

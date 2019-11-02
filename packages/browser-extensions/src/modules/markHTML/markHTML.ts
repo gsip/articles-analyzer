@@ -14,12 +14,12 @@ function addStyle(rule: string): void {
 
 function addClassNameToWords(htmlElement: HTMLElement, words: string[], className: string): void {
     const instance = new Mark(htmlElement);
-    instance.mark(words, { className, accuracy: 'exactly', separateWordSearch: false });
+    instance.mark(words, { element: 'span', className, accuracy: 'exactly', separateWordSearch: false });
 }
 
 export function colorizeWords(htmlElements: HTMLElement[], words: string[], color: string): void {
     const className = `mark-${color.replace('#', '')}`;
-    const style = `.${className} {background-color: ${color}}`;
+    const style = `.${className} { border-bottom: 2px solid ${color} !important; }`;
     addStyle(style);
 
     htmlElements.forEach((htmlElement) => {
