@@ -59,6 +59,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const summary = await messenger.send<string>(keywordHover(text));
 
-        console.log(summary);
+        const element = document.createElement('div');
+        element.innerHTML = summary;
+        element.setAttribute('id', 'articles-summary-ner-popup');
+        element.style.position = 'absolute';
+        element.style.top = event.pageY - 120 + 'px';
+        element.style.left = event.pageX - 50 + 'px';
+        document.body.appendChild(element);
     });
 });

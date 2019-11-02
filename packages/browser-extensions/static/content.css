@@ -1,0 +1,15 @@
+#articles-summary-ner-popup {
+    max-width: 250px;
+    max-height: 250px;
+    background-color: white;
+    border: 1px solid black;
+    padding: 5px;
+    border-radius: 5px;
+    text-align: center;
+    z-index: 10000;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    /*white-space: nowrap;*/
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
