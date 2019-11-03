@@ -65,7 +65,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <a class="title" target="_blank" href="${url}">${text}</a>
             <div>${summary}</div>
         `;
-
-        showPopup(event, content);
+        const { pageX, pageY } = event;
+        showPopup({ pageX, pageY }, content);
     });
 });
