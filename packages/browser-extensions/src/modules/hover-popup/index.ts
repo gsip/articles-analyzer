@@ -9,7 +9,11 @@ export const removePopup = (): void => {
         return;
     }
 
-    document.body.removeChild(popup);
+    popup.classList.remove('append');
+    popup.classList.add('remove');
+    setTimeout(() => {
+        document.body.removeChild(popup);
+    }, 200);
 };
 
 export const showPopup = ({ pageY, pageX }: Record<string, number>, content: string): void => {
@@ -20,9 +24,10 @@ export const showPopup = ({ pageY, pageX }: Record<string, number>, content: str
     element.style.top = pageY + 'px';
     element.style.left = pageX + 'px';
     document.body.appendChild(element);
+    element.classList.add('append');
 };
 
-export const removePopupAfterMouseOut = (selector: string, delay = 300): void => {
+export const removePopupAfterMouseOut = (selector: string, delay = 200): void => {
     document.addEventListener(
         'mousemove',
         debounce((event) => {
