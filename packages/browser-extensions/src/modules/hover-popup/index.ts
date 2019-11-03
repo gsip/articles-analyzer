@@ -22,19 +22,21 @@ export const showPopup = ({ pageY, pageX }: Record<string, number>, content: str
     document.body.appendChild(element);
 };
 
-document.addEventListener(
-    'mousemove',
-    debounce((event) => {
-        if (!event.target) {
-            return;
-        }
+export const removePopupAfterMouseOut = (selector: string, delay = 300): void => {
+    document.addEventListener(
+        'mousemove',
+        debounce((event) => {
+            if (!event.target) {
+                return;
+            }
 
-        const eventTarget = event.target as HTMLElement;
+            const eventTarget = event.target as HTMLElement;
 
-        if (eventTarget.closest('.articles-summary-keyword') || eventTarget.closest(`#${popupId}`)) {
-            return;
-        }
+            if (eventTarget.closest(selector) || eventTarget.closest(`#${popupId}`)) {
+                return;
+            }
 
-        removePopup();
-    }, 300),
-);
+            removePopup();
+        }, delay),
+    );
+};

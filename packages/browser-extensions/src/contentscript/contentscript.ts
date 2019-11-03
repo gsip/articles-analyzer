@@ -10,10 +10,41 @@ import {
     NERConfig,
     CommonTextResponse,
 } from '@reservoir-dogs/model';
-import { showPopup } from '../modules/hover-popup';
+import { removePopupAfterMouseOut, showPopup } from '../modules/hover-popup';
 import { WikiSummary } from '../modules/wikipedia';
 
-document.addEventListener('DOMContentLoaded', () => {
+const initializeKeywordPopup = (): void => {
+    document.addEventListener('mouseover', async (event) => {
+        const eventTarget = event.target as HTMLElement;
+
+        if (!eventTarget || !eventTarget.classList) {
+            return;
+        }
+
+        if (!eventTarget.classList.contains('articles-summary-keyword')) {
+            return;
+        }
+
+        const text = eventTarget.textContent;
+
+        if (typeof text !== 'string') {
+            return;
+        }
+
+        const { summary, url } = await messenger.send<WikiSummary>(keywordHover(text));
+
+        const content = `
+            <a class="title" target="_blank" href="${url}">${text}</a>
+            <div>${summary}</div>
+        `;
+        const { pageX, pageY } = event;
+        showPopup({ pageX, pageY }, content);
+    });
+
+    removePopupAfterMouseOut('.articles-summary-keyword');
+};
+
+const initializeParsePage = (): void => {
     messenger.subscribe(ParsePageType.PARSE_PAGE_REQUEST, async () => {
         const { text, htmlElements } = parseMainContent(document, location.href);
 
@@ -41,31 +72,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
         return response;
     });
+};
 
-    document.addEventListener('mouseover', async (event) => {
-        if (!event.target) {
-            return;
-        }
-
-        const eventTarget = event.target as HTMLElement;
-
-        if (!eventTarget.classList.contains('articles-summary-keyword')) {
-            return;
-        }
-
-        const text = eventTarget.textContent;
-
-        if (typeof text !== 'string') {
-            return;
-        }
-
-        const { summary, url } = await messenger.send<WikiSummary>(keywordHover(text));
-
-        const content = `
-            <a class="title" target="_blank" href="${url}">${text}</a>
-            <div>${summary}</div>
-        `;
-        const { pageX, pageY } = event;
-        showPopup({ pageX, pageY }, content);
-    });
+document.addEventListener('DOMContentLoaded', () => {
+    initializeParsePage();
+    initializeKeywordPopup();
 });
