@@ -34,12 +34,13 @@ def validate_params(data, name, current):
 
 def summarize(data):
     error = validate_params(data, 'text', None)
-    error = validate_params(data, 'sentences', None)
+    # error = validate_params(data, 'sentences', None)
     # error = validate_params(data, 'sent', error)
     if error:
         return jsonify({'error': error}), 200
     doc = to_doc(data['text'])
-    summary = process("lsa", doc, data['sentences'], len(data['text']))
+    sentences = data.get('sentences') or 5
+    summary = process("lsa", doc, sentences, len(data['text']))
     return jsonify({"summary": summary}), 200
 
 

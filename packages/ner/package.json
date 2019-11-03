@@ -1,0 +1,11 @@
+{
+  "name": "@reservoir-dogs/ner",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "build": "docker build -t ner:v1.0 .",
+    "start": "docker run -p 5001:5000 ner:v1.0"
+  },
+  "author": "",
+  "private": true
+}

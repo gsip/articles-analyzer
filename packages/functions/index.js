@@ -52,9 +52,9 @@ exports.nerBody = (request, response) => {
     }
     return post(process.env.NER_API, { text })
         .then(checkStatus)
-        .then((res) => {
-            response.send({ ner: res.entities });
-            return { entities: res.entities };
+        .then(({ ner }) => {
+            response.send({ ner });
+            return { entities: ner };
         })
         .catch((error) => {
             console.error(error);

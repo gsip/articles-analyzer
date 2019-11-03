@@ -1,0 +1,11 @@
+{
+  "name": "@reservoir-dogs/summarization",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "build": "docker build -t summarization:v1.0 .",
+    "start": "docker run -p 5002:5000 summarization:v1.0"
+  },
+  "author": "",
+  "private": true
+}
