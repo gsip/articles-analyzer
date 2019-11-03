@@ -1,9 +1,10 @@
 #articles-summary-ner-popup {
     position: absolute;
     max-width: 250px;
+    max-height: 175px;
     background-color: white;
     border: 1px solid black;
-    padding: 5px;
+    padding: 10px;
     border-radius: 5px;
     text-align: justify;
     z-index: 10000;
@@ -11,8 +12,4 @@
     font-size: 14px;
     overflow: hidden;
     text-overflow: ellipsis;
-}
-
-#articles-summary-ner-popup .content {
-    max-height: 250px;
 }
