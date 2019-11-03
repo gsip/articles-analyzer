@@ -48,7 +48,11 @@ Please use branch naming using the initials of a project name and an issue id. F
 Also please start all commit messages with issue id like `#7 initialize the package`.
 
 ## Launch
+To use browser extension or start dev script please install node version >10, yarn, docker. Make install and build script.
+
+The Browser extension is compiled to `packages/browser-extensions/dist`.
 ##### install
+
 `yarn`
 ##### dev
 `yarn run start`
@@ -57,7 +61,7 @@ Also please start all commit messages with issue id like `#7 initialize the pack
 ##### check code style
 `yarn run lint`
 
-## Добавление в браузер
+## Download to browser
 ![chrome](https://c.radikal.ru/c22/1909/b1/f2ac29fffad4.png)
 
 ## Google Cloud configuration
