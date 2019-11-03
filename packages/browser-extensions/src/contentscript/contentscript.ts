@@ -11,6 +11,7 @@ import {
     CommonTextResponse,
 } from '@reservoir-dogs/model';
 import { showPopup } from '../modules/hover-popup';
+import { WikiSummary } from '../modules/wikipedia';
 
 document.addEventListener('DOMContentLoaded', () => {
     messenger.subscribe(ParsePageType.PARSE_PAGE_REQUEST, async () => {
@@ -58,8 +59,13 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        const summary = await messenger.send<string>(keywordHover(text));
+        const { summary, url } = await messenger.send<WikiSummary>(keywordHover(text));
 
-        showPopup(event, summary);
+        const content = `
+            <a class="title" target="_blank" href="${url}">${text}</a>
+            <div>${summary}</div>
+        `;
+
+        showPopup(event, content);
     });
 });

@@ -10,10 +10,10 @@ const removePopup = (): void => {
     document.body.removeChild(popup);
 };
 
-export const showPopup = (event: MouseEvent, text: string): void => {
+export const showPopup = (event: MouseEvent, content: string): void => {
     removePopup();
     const element = document.createElement('div');
-    element.innerHTML = text;
+    element.innerHTML = content;
     element.setAttribute('id', popupId);
     element.style.top = event.pageY + 'px';
     element.style.left = event.pageX + 'px';
