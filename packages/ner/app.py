@@ -47,7 +47,7 @@ def extract_entities():
                   "l": e.label_
                   } for e in doc.ents]
 
-    return jsonify({"entities": to_counted_ents(ents)})
+    return jsonify({"ner": to_counted_ents(ents)})
 
 
 if __name__ == '__main__':
