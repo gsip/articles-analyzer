@@ -54,10 +54,11 @@ export const App: React.FC = () => {
                             const entity = NERConfig[entityName as keyof typeof NERConfig];
                             return (
                                 <div key={entityName}>
-                                    <h4 className="ner-title">{entityName}</h4>
                                     <p className="description">{entity.description}</p>
-                                    {(words as NEREntity[]).map(({ word }) => {
-                                        return <Word word={word} color={entity.color} key={word} />;
+                                    {(words as NEREntity[]).map(({ word, count }) => {
+                                        return (
+                                            <Word word={word} title={String(count)} color={entity.color} key={word} />
+                                        );
                                     })}
                                 </div>
                             );
