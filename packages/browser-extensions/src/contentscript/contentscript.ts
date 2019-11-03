@@ -10,6 +10,7 @@ import {
     NERConfig,
     CommonTextResponse,
 } from '@reservoir-dogs/model';
+import { showPopup } from '../modules/hover-popup';
 
 document.addEventListener('DOMContentLoaded', () => {
     messenger.subscribe(ParsePageType.PARSE_PAGE_REQUEST, async () => {
@@ -59,12 +60,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const summary = await messenger.send<string>(keywordHover(text));
 
-        const element = document.createElement('div');
-        element.innerHTML = summary;
-        element.setAttribute('id', 'articles-summary-ner-popup');
-        element.style.position = 'absolute';
-        element.style.top = event.pageY - 120 + 'px';
-        element.style.left = event.pageX - 50 + 'px';
-        document.body.appendChild(element);
+        showPopup(event, summary);
     });
 });
