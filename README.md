@@ -67,9 +67,8 @@ Also please start all commit messages with issue id like `#7 initialize the pack
 3. Set project, it's necessary to deploy anything on App Engine
 `gcloud config set project PROJECT_ID`
 
-
 ## Docker
 To run NER processor locally
 1. cd ./packages/ner 
 2. docker build -t ner:v1.0 .
-3. docker run -p 5000:5000 ner:v1.0 
+3. docker run -p 5001:5000 ner:v1.0 
