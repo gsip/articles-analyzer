@@ -53,10 +53,10 @@ export const NERConfig = {
         color: '#65B4F0',
         description: 'Times smaller than a day.',
     },
-    PERCENT: {
-        color: '#656FF0',
-        description: 'Percentage, including ”%“.',
-    },
+    // PERCENT: {
+    //     color: '#656FF0',
+    //     description: 'Percentage, including ”%“.',
+    // },
     MONEY: {
         color: '#EDFC4F',
         description: 'Monetary values, including unit.',
@@ -65,14 +65,14 @@ export const NERConfig = {
         color: '#FCB44F',
         description: 'Measurements, as of weight or distance.',
     },
-    ORDINAL: {
-        color: '#A0FB5D',
-        description: '“first”, “second”, etc.',
-    },
-    CARDINAL: {
-        color: '#5DFB69',
-        description: 'Numerals that do not fall under another type.',
-    },
+    // ORDINAL: {
+    //     color: '#A0FB5D',
+    //     description: '“first”, “second”, etc.',
+    // },
+    // CARDINAL: {
+    //     color: '#5DFB69',
+    //     description: 'Numerals that do not fall under another type.',
+    // },
 } as const;
 
 export interface NEREntity {
