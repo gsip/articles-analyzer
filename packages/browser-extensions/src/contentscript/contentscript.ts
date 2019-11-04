@@ -14,20 +14,13 @@ import {
 } from '@reservoir-dogs/model';
 import { removePopupAfterMouseOut, showPopup } from '../modules/hover-popup';
 import { WikiSummary } from '../modules/wikipedia';
+import { scrollToWord } from '../modules/scroll-to-word';
 
 const initializeScrollToKeyword = (): void => {
     messenger.subscribe(
         BrowserEventType.KEYWORD_POPUP_CLICK,
         async ({ payload }: ReturnType<typeof keywordPopupClick>) => {
-            const keywords = Array.from(document.querySelectorAll('.articles-summary-keyword'));
-
-            const keyword = keywords.find((keyword) => keyword.textContent === payload);
-
-            if (!keyword) {
-                return;
-            }
-
-            keyword.scrollIntoView();
+            scrollToWord({ selector: '.articles-summary-keyword', word: payload });
         },
     );
 };
