@@ -6,7 +6,7 @@
     "build": "npm-run-all --parallel build:*",
     "start": "npm-run-all --parallel watch:*",
     "lint": "npx eslint './src/**/*.ts'",
-    "prepare-static": "cpy static/manifest.json dist",
+    "prepare-static": "cpy static/* dist",
     "watch:static": "yarn run prepare-static",
     "build:static": "yarn run prepare-static",
     "build:contentscript-background": "NODE_ENV=production webpack --config webpack.config.js",
@@ -16,6 +16,7 @@
   "devDependencies": {
     "@reservoir-dogs/project-config": "1.0.0",
     "@types/axios": "^0.14.0",
+    "@types/lodash-es": "^4.17.3",
     "@types/node": "^12.7.5",
     "@types/mark.js": "^8.11.4",
     "@typescript-eslint/eslint-plugin": "^2.2.0",
@@ -42,8 +43,10 @@
   "dependencies": {
     "@reservoir-dogs/browser-transport": "1.0.0",
     "@reservoir-dogs/html-parser": "1.0.0",
+    "lodash-es": "^4.17.3",
     "mark.js": "^8.11.1",
-    "axios": "^0.19.0"
+    "axios": "^0.19.0",
+    "wikijs": "^6.0.1"
   },
   "author": "",
   "license": "ISC",
