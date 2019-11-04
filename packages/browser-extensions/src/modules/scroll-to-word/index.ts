@@ -11,17 +11,17 @@ type LastWord = {
 const lastWord: LastWord = { word: '', index: 0 };
 
 export const scrollToWord = ({ selector, word }: WordInfo): void => {
-    const keywordElements = Array.from(document.querySelectorAll(selector));
-    const keywords = keywordElements.filter((keyword) => keyword.textContent === word);
+    const wordElements = Array.from(document.querySelectorAll(selector));
+    const words = wordElements.filter((wordElement) => wordElement.textContent === word);
 
-    if (keywords.length === 0) {
+    if (words.length === 0) {
         return;
     }
 
     if (lastWord.word === word) {
         lastWord.index += 1;
 
-        if (lastWord.index > keywords.length - 1) {
+        if (lastWord.index > words.length - 1) {
             lastWord.index = 0;
         }
     } else {
@@ -29,5 +29,5 @@ export const scrollToWord = ({ selector, word }: WordInfo): void => {
         lastWord.index = 0;
     }
 
-    keywords[lastWord.index].scrollIntoView({ behavior: 'smooth', block: 'start' });
+    words[lastWord.index].scrollIntoView({ behavior: 'smooth', block: 'start' });
 };
