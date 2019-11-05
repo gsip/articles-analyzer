@@ -10,9 +10,13 @@ type LastWord = {
 
 const lastWord: LastWord = { word: '', index: 0 };
 
-export const scrollToWord = ({ selector, word }: WordInfo): void => {
+const findByTextContent = (word: string, selector: string): Element[] => {
     const wordElements = Array.from(document.querySelectorAll(selector));
-    const words = wordElements.filter((wordElement) => wordElement.textContent === word);
+    return wordElements.filter((wordElement) => wordElement.textContent === word);
+};
+
+export const scrollToWord = ({ selector, word }: WordInfo): void => {
+    const words = findByTextContent(word, selector);
 
     if (words.length === 0) {
         return;
