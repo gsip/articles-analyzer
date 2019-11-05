@@ -17,7 +17,10 @@ function addClassNameToWords(htmlElement: HTMLElement, words: string[], classNam
     instance.mark(words, {
         element: 'span',
         className: `articles-summary-keyword ${className}`,
-        accuracy: 'exactly',
+        accuracy: {
+            value: 'exactly',
+            limiters: [',', '.', ':', ':', '(', ')'],
+        },
         separateWordSearch: false,
     });
 }

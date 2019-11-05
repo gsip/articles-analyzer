@@ -9,9 +9,21 @@ import {
     NEREntity,
     NERConfig,
     CommonTextResponse,
+    BrowserEventType,
+    keywordPopupClick,
 } from '@reservoir-dogs/model';
 import { removePopupAfterMouseOut, showPopup } from '../modules/hover-popup';
 import { WikiSummary } from '../modules/wikipedia';
+import { scrollToWord } from '../modules/scroll-to-word';
+
+const initializeScrollToKeyword = (): void => {
+    messenger.subscribe(
+        BrowserEventType.KEYWORD_POPUP_CLICK,
+        async ({ payload }: ReturnType<typeof keywordPopupClick>) => {
+            scrollToWord({ selector: '.articles-summary-keyword', word: payload });
+        },
+    );
+};
 
 const initializeKeywordPopup = (): void => {
     document.addEventListener('mouseover', async (event) => {
@@ -77,4 +89,5 @@ const initializeParsePage = (): void => {
 document.addEventListener('DOMContentLoaded', () => {
     initializeParsePage();
     initializeKeywordPopup();
+    initializeScrollToKeyword();
 });
