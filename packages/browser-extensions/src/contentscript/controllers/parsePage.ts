@@ -25,8 +25,8 @@ function colorizeText(response: CommonTextResponse, htmlElements: HTMLElement[])
     });
 }
 
-async function parsePage(): Promise<CommonTextResponse | undefined> {
-    const { text, htmlElements } = parseMainContent(document, location.href);
+async function parsePage(href: string): Promise<CommonTextResponse | undefined> {
+    const { text, htmlElements } = parseMainContent(document, href);
 
     if (text.length === 0) {
         return;
@@ -43,9 +43,8 @@ async function parsePage(): Promise<CommonTextResponse | undefined> {
     return response;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const memoizedParsePage = memoize((_url: string) => parsePage());
+const memoizedParsePage = memoize((url: string) => parsePage(url));
 
 export const initializeParsePage = (): void => {
-    messenger.subscribe(ParsePageType.PARSE_PAGE_REQUEST, async () => await memoizedParsePage(location.href));
+    messenger.subscribe(ParsePageType.PARSE_PAGE_REQUEST, () => memoizedParsePage(location.href));
 };
