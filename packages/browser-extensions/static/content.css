@@ -42,3 +42,23 @@
     from { opacity: 1 }
     to { opacity: 0 }
 }
+
+.after-scroll {
+    position: relative;
+}
+
+.after-scroll::after {
+    position: absolute;
+    opacity: 0.5;
+    top: 0;
+    left: -5000px;
+    width: 10000px;
+    height: 100%;
+    background-color: orange;
+    content: '';
+    animation: highlight 1500ms linear;
+}
+
+@keyframes highlight {
+    to { background-color: orange }
+}
