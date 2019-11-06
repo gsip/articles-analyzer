@@ -15,6 +15,11 @@ const findByTextContent = (word: string, selector: string): Element[] => {
     return wordElements.filter((wordElement) => wordElement.textContent === word);
 };
 
+const highlight = (element: Element): void => {
+    element.addEventListener('animationend', () => element.classList.remove('after-scroll'));
+    element.classList.add('after-scroll');
+};
+
 export const scrollToWord = ({ selector, word }: WordInfo): void => {
     const words = findByTextContent(word, selector);
 
@@ -33,5 +38,8 @@ export const scrollToWord = ({ selector, word }: WordInfo): void => {
         lastWord.index = 0;
     }
 
-    words[lastWord.index].scrollIntoView({ behavior: 'smooth', block: 'start' });
+    const wordElement = words[lastWord.index];
+
+    wordElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    highlight(wordElement);
 };
