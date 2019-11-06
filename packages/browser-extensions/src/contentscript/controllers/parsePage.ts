@@ -11,7 +11,21 @@ import { messenger } from '@reservoir-dogs/browser-transport';
 import { parseMainContent } from '@reservoir-dogs/html-parser';
 import { memoize } from 'lodash-es';
 
-async function getNerResponse(): Promise<CommonTextResponse | undefined> {
+function colorizeText(response: CommonTextResponse, htmlElements: HTMLElement[]): void {
+    const NERList = Object.entries(response.ner) as [NEREntitiesTypesList, NEREntity[] | undefined][];
+
+    NERList.forEach(([NEREntityName, NEREntities]) => {
+        const color = NERConfig[NEREntityName] ? NERConfig[NEREntityName].color : '';
+
+        if (NEREntities && color) {
+            const words = NEREntities.map((entity) => entity.word);
+
+            colorizeWords(htmlElements, words, color);
+        }
+    });
+}
+
+async function parsePage(): Promise<CommonTextResponse | undefined> {
     const { text, htmlElements } = parseMainContent(document, location.href);
 
     if (text.length === 0) {
@@ -24,24 +38,14 @@ async function getNerResponse(): Promise<CommonTextResponse | undefined> {
         return;
     }
 
-    const NERList = Object.entries(response.ner) as [NEREntitiesTypesList, NEREntity[] | undefined][];
-
-    NERList.forEach(([NEREntityName, NEREntities]) => {
-        const color = NERConfig[NEREntityName] ? NERConfig[NEREntityName].color : '';
-
-        if (NEREntities && color) {
-            const words = NEREntities.map((entity) => entity.word);
-
-            colorizeWords(htmlElements, words, color);
-        }
-    });
+    colorizeText(response, htmlElements);
 
     return response;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-const memoized = memoize((_url: string) => getNerResponse());
+const memoizedParsePage = memoize((_url: string) => parsePage());
 
 export const initializeParsePage = (): void => {
-    messenger.subscribe(ParsePageType.PARSE_PAGE_REQUEST, async () => await memoized(location.href));
+    messenger.subscribe(ParsePageType.PARSE_PAGE_REQUEST, async () => await memoizedParsePage(location.href));
 };
