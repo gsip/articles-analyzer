@@ -1,0 +1,267 @@
+
+.loader {
+  * {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+  }
+
+  // COLORS
+  $black: #1a1a1a;
+  $white: #fcfcfc;
+  $orange: #ffa617;
+
+  // SIZES
+  $scale: 1.1;
+
+  $head-height: 120px * $scale;
+  $head-width: 140px * $scale;
+
+  $body-height: 180px * $scale;
+  $body-width: 170px * $scale;
+
+  $eye-diameter: 30px * $scale;
+  $pupil-diameter: 10px * $scale;
+
+  $beak-height: 30px * $scale;
+  $beak-width: 15px * $scale;
+
+  $wing-height: 50px * $scale;
+  $wing-width: 90px * $scale;
+
+  $foot-height: 20px * $scale;
+  $foot-width: 40px * $scale;
+
+  $belly-height: 110px * $scale;
+  $belly-width: 100px * $scale;
+
+  body {
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    background-image: linear-gradient(to bottom right, white, $white);
+  }
+
+  .container {
+    height: (($head-height + $body-height) * $scale) + 20px;
+    width: 100vw;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .penguin {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: absolute;
+    animation: penguinbob .5s infinite alternate ease;
+  }
+
+  .head {
+    background: $black;
+    height: $head-height;
+    width: $head-width;
+    border-radius: 50%;
+    position: relative;
+    z-index: 1;
+    animation: headbob .5s infinite alternate ease;
+
+    .eye {
+      background: $white;
+      height: $eye-diameter;
+      width: $eye-diameter;
+      border-radius: 50%;
+      position: absolute;
+      top: 30%;
+
+      &::after {
+        content: '';
+        height: $pupil-diameter;
+        width: $pupil-diameter;
+        border-radius: 50%;
+        position: absolute;
+        background: $black;
+        left: 50%;
+        top: 10%;
+        animation: look-around 1.5s infinite alternate ease-in-out;
+      }
+    }
+
+    .eye-l {
+      left: 17%;
+    }
+
+    .eye-r {
+      right: 17%;
+    }
+
+    .beak {
+      background: $orange;
+      height: $beak-height;
+      width: $beak-width;
+      position: absolute;
+      top: 60%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      clip-path: polygon(50% 50%, 0 0, 100% 0);
+      border-radius: 5px;
+    }
+  }
+
+  .body {
+    background: $black;
+    height: $body-height;
+    width: $body-width;
+    border-radius: 50%;
+    position: relative;
+    top: -40px;
+    z-index: 0;
+
+    .belly {
+      position: absolute;
+      background: $white;
+      border-radius: 50%;
+      top: 55%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      height: $belly-height;
+      width: $belly-width;
+    }
+
+    .wing {
+      height: $wing-height;
+      width: $wing-width;
+      border-top-left-radius: $wing-width;
+      border-top-right-radius: $wing-width;
+      background: $black;
+      top: 15%;
+      position: absolute;
+      z-index: -1;
+    }
+
+    .wing-l {
+      left: -20%;
+      animation: wingrotateleft .75s infinite alternate ease;
+    }
+
+    .wing-r {
+      right: -20%;
+      animation: wingrotateright .75s .5s infinite alternate ease;
+    }
+
+    .foot {
+      background: $orange;
+      height: $foot-height;
+      width: $foot-width;
+      border-radius: 50%;
+      position: absolute;
+      top: 85%;
+    }
+
+    .foot-l {
+      left: 13%;
+      animation: footbob .4s infinite alternate ease;
+    }
+
+    .foot-r {
+      right: 13%;
+      animation: footbob .4s .5s infinite alternate ease;
+    }
+  }
+
+  @keyframes penguinbob {
+    from {
+      transform: translateY(0%)
+    }
+    to {
+      transform: translateY(1%)
+    }
+  }
+
+
+  @keyframes headbob {
+    from {
+      transform: translateY(0%)
+    }
+    to {
+      transform: translateY(4%)
+    }
+  }
+
+  @keyframes footbob {
+    from {
+      transform: translateY(0%)
+    }
+    to {
+      transform: translateY(-30%)
+    }
+  }
+
+  @keyframes wingrotateleft {
+    from {
+      transform: rotate(0deg)
+    }
+    to {
+      transform: rotate(-35deg)
+    }
+  }
+
+  @keyframes wingrotateright {
+    from {
+      transform: rotate(0deg)
+    }
+    to {
+      transform: rotate(35deg)
+    }
+  }
+
+  @keyframes look-around {
+    from {
+      transform: translateX(0%)
+    }
+    to {
+      transform: translateX(-100%)
+    }
+  }
+
+  .loading-container {
+    z-index: 1;
+    position: absolute;
+    bottom: 0;
+
+    .loading-text {
+      font-family: monospace;
+      font-size: 3rem;
+      color: $black;
+      overflow: hidden;
+      border-right: .15rem solid $orange;
+      margin: 0 auto;
+      letter-spacing: .10rem;
+      animation: typing 2.5s steps(25, end) infinite,
+      blink-caret .5s step-end infinite;
+    }
+  }
+
+  @keyframes typing {
+    0% {
+      width: 0;
+    }
+    70% {
+      width: 100%;
+    }
+  }
+
+  @keyframes blink-caret {
+    from, to {
+      border-color: transparent
+    }
+    50% {
+      border-color: orange
+    }
+  }
+}
+
