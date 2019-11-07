@@ -1,5 +1,10 @@
+$penguin-scale: 0.5;
+$loader-text-font-size: 1.3rem;
+$padding-between-penguin-and-text: 140px;
 
 .loader {
+  padding: 50px 0;
+
   * {
     padding: 0;
     margin: 0;
@@ -12,39 +17,37 @@
   $orange: #ffa617;
 
   // SIZES
-  $scale: 1.1;
 
-  $head-height: 120px * $scale;
-  $head-width: 140px * $scale;
+  $head-height: 120px * $penguin-scale;
+  $head-width: 140px * $penguin-scale;
 
-  $body-height: 180px * $scale;
-  $body-width: 170px * $scale;
+  $body-height: 180px * $penguin-scale;
+  $body-width: 170px * $penguin-scale;
 
-  $eye-diameter: 30px * $scale;
-  $pupil-diameter: 10px * $scale;
+  $eye-diameter: 30px * $penguin-scale;
+  $pupil-diameter: 10px * $penguin-scale;
 
-  $beak-height: 30px * $scale;
-  $beak-width: 15px * $scale;
+  $beak-height: 30px * $penguin-scale;
+  $beak-width: 15px * $penguin-scale;
 
-  $wing-height: 50px * $scale;
-  $wing-width: 90px * $scale;
+  $wing-height: 50px * $penguin-scale;
+  $wing-width: 90px * $penguin-scale;
 
-  $foot-height: 20px * $scale;
-  $foot-width: 40px * $scale;
+  $foot-height: 20px * $penguin-scale;
+  $foot-width: 40px * $penguin-scale;
 
-  $belly-height: 110px * $scale;
-  $belly-width: 100px * $scale;
+  $belly-height: 110px * $penguin-scale;
+  $belly-width: 100px * $penguin-scale;
 
   body {
     height: 100vh;
     width: 100vw;
     display: flex;
     align-items: center;
-    background-image: linear-gradient(to bottom right, white, $white);
   }
 
   .container {
-    height: (($head-height + $body-height) * $scale) + 20px;
+    height: (($head-height + $body-height) * $penguin-scale) + 20px;
     width: 100vw;
     position: relative;
     display: flex;
@@ -230,19 +233,18 @@
 
   .loading-container {
     z-index: 1;
-    position: absolute;
     bottom: 0;
+    padding-top: $padding-between-penguin-and-text;
 
     .loading-text {
       font-family: monospace;
-      font-size: 3rem;
+      font-size: $loader-text-font-size;
       color: $black;
       overflow: hidden;
       border-right: .15rem solid $orange;
       margin: 0 auto;
       letter-spacing: .10rem;
-      animation: typing 2.5s steps(25, end) infinite,
-      blink-caret .5s step-end infinite;
+      animation: typing 2.5s steps(25, end) infinite, blink-caret .5s step-end infinite;
     }
   }
 

@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { messenger } from '@reservoir-dogs/browser-transport';
 import { CommonTextResponse, parsePageRequest, keywordPopupClick } from '@reservoir-dogs/model';
-import { Loader } from './components/loader/Loader';
+import { PenguinLoader } from './components/penguinLoader/PenguinLoader';
 import { Summary } from './components/summary/Summary';
 import { Entities } from './components/entities/Entities';
 import { NEREntities } from './types';
@@ -13,7 +13,7 @@ export const App: React.FC = () => {
     const [entities, setEntities] = useState<NEREntities>([]);
     const [summary, setSummary] = useState('');
 
-    const onWordClick = useCallback((title) => messenger.sendToActiveTab(keywordPopupClick(title)), []);
+    const handleWordClick = useCallback((title) => messenger.sendToActiveTab(keywordPopupClick(title)), []);
 
     useEffect(() => {
         (async () => {
@@ -33,11 +33,11 @@ export const App: React.FC = () => {
         <div className="app">
             <div className="content">
                 {!summary || !entities ? (
-                    <Loader delay={LOADER_DELAY_TIME} />
+                    <PenguinLoader delay={LOADER_DELAY_TIME} />
                 ) : (
                     <>
                         <Summary summary={summary} />
-                        <Entities entities={entities} onWordClick={onWordClick} />
+                        <Entities entities={entities} onWordClick={handleWordClick} />
                     </>
                 )}
             </div>

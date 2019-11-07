@@ -1,11 +1,11 @@
 import React from 'react';
-import './loader.scss';
+import './penguinLoader.scss';
 
 type Props = {
     delay?: number;
 };
 
-export function Loader({ delay }: Props): React.ReactElement | null {
+export function PenguinLoader({ delay }: Props): React.ReactElement | null {
     const [showContent, setShowContent] = React.useState(false);
 
     React.useEffect(() => {
