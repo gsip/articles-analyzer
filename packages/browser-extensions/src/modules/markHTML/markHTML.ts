@@ -27,7 +27,7 @@ function addClassNameToWords(htmlElement: HTMLElement, words: string[], classNam
 
 export function colorizeWords(htmlElements: HTMLElement[], words: string[], color: string): void {
     const className = `mark-${color.replace('#', '')}`;
-    const style = `.${className} { border-bottom: 2px solid ${color} !important; }`;
+    const style = `.${className} { border-bottom: 1px solid ${color} !important; }`;
     addStyle(style);
 
     htmlElements.forEach((htmlElement) => {
