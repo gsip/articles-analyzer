@@ -24,17 +24,19 @@ export function Entities({ entities, onWordClick }: Props): React.ReactElement {
                         return (
                             <div key={entityName}>
                                 <p className="description">{entity.description}</p>
-                                {(words as NEREntity[]).map(({ word, count }) => {
-                                    return (
-                                        <Word
-                                            onClick={onWordClick}
-                                            word={word}
-                                            title={String(count)}
-                                            color={entity.color}
-                                            key={word}
-                                        />
-                                    );
-                                })}
+                                {(words as NEREntity[])
+                                    .sort((a, b) => (a.count < b.count ? 1 : -1))
+                                    .map(({ word, count }) => {
+                                        return (
+                                            <Word
+                                                onClick={onWordClick}
+                                                word={word}
+                                                title={String(count)}
+                                                color={entity.color}
+                                                key={word}
+                                            />
+                                        );
+                                    })}
                             </div>
                         );
                     })}
