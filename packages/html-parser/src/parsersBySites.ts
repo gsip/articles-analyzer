@@ -30,12 +30,20 @@ const getHTMLStringContent = (htmlElement: HTMLElement): string => {
     return deleteNonASCIICharacters(text);
 };
 
-const commonParser = (document: Document, selector = 'article'): ParserResponse => {
-    const BODY_SELECTOR = 'body';
-    const htmlElements = Array.from(document.querySelectorAll(selector)) as HTMLElement[];
+const getHtmlElements = (selector: string): HTMLElement[] => {
+    return Array.from(document.querySelectorAll(selector)) as HTMLElement[];
+};
+
+const getText = (htmlElements: HTMLElement[]): string => {
     const content = htmlElements.map(getHTMLStringContent).filter((htmlElement) => htmlElement !== '');
 
-    const text = content.join(' ').trim();
+    return content.join(' ').trim();
+};
+
+const commonParser = (document: Document, selector = 'article'): ParserResponse => {
+    const BODY_SELECTOR = 'body';
+    const htmlElements = getHtmlElements(selector);
+    const text = getText(htmlElements);
 
     if (text !== '' || selector === BODY_SELECTOR) {
         return { text, htmlElements };
@@ -52,6 +60,26 @@ const parserByURLS: ParserByURL[] = [
     {
         url: /cnn.com/,
         parser: (document) => commonParser(document, '.l-container'),
+    },
+    {
+        url: /bloomberg.com/,
+        parser: (document) => {
+            const htmlElements = getHtmlElements('.middle-column');
+
+            const leftColumn = document.querySelector('.left-column');
+
+            let text = '';
+            if (leftColumn && leftColumn.parentElement) {
+                const parent = leftColumn.parentElement;
+                parent.removeChild(leftColumn);
+                text = getText(htmlElements);
+                parent.prepend(leftColumn);
+            } else {
+                text = getText(htmlElements);
+            }
+
+            return { text, htmlElements } || commonParser(document);
+        },
     },
 ];
 
