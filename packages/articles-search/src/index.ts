@@ -1,4 +1,3 @@
-import fetch from 'node-fetch';
 import cheerio from 'cheerio';
 import { startFrom } from './utils';
 
@@ -13,9 +12,13 @@ const getText = ($element: Cheerio): string => {
 };
 
 const getUrl = ($element: Cheerio): string => {
-    const url = $element.attr('href').trim();
+    const url = $element.attr('href');
 
-    return decodeURIComponent(startFrom(url, 'http'));
+    if (!url) {
+        return '';
+    }
+
+    return decodeURIComponent(startFrom(url, 'http').trim());
 };
 
 export const getArticlesMeta = async (queries: string[], site?: string, count = 3): Promise<ArticleMeta[]> => {
@@ -25,6 +28,7 @@ export const getArticlesMeta = async (queries: string[], site?: string, count = 
             .join(' ');
         query = site ? `site:${site} ${queries}` : query;
 
+        // FIXME [AS-75] make fetch working with nodejs and window
         const res = await fetch(`https://duckduckgo.com/html/?q=${query} !safeon`);
         const html = await res.text();
         const $ = cheerio.load(html);

@@ -5,6 +5,7 @@
   "main": "./src/index.tsx",
   "homepage": ".",
   "dependencies": {
+    "@reservoir-dogs/articles-search": "1.0.0",
     "@reservoir-dogs/project-config": "1.0.0",
     "@reservoir-dogs/model": "1.0.0",
     "@reservoir-dogs/browser-transport": "1.0.0",
