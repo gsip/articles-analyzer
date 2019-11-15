@@ -13,6 +13,7 @@ export function Articles({ words }: Props): React.ReactElement {
     }, [words]);
 
     useEffect(() => {
+        // FIXME [AS-75] move getArticlesMeta to background script?
         getArticlesMeta(sortedWords.map((word) => word.word).slice(0, 3)).then((articlesMeta) =>
             setArticlesMeta(articlesMeta),
         );
