@@ -41,6 +41,7 @@
     "webpack-cli": "^3.3.9"
   },
   "dependencies": {
+    "@reservoir-dogs/articles-search": "1.0.0",
     "@reservoir-dogs/browser-transport": "1.0.0",
     "@reservoir-dogs/html-parser": "1.0.0",
     "@reservoir-dogs/model": "1.0.0",

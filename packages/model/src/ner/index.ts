@@ -1,3 +1,5 @@
+import { NEREntities } from '@reservoir-dogs/popup/src/types';
+
 export * from './messages';
 
 export const NERConfig = {
@@ -86,3 +88,14 @@ export type NEREntitiesBackendResponse<T extends NEREntitiesTypesList = NEREntit
     T,
     NEREntity[] | undefined
 >;
+
+export function getMainKeywords(entities: NEREntities, length = 4): string[] {
+    const words = entities.map(([_entity, words]) => (words ? words : [])).flat();
+
+    const mainKeywords = words
+        .filter(({ count }) => count > 2)
+        .sort((a, b) => (a.count < b.count ? 1 : -1))
+        .map(({ word }) => word);
+
+    return [...new Set(mainKeywords)].slice(0, length);
+}

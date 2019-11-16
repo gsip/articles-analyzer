@@ -1,28 +1,14 @@
-import React, { useEffect, useMemo, useState } from 'react';
-import { NEREntity } from '@reservoir-dogs/model';
-import { getArticlesMeta, ArticleMeta } from '@reservoir-dogs/articles-search';
+import React from 'react';
+import { ArticleMeta } from '@reservoir-dogs/articles-search';
 
 type Props = {
-    words: NEREntity[];
+    articlesMeta?: ArticleMeta[];
 };
 
-export function Articles({ words }: Props): React.ReactElement {
-    const [articlesMeta, setArticlesMeta] = useState<ArticleMeta[]>([]);
-    const mainKeywords = useMemo(() => {
-        const mainKeywords = words
-            .filter(({ count }) => count > 2)
-            .sort((a, b) => (a.count < b.count ? 1 : -1))
-            .map(({ word }) => word);
-
-        return [...new Set(mainKeywords)].slice(0, 4);
-    }, [words]);
-
-    useEffect(() => {
-        // console.log(words.filter(({ count }) => count > 2).sort((a, b) => (a.count < b.count ? 1 : -1)));
-        // console.log(mainKeywords);
-        // FIXME [AS-75] move getArticlesMeta to background script?
-        getArticlesMeta(mainKeywords, 'nytimes.com').then(setArticlesMeta);
-    }, [mainKeywords]);
+export function Articles({ articlesMeta }: Props): React.ReactElement | null {
+    if (!articlesMeta) {
+        return null;
+    }
 
     return (
         <div className="articles">
@@ -33,7 +19,7 @@ export function Articles({ words }: Props): React.ReactElement {
                         <a href={url} target="_blank" rel="noopener noreferrer">
                             <div>
                                 <h4>{title}</h4>
-                                <span>{new URL(url).host}</span>
+                                <span>{url}</span>
                                 <div className="summary">{summary}</div>
                             </div>
                         </a>
