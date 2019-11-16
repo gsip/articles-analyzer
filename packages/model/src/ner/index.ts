@@ -90,12 +90,23 @@ export type NEREntitiesBackendResponse<T extends NEREntitiesTypesList = NEREntit
 >;
 
 export function getMainKeywords(entities: NEREntities, length = 4): string[] {
-    const words = entities.map(([_entity, words]) => (words ? words : [])).flat();
+    const words = entities.map(([_entity, words]) => (words ? words : [])).flat() as NEREntity[];
 
-    const mainKeywords = words
-        .filter(({ count }) => count > 2)
-        .sort((a, b) => (a.count < b.count ? 1 : -1))
-        .map(({ word }) => word);
+    const wordsMap = words.reduce(
+        (wordsMap, { word, count }) => {
+            word = word.toLowerCase();
+            wordsMap[word] = wordsMap[word] ? (wordsMap[word] += count) : count;
 
-    return [...new Set(mainKeywords)].slice(0, length);
+            return wordsMap;
+        },
+        {} as any,
+    );
+    const wordsEntries: [string, number][] = Object.entries(wordsMap);
+
+    const mainKeywords = wordsEntries
+        .filter(([_word, count]) => count > 2)
+        .sort(([_word1, count1], [_word2, count2]) => (count1 < count2 ? 1 : -1))
+        .map(([word]) => word);
+
+    return mainKeywords.slice(0, length);
 }
