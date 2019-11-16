@@ -22,6 +22,10 @@ const getUrl = ($element: Cheerio): string => {
 };
 
 export const getArticlesMeta = async (queries: string[], site?: string, count = 3): Promise<ArticleMeta[]> => {
+    if (queries.length === 0) {
+        return [];
+    }
+
     try {
         let query = queries
             // .map((q) => `"${q}"`)
@@ -45,6 +49,8 @@ export const getArticlesMeta = async (queries: string[], site?: string, count = 
 
             result.push({ title, url, summary });
         }
+
+        console.log(result);
 
         return result;
     } catch (e) {

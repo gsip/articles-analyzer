@@ -9,7 +9,11 @@ export function PenguinLoader({ delay }: Props): React.ReactElement | null {
     const [showContent, setShowContent] = React.useState(false);
 
     React.useEffect(() => {
-        setTimeout(() => setShowContent(true), delay);
+        const timer = setTimeout(() => setShowContent(true), delay);
+
+        return () => {
+            clearTimeout(timer);
+        };
     }, [delay]);
 
     if (delay && !showContent) {
