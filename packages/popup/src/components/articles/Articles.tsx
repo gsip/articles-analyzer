@@ -5,6 +5,15 @@ type Props = {
     articlesMeta?: ArticleMeta[];
 };
 
+const getHostname = (url: string): string => {
+    try {
+        return new URL(url).hostname;
+    } catch (e) {
+        console.log(e);
+        return url;
+    }
+};
+
 export function Articles({ articlesMeta }: Props): React.ReactElement | null {
     if (!articlesMeta) {
         return null;
@@ -19,7 +28,7 @@ export function Articles({ articlesMeta }: Props): React.ReactElement | null {
                         <a href={url} target="_blank" rel="noopener noreferrer">
                             <div>
                                 <h4>{title}</h4>
-                                <span>{url}</span>
+                                <span>{getHostname(url)}</span>
                                 <div className="summary">{summary}</div>
                             </div>
                         </a>

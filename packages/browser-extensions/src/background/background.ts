@@ -36,7 +36,7 @@ messenger.subscribe(
                     return [];
                 }
                 const mainKeywords = getMainKeywords(action.payload);
-                const articlesMeta = getArticlesMeta(mainKeywords, new URL(tab.url).host);
+                const articlesMeta = getArticlesMeta(mainKeywords, new URL(tab.url).hostname);
 
                 resolve(articlesMeta);
             });
