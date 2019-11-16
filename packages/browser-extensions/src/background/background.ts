@@ -29,16 +29,23 @@ messenger.subscribe(
     PopupPageEvent.WANT_TO_GET_SIMILAR_ARTICLES,
     (action: ReturnType<typeof wantToGetSimilarArticles>): Promise<ArticleMeta[]> => {
         return new Promise((resolve) => {
-            chrome.tabs.getSelected((tab) => {
+            chrome.tabs.getSelected(async (tab) => {
                 if (!tab || !tab.url) {
-                    console.log('Can not find active tab url');
+                    console.error('Can not find active tab url');
 
                     return [];
                 }
                 const mainKeywords = getMainKeywords(action.payload);
-                const articlesMeta = getArticlesMeta(mainKeywords, new URL(tab.url).hostname);
+                const urlObject = new URL(tab.url);
+                const articlesMeta = await getArticlesMeta(mainKeywords, urlObject.hostname, 4);
 
-                resolve(articlesMeta);
+                const filteredArticlesMeta = articlesMeta
+                    .filter((articleMeta) => {
+                        return !articleMeta.url.includes(urlObject.origin + urlObject.pathname);
+                    })
+                    .slice(0, 3);
+
+                resolve(filteredArticlesMeta);
             });
         });
     },

@@ -40,17 +40,17 @@ export const getArticlesMeta = async (queries: string[], site?: string, count = 
         const titles = $('.result__title');
         const urls = $('.result__url');
         const summaries = $('.result__snippet');
-        const result = [];
+        const articlesMeta = [];
 
         for (let i = 0; i < count; i++) {
             const title = getText($(titles[i]));
             const url = getUrl($(urls[i]));
             const summary = getText($(summaries[i]));
 
-            result.push({ title, url, summary });
+            articlesMeta.push({ title, url, summary });
         }
 
-        return result;
+        return articlesMeta.filter((articleMeta) => articleMeta.url);
     } catch (e) {
         console.error(e);
         return [];
