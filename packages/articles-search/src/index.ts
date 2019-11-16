@@ -50,8 +50,6 @@ export const getArticlesMeta = async (queries: string[], site?: string, count = 
             result.push({ title, url, summary });
         }
 
-        console.log(result);
-
         return result;
     } catch (e) {
         console.error(e);
