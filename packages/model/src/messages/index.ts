@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 
-import { NEREntities } from '@reservoir-dogs/popup/src/types';
+import { NEREntities } from '../ner';
 
 export enum ContentPageEvent {
     KEYWORD_HOVER = 'KEYWORD_HOVER',

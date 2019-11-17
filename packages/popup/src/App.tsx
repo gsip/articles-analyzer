@@ -5,12 +5,12 @@ import {
     parsePageRequest,
     keywordPopupClick,
     wantToGetSimilarArticles,
+    NEREntities,
 } from '@reservoir-dogs/model';
 import { PenguinLoader } from './components/penguinLoader/PenguinLoader';
 import { Summary } from './components/summary/Summary';
 import { Entities } from './components/entities/Entities';
 import { Articles } from './components/articles/Articles';
-import { NEREntities } from './types';
 import './styles.scss';
 import { ArticleMeta } from '@reservoir-dogs/articles-search';
 
