@@ -1,6 +1,7 @@
 import cheerio from 'cheerio';
 import { startFrom } from './utils';
 import nodeFetch from 'node-fetch';
+import { URLS } from './config';
 
 export type ArticleMeta = {
     title: string;
@@ -36,12 +37,9 @@ export const getArticlesMeta = async (queries: string[], site?: string, count = 
     }
 
     try {
-        let query = queries
-            // .map((q) => `"${q}"`)
-            .join(' ');
-        query = site ? `site:${site} ${queries}` : query;
+        const query = queries.join(' ');
 
-        const res = await getFetch()(`https://duckduckgo.com/html/?q=${query} !safeon`);
+        const res = await getFetch()(URLS.getDuckDuckGoSearchUrl(query, site));
         const html = await res.text();
         const $ = cheerio.load(html);
 

@@ -95,7 +95,12 @@ export function getMainKeywords(entities: NEREntities, length = 4): string[] {
     const wordsMap = words.reduce(
         (wordsMap, { word, count }) => {
             word = word.toLowerCase();
-            wordsMap[word] = wordsMap[word] ? (wordsMap[word] += count) : count;
+
+            if (wordsMap[word]) {
+                wordsMap[word] += count;
+            } else {
+                wordsMap[word] = count;
+            }
 
             return wordsMap;
         },
