@@ -2,20 +2,20 @@ import React from 'react';
 import { ArticleMeta } from '@reservoir-dogs/articles-search';
 
 type Props = {
-    articlesMeta?: ArticleMeta[];
+    articlesMeta: ArticleMeta[];
 };
 
 const getHostname = (url: string): string => {
     try {
         return new URL(url).hostname;
     } catch (e) {
-        console.log(e);
+        console.error(e);
         return url;
     }
 };
 
-export function Articles({ articlesMeta }: Props): React.ReactElement | null {
-    if (!articlesMeta) {
+export function Articles({ articlesMeta = [] }: Props): React.ReactElement | null {
+    if (articlesMeta.length === 0) {
         return null;
     }
 
