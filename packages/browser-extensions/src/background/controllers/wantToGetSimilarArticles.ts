@@ -7,7 +7,7 @@ import { memoize } from 'lodash-es';
 const getSelectedTab = (): Promise<chrome.tabs.Tab | null> => {
     return new Promise((resolve) => {
         chrome.tabs.getSelected(async (tab) => {
-            if (!tab || !tab.url) {
+            if (!tab?.url) {
                 resolve(null);
             }
 
@@ -36,7 +36,7 @@ export const initializeWantToGetSimilarArticles = (): void => {
         async (action: ReturnType<typeof wantToGetSimilarArticles>): Promise<ArticleMeta[]> => {
             const tab = await getSelectedTab();
 
-            if (!tab || !tab.url) {
+            if (!tab?.url) {
                 console.error('Can not find active tab url');
 
                 return [];

@@ -92,20 +92,17 @@ export type NEREntities = [string, NEREntity[] | undefined][];
 export function getMainKeywords(entities: NEREntities, length = 4): string[] {
     const words = entities.map(([_entity, words]) => (words ? words : [])).flat() as NEREntity[];
 
-    const wordsMap = words.reduce(
-        (wordsMap, { word, count }) => {
-            word = word.toLowerCase();
+    const wordsMap = words.reduce((wordsMap, { word, count }) => {
+        word = word.toLowerCase();
 
-            if (wordsMap[word]) {
-                wordsMap[word] += count;
-            } else {
-                wordsMap[word] = count;
-            }
+        if (wordsMap[word]) {
+            wordsMap[word] += count;
+        } else {
+            wordsMap[word] = count;
+        }
 
-            return wordsMap;
-        },
-        {} as any,
-    );
+        return wordsMap;
+    }, {} as any);
     const wordsEntries: [string, number][] = Object.entries(wordsMap);
 
     const mainKeywords = wordsEntries

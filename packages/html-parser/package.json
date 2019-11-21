@@ -15,7 +15,7 @@
   "dependencies": {
     "html-to-text": "^5.1.1",
     "@reservoir-dogs/project-config": "1.0.0",
-    "typescript": "^3.6.3"
+    "typescript": "^3.7.2"
   },
   "private": true
 }
