@@ -19,23 +19,38 @@ const deleteNonASCIICharacters = (text: string): string => {
     return text.replace(NON_ASCII_CHARACTERS, '');
 };
 
-const getHTMLStringContent = (htmlElement: HTMLElement): string => {
+const getHTMLStringContent = (outerHTML: string, options: HtmlToTextOptions = {}): string => {
+    const ignoredSelectors = options.ignoredSelectors || [];
     const text =
-        htmlToText.fromString(htmlElement.outerHTML, {
+        htmlToText.fromString(outerHTML, {
             wordwrap: false,
             ignoreHref: true,
             ignoreImage: true,
+            preserveNewlines: true,
+            ...options,
+            ignoredSelectors: ['figure', ...ignoredSelectors],
         }) || '';
 
     return deleteNonASCIICharacters(text);
 };
 
-const commonParser = (document: Document, selector = 'article'): ParserResponse => {
-    const BODY_SELECTOR = 'body';
-    const htmlElements = Array.from(document.querySelectorAll(selector)) as HTMLElement[];
-    const content = htmlElements.map(getHTMLStringContent).filter((htmlElement) => htmlElement !== '');
+const getHtmlElements = (selector: string): HTMLElement[] => {
+    return Array.from(document.querySelectorAll(selector)) as HTMLElement[];
+};
 
-    const text = content.join(' ').trim();
+const getText = (outerHTMLs: string[], options: HtmlToTextOptions = {}): string => {
+    const content = outerHTMLs
+        .map((outerHTML) => getHTMLStringContent(outerHTML, options))
+        .filter((text) => text !== '');
+
+    return content.join(' ').trim();
+};
+
+const commonParser = (document: Document, selector = 'article', options: HtmlToTextOptions = {}): ParserResponse => {
+    const BODY_SELECTOR = 'body';
+    const htmlElements = getHtmlElements(selector);
+    const outerHTMLs = htmlElements.map(({ outerHTML }) => outerHTML);
+    const text = getText(outerHTMLs, options);
 
     if (text !== '' || selector === BODY_SELECTOR) {
         return { text, htmlElements };
@@ -52,6 +67,10 @@ const parserByURLS: ParserByURL[] = [
     {
         url: /cnn.com/,
         parser: (document) => commonParser(document, '.l-container'),
+    },
+    {
+        url: /bloomberg.com/,
+        parser: (document) => commonParser(document, '.middle-column', { ignoredSelectors: ['.left-column'] }),
     },
 ];
 

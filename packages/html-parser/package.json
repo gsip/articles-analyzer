@@ -9,11 +9,8 @@
     "lint": "npx eslint './src/**/*.ts'"
   },
   "author": "",
-  "devDependencies": {
-    "@types/html-to-text": "^1.4.31"
-  },
   "dependencies": {
-    "html-to-text": "^5.1.1",
+    "html-to-text": "git+https://git@github.com/ledamint/node-html-to-text.git#ignore-selectors",
     "@reservoir-dogs/project-config": "1.0.0",
     "typescript": "^3.7.2"
   },
