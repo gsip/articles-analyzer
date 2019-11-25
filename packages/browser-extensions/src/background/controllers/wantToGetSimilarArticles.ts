@@ -16,17 +16,16 @@ const getSelectedTab = (): Promise<chrome.tabs.Tab | null> => {
     });
 };
 
-const callback = memoize(
-    async (url: string, nerEntities: NEREntities): Promise<ArticleMeta[]> => {
+const getSuitableArticles = memoize(
+    async (url: string, nerEntities: NEREntities, count = 3): Promise<ArticleMeta[]> => {
         const mainKeywords = getMainKeywords(nerEntities);
         const urlObject = new URL(url);
         const articlesMeta = await getArticlesMeta(mainKeywords, urlObject.hostname, 4);
+        const articlesMetaWithoutCurrentArticle = articlesMeta.filter(
+            (articleMeta) => !articleMeta.url.includes(urlObject.origin + urlObject.pathname),
+        );
 
-        return articlesMeta
-            .filter((articleMeta) => {
-                return !articleMeta.url.includes(urlObject.origin + urlObject.pathname);
-            })
-            .slice(0, 3);
+        return articlesMetaWithoutCurrentArticle.slice(0, count);
     },
 );
 
@@ -42,7 +41,7 @@ export const initializeWantToGetSimilarArticles = (): void => {
                 return [];
             }
 
-            return callback(tab.url, action.payload);
+            return getSuitableArticles(tab.url, action.payload);
         },
     );
 };

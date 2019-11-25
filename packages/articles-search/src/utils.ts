@@ -1,3 +1,5 @@
-export const startFrom = (text: string, start: string): string => {
-    return start + text.split(start)[1];
+export const sliceFrom = (text: string, start: string): string => {
+    const startIndex = text.indexOf(start);
+
+    return text.slice(startIndex);
 };

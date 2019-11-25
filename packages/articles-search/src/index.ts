@@ -1,5 +1,5 @@
 import cheerio from 'cheerio';
-import { startFrom } from './utils';
+import { sliceFrom } from './utils';
 import nodeFetch from 'node-fetch';
 import { URLS } from './config';
 
@@ -17,18 +17,18 @@ const getFetch = (): typeof nodeFetch | typeof fetch => {
     return fetch;
 };
 
-const getText = ($element: Cheerio): string => {
-    return $element.text().trim();
+const getText = (element: Cheerio): string => {
+    return element.text().trim();
 };
 
-const getUrl = ($element: Cheerio): string => {
-    const url = $element.attr('href');
+const getUrl = (element: Cheerio): string => {
+    const url = element.attr('href');
 
     if (!url) {
         return '';
     }
 
-    return decodeURIComponent(startFrom(url, 'http').trim());
+    return decodeURIComponent(sliceFrom(url, 'http').trim());
 };
 
 export const getArticlesMeta = async (queries: string[], site?: string, count = 3): Promise<ArticleMeta[]> => {

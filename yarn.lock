@@ -2397,11 +2397,6 @@
     "@types/minimatch" "*"
     "@types/node" "*"
 
-"@types/html-to-text@^1.4.31":
-  version "1.4.31"
-  resolved "https://registry.yarnpkg.com/@types/html-to-text/-/html-to-text-1.4.31.tgz#3b73aa59f127551cc0ce615346caa730e7622f9f"
-  integrity sha512-9vTFw6vYZNnjPOep9WRXs7cw0vg04pAZgcX9bqx70q1BNT7y9sOJovpbiNIcSNyHF/6LscLvGhtb5Og1T0UEvA==
-
 "@types/http-assert@*":
   version "1.5.1"
   resolved "https://registry.yarnpkg.com/@types/http-assert/-/http-assert-1.5.1.tgz#d775e93630c2469c2f980fc27e3143240335db3b"
@@ -7171,10 +7166,9 @@ html-minifier@^3.2.3, html-minifier@^3.5.20:
     relateurl "0.2.x"
     uglify-js "3.4.x"
 
-html-to-text@^5.1.1:
+"html-to-text@git+https://git@github.com/ledamint/node-html-to-text.git#ignore-selectors":
   version "5.1.1"
-  resolved "https://registry.yarnpkg.com/html-to-text/-/html-to-text-5.1.1.tgz#2d89db7bf34bc7bcb7d546b1b228991a16926e87"
-  integrity sha512-Bci6bD/JIfZSvG4s0gW/9mMKwBRoe/1RWLxUME/d6WUSZCdY7T60bssf/jFf7EYXRyqU4P5xdClVqiYU0/ypdA==
+  resolved "git+https://git@github.com/ledamint/node-html-to-text.git#a5671a0d225a03ca630144ac33992acecd514c96"
   dependencies:
     he "^1.2.0"
     htmlparser2 "^3.10.1"
