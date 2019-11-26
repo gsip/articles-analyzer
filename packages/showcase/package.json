@@ -13,21 +13,14 @@
   "devDependencies": {
     "@reservoir-dogs/project-config": "1.0.0",
     "@types/node": "^12.7.5",
-    "@typescript-eslint/eslint-plugin": "^2.2.0",
-    "@typescript-eslint/parser": "^2.2.0",
-    "eslint": "^6.4.0",
-    "eslint-config-prettier": "^6.1.0",
-    "eslint-plugin-prettier": "^3.1.1",
-    "eslint-plugin-import": "^2.18.2",
-    "prettier": "^1.18.2",
     "@types/koa": "^2.0.49",
     "@types/koa-router": "^7.0.42",
     "@types/koa-bodyparser": "^4.2.1",
-    "nodemon": "^1.19.4",
-    "typescript": "^3.6.3",
-    "ts-node": "^8.4.1",
     "@types/dotenv": "^6.1.1",
-    "@types/node-fetch": "^2.5.2"
+    "@types/node-fetch": "^2.5.2",
+    "nodemon": "^1.19.4",
+    "typescript": "^3.7.2",
+    "ts-node": "^8.4.1"
   },
   "dependencies": {
     "koa": "^2.8.1",

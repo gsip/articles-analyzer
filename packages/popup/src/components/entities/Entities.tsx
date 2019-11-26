@@ -1,7 +1,6 @@
 import React from 'react';
 import { Word } from '../word';
-import { NERConfig, NEREntity } from '@reservoir-dogs/model';
-import { NEREntities } from '../../types';
+import { NERConfig, NEREntity, NEREntities } from '@reservoir-dogs/model';
 
 type Props = {
     entities: NEREntities;

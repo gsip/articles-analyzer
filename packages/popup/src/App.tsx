@@ -1,32 +1,45 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { messenger } from '@reservoir-dogs/browser-transport';
-import { CommonTextResponse, parsePageRequest, keywordPopupClick } from '@reservoir-dogs/model';
+import {
+    CommonTextResponse,
+    parsePageRequest,
+    keywordPopupClick,
+    wantToGetSimilarArticles,
+    NEREntities,
+} from '@reservoir-dogs/model';
 import { PenguinLoader } from './components/penguinLoader/PenguinLoader';
 import { Summary } from './components/summary/Summary';
 import { Entities } from './components/entities/Entities';
-import { NEREntities } from './types';
+import { Articles } from './components/articles/Articles';
 import './styles.scss';
+import { ArticleMeta } from '@reservoir-dogs/articles-search';
 
 const LOADER_DELAY_TIME = 150;
 
 export const App: React.FC = () => {
     const [entities, setEntities] = useState<NEREntities>([]);
     const [summary, setSummary] = useState('');
+    const [articlesMeta, setArticlesMeta] = useState<ArticleMeta[]>([]);
 
     const handleWordClick = useCallback((title) => messenger.sendToActiveTab(keywordPopupClick(title)), []);
 
     useEffect(() => {
-        (async () => {
-            const { ner, summary } = await messenger.sendToActiveTab<CommonTextResponse>(parsePageRequest());
+        messenger
+            .sendToActiveTab<CommonTextResponse>(parsePageRequest())
+            .then(({ ner, summary }) => {
+                setSummary(summary);
 
-            setSummary(summary);
+                if (!ner) {
+                    return [];
+                }
 
-            if (ner) {
-                const entities: NEREntities = Object.entries(ner);
+                const nerEntities = Object.entries(ner);
+                setEntities(nerEntities);
 
-                setEntities(entities);
-            }
-        })();
+                return nerEntities;
+            })
+            .then((nerEntities) => messenger.send<ArticleMeta[]>(wantToGetSimilarArticles(nerEntities)))
+            .then(setArticlesMeta);
     }, []);
 
     return (
@@ -38,6 +51,7 @@ export const App: React.FC = () => {
                     <>
                         <Summary summary={summary} />
                         <Entities entities={entities} onWordClick={handleWordClick} />
+                        <Articles articlesMeta={articlesMeta} />
                     </>
                 )}
             </div>
