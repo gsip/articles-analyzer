@@ -28,7 +28,9 @@ const getUrl = (element: Cheerio): string => {
         return '';
     }
 
-    return decodeURIComponent(sliceFrom(url, 'http').trim());
+    const cutURL = sliceFrom(url, 'http').trim();
+
+    return decodeURIComponent(cutURL);
 };
 
 export const getArticlesMeta = async (queries: string[], site?: string, count = 3): Promise<ArticleMeta[]> => {
