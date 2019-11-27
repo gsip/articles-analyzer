@@ -32,6 +32,8 @@ async function parsePage(href: string): Promise<CommonTextResponse | undefined> 
         return;
     }
 
+    console.log(text); // Very useful. This schedule should be while the project is being developed.
+
     const response = await messenger.send<CommonTextResponse>(extractRequest(text));
 
     if (!response) {
