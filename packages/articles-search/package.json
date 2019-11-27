@@ -1,5 +1,5 @@
 {
-  "name": "@reservoir-dogs/browser-transport",
+  "name": "@reservoir-dogs/articles-search",
   "version": "1.0.0",
   "description": "",
   "main": "dist/index.js",
@@ -9,9 +9,14 @@
     "lint": "npx eslint './src/**/*.ts'"
   },
   "author": "",
+  "devDependencies": {
+    "@types/cheerio": "^0.22.14"
+  },
   "dependencies": {
     "@reservoir-dogs/project-config": "1.0.0",
-    "typescript": "^3.7.2"
+    "typescript": "^3.7.2",
+    "cheerio": "^1.0.0-rc.3",
+    "node-fetch": "^2.6.0"
   },
   "private": true
 }
