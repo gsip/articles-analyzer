@@ -8,7 +8,6 @@ const deleteNonASCIICharacters = (text: string): string => {
 };
 
 export const getHTMLStringContent = (outerHTML: string, options: HtmlToTextOptions = {}): string => {
-    const ignoredSelectors = options.ignoredSelectors || [];
     const text =
         htmlToText.fromString(outerHTML, {
             wordwrap: false,
@@ -16,7 +15,6 @@ export const getHTMLStringContent = (outerHTML: string, options: HtmlToTextOptio
             ignoreImage: true,
             preserveNewlines: true,
             ...options,
-            ignoredSelectors: ['figure', ...ignoredSelectors],
         }) || '';
 
     return deleteNonASCIICharacters(text);
@@ -30,30 +28,18 @@ export const getText = (outerHTMLs: string[], options: HtmlToTextOptions = {}): 
     return content.join(' ').trim();
 };
 
-export function deleteElements(
-    element: Element,
-    elementsToDelete: HTMLCollectionOf<Element> | NodeListOf<Element>,
-): Element {
-    for (let i = elementsToDelete.length - 1; i >= 0; i--) {
-        if (elementsToDelete[i].getAttribute('id') != 'a') {
-            const parentNode = elementsToDelete[i].parentNode;
-            if (parentNode) {
-                parentNode.removeChild(elementsToDelete[i]);
-            }
-        }
-    }
-
-    return element;
+export function deleteElements(elementsToDelete: HTMLCollectionOf<Element> | NodeListOf<Element>): void {
+    Array.from(elementsToDelete).forEach((element) => element.parentNode?.removeChild(element));
 }
 
-export function deleteElementsBySelector(element: Element, selector: string): Element {
+export function deleteElementsBySelector(element: Element, selector: string): void {
     const elementsToDelete = element.querySelectorAll(selector);
-    return deleteElements(element, elementsToDelete);
+    deleteElements(elementsToDelete);
 }
 
-export function deleteElementsByTagName(element: Element, selector: string): Element {
+export function deleteElementsByTagName(element: Element, selector: string): void {
     const elementsToDelete = element.getElementsByTagName(selector);
-    return deleteElements(element, elementsToDelete);
+    deleteElements(elementsToDelete);
 }
 
 export const getHtmlElements = (doc: Document | Element, selector: string): HTMLElement[] => {
@@ -61,6 +47,6 @@ export const getHtmlElements = (doc: Document | Element, selector: string): HTML
 };
 
 export function getPunctuationMarksNumber(element: Element): number {
-    const blocksSeparatedPunctuationMarks = element.textContent ? element.textContent.split(/[,.!?;:]/) : [];
+    const blocksSeparatedPunctuationMarks = element.textContent?.split(/[,.!?;:]/) || [];
     return blocksSeparatedPunctuationMarks.length;
 }

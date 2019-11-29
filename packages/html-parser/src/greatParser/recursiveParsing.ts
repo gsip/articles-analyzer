@@ -1,10 +1,10 @@
 import { getPunctuationMarksNumber } from '../utils/parser';
 
 const MIN_TEXT_LENGTH_IN_NODE = 200;
-const MAX_TEXT_LENGTH_DIFFERENCE_WHICH_PREFER_CHILD = 0.6;
+const MAX_TEXT_LENGTH_DIFFERENCE_COEFFICIENT_WHEN_WE_PREFER_CHILD = 0.6;
 const MIN_PUNCTUATION_MARKS_LENGTH = 5;
 
-type RType = {
+type NodeMetadata = {
     deep: number;
     maxDeep: number;
     element: ChildNode;
@@ -12,25 +12,25 @@ type RType = {
     textWeight: number;
 };
 
-const bestResults: RType[] = [];
+const bestResults: NodeMetadata[] = [];
 
-function parseLeaf(element: Element, deep = 0, textWeight: number): RType {
+function parseLeaf(element: Element, deep = 0, textWeight: number): NodeMetadata {
     return {
         deep,
         element,
-        textLength: element.textContent ? element.textContent.length : 0,
+        textLength: element.textContent?.length || 0,
         textWeight,
         maxDeep: deep,
     };
 }
 
-function parseNonLeaf(element: Element, deep = 0, textWeight: number): RType {
+function parseNonLeaf(element: Element, deep: number, textWeight: number): NodeMetadata {
     const result = Array.from(element.children)
         // eslint-disable-next-line @typescript-eslint/no-use-before-define
         .map((node: Element) => parseNode(node, deep + 1))
-        .filter((result): result is RType => result !== undefined && result !== null)
+        .filter((result): result is NodeMetadata => result !== undefined && result !== null)
         .reduce(
-            (acc: RType, rtype: RType) => {
+            (acc: NodeMetadata, rtype: NodeMetadata) => {
                 return {
                     ...acc,
                     textLength: acc.textLength + rtype.textLength,
@@ -50,7 +50,7 @@ function parseNonLeaf(element: Element, deep = 0, textWeight: number): RType {
     return result;
 }
 
-function parseNode(element: Element, deep = 0): RType | null {
+function parseNode(element: Element, deep = 0): NodeMetadata | null {
     if (element.children.length === 0) {
         return parseLeaf(element, deep, getPunctuationMarksNumber(element));
     }
@@ -77,21 +77,16 @@ export function getBestElement(element: Element): Element | null {
         return null;
     }
 
-    bestResults.sort((left: RType, right: RType): number => {
-        return right.textLength - left.textLength;
-    });
+    bestResults.sort((left, right) => right.textLength - left.textLength);
 
-    if (!bestResults || !bestResults.length) {
+    if (!bestResults?.length) {
         return null;
     }
-    let best = bestResults[0];
-    for (let i = 1; i < bestResults.length; i++) {
-        if (bestResults[i].textLength / best.textLength < MAX_TEXT_LENGTH_DIFFERENCE_WHICH_PREFER_CHILD) {
-            break;
-        }
 
-        best = bestResults[i];
-    }
+    const best = bestResults.reduce((best, value) => {
+        const textLengthDifference = value.textLength / best.textLength;
+        return textLengthDifference < MAX_TEXT_LENGTH_DIFFERENCE_COEFFICIENT_WHEN_WE_PREFER_CHILD ? best : value;
+    }, bestResults[0]);
 
     return best.element as Element;
 }

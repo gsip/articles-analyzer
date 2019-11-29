@@ -3,7 +3,7 @@ import { deleteElementsByTagName, deleteElementsBySelector, getText } from '../u
 import { getRootContentNode } from './rootNode';
 import { getBestElement } from './recursiveParsing';
 
-function removeNonSemanticElements(element: Element): Element {
+function excludeNonSemanticElements(element: Element): Element {
     const clonedElement = element.cloneNode(true) as Element;
 
     deleteElementsByTagName(clonedElement, 'script');
@@ -24,7 +24,7 @@ function removeNonSemanticElements(element: Element): Element {
 export const greatParser: Parser = (doc: Document, selector?: string, options?: HtmlToTextOptions): ParserResponse => {
     const rootContentNode = getRootContentNode(doc, selector);
 
-    const rootContentNodeWithoutNonSemanticElements = removeNonSemanticElements(rootContentNode);
+    const rootContentNodeWithoutNonSemanticElements = excludeNonSemanticElements(rootContentNode);
 
     const result = rootContentNodeWithoutNonSemanticElements
         ? getBestElement(rootContentNodeWithoutNonSemanticElements)
