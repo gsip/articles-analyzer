@@ -1,7 +1,7 @@
 import { getPunctuationMarksNumber } from '../utils/parser';
 
 const MIN_TEXT_LENGTH_IN_NODE = 200;
-const MAX_TEXT_LENGTH_DIFFERENCE_COEFFICIENT_WHEN_WE_PREFER_CHILD = 0.6;
+const TEXT_LENGTH_DIFFERENCE_COEFFICIENT_TO_PREFER_CHILD = 0.6;
 const MIN_PUNCTUATION_MARKS_LENGTH = 5;
 
 type NodeMetadata = {
@@ -30,11 +30,11 @@ function parseNonLeaf(element: Element, deep: number, textWeight: number): NodeM
         .map((node: Element) => parseNode(node, deep + 1))
         .filter((result): result is NodeMetadata => result !== undefined && result !== null)
         .reduce(
-            (acc: NodeMetadata, rtype: NodeMetadata) => {
+            (acc: NodeMetadata, nodeMetadata: NodeMetadata) => {
                 return {
                     ...acc,
-                    textLength: acc.textLength + rtype.textLength,
-                    maxDeep: Math.max(acc.maxDeep, rtype.maxDeep),
+                    textLength: acc.textLength + nodeMetadata.textLength,
+                    maxDeep: Math.max(acc.maxDeep, nodeMetadata.maxDeep),
                 };
             },
             {
@@ -85,7 +85,7 @@ export function getBestElement(element: Element): Element | null {
 
     const best = bestResults.reduce((best, value) => {
         const textLengthDifference = value.textLength / best.textLength;
-        return textLengthDifference < MAX_TEXT_LENGTH_DIFFERENCE_COEFFICIENT_WHEN_WE_PREFER_CHILD ? best : value;
+        return textLengthDifference < TEXT_LENGTH_DIFFERENCE_COEFFICIENT_TO_PREFER_CHILD ? best : value;
     }, bestResults[0]);
 
     return best.element as Element;

@@ -6,16 +6,12 @@ import { getBestElement } from './recursiveParsing';
 function excludeNonSemanticElements(element: Element): Element {
     const clonedElement = element.cloneNode(true) as Element;
 
-    deleteElementsByTagName(clonedElement, 'script');
-    deleteElementsByTagName(clonedElement, 'figure');
-    deleteElementsByTagName(clonedElement, 'iframe');
-    deleteElementsByTagName(clonedElement, 'img');
-    deleteElementsByTagName(clonedElement, 'header');
-    deleteElementsByTagName(clonedElement, 'footer');
-    deleteElementsByTagName(clonedElement, 'aside');
-    deleteElementsByTagName(clonedElement, 'table');
-    deleteElementsByTagName(clonedElement, 'nav');
-    deleteElementsByTagName(clonedElement, 'ul');
+    ['script', 'figure', 'iframe', 'img', 'header', 'footer', 'aside', 'table', 'nav', 'ul'].forEach(
+        (name: string): void => {
+            deleteElementsByTagName(clonedElement, name);
+        },
+    );
+
     deleteElementsBySelector(clonedElement, '[aria-hidden=true]');
 
     return clonedElement;
