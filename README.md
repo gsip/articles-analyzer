@@ -1,46 +1,51 @@
 # articles-summary
+The plugin extracts important information from the text on the open page
+and searches for relevant information on other pages of the site.
 
-Плагин извлекает ключевую информацию из текста на открытой странице и ищет релевантную информацию в интернете
+What information does the plugin get:
+ - Summary
+ - Keywords ()
+ - See also
+ 
+Summary - Summary of the text.
+Keywords - Commonly mentioned entities (people, places, dates).
+See also - Similar pages from the same resource.
 
-Дизайна пока нет. Скорее всего будет выглядеть как боковая панель, расширяющаяся от правого края экрана. Внутри панели столбиком расположены логические части.
+## Information
+What information does the plugin get:
+### Summary
+Summary of the text.
 
+### Keywords
+Keywords divided into groups:
+ - Absolute or relative dates or periods.
+ - Countries, cities, states.
+ - Non-GPE locations, mountain ranges, bodies of water.
+ - Companies, agencies, institutions, etc.
+ - People, including fictional.
+ - Times smaller than a day.
+ - ...
+ 
+### See also
+Pages on the same resource with similar keywords.
 
-Какую информацию позволяет получить плагин:
+## Frontend: 
+Determines which text on the page is the main then 
+sends it to the backend.
+Highlights keywords on the page.
+Find pages on the same resource with similar keywords.
 
+## Backend:
+1. Waiting for requests from the front
+2. Upon receipt of the text, returns the token by which the front checks the results
+3. Starts extracting entities / summary in parallel
+4. When requested from the front, returns updates
 
-Часто упоминаемые сущности (люди, места, даты)
-Доп информация из гугла об этих сущностях
-Summary - краткое содержание текста. Пока что качество таких саммари не очень высокое
-
-## Фронтенд: 
-определяет, какой текст на странице является главным
-отправляет его на бэкэнд
-проверяет результат, периодически отправляя запросы, либо держит открытым вебсокет TBD
-после получения каждого отдельного блока - отображает его в боковой панели
-
-
-Изначально панель скрыта - открывается только после получения первых результатов от бэка. До этого кнопка плагина в панели управления браузера отображает текущее состояние.
-
-## Бэкэнд:
-1. Ждёт запросы от фронта
-2. При получении текста, возвращает токен, по которому фронт проверяет результаты
-3. Начинает параллельно извлекать сущности/саммари/гуглить
-4. При запросе с фронта возвращает обновления
-
-![Image description](scheme.png)
-
-Браузеры: Chromium, Safari, firefox(?)
-
-## Технолоджис
-Node.js + Python (для машин лёрнинг) на бэкенде, ебашим микросервисы докер+кубернетис на Google Cloud, сразу пишем тесты и настраиваем CI/DI
-В кубернетис я пока что не умею, но интересно поучиться на простом примере. В ноде я тоже совсем немного разбирался, но думаю, прошарюсь.
-
-
-## Зачем всё это:
-Особого денежного выхлопа от этого проекта я не жду, но есть возможность
-1. Сделать качественный проект, про который не стыдно рассказать.
-2. Научиться друг у друга чему-то
-3. Если удастся договориться с Розой (мой бывший шеф в стартапе), поучимся работать с пиндосами🇺🇸, ну и будем сами диктовать свои правила.
+## Used technologies
+ - Node.js
+ - Python (Machine learning)
+ - Typescript
+ - React
 
 ## Branches
 Please use branch naming using the initials of a project name and an issue id. For example, if a project is `Articles Summary` and an issue id is `7` branch will be `AS-7`. 
@@ -65,6 +70,7 @@ The Browser extension is compiled to `packages/browser-extensions/dist`.
 
 ## Download to browser
 ![chrome](https://c.radikal.ru/c22/1909/b1/f2ac29fffad4.png)
+Build folder: `packages/browser-extensions/dist`
 
 ## Google Cloud configuration
 1. Install gcloud
