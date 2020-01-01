@@ -3,8 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
+    "deploy": "heroku container:push web -a rd-summ && heroku container:release web -a rd-summ",
     "build": "docker build -t summarization:v1.0 .",
-    "start": "docker run -p 5002:5000 summarization:v1.0"
+    "start": "docker run -e PORT=5000 -p 5002:5000 summarization:v1.0"
   },
   "author": "",
   "private": true
