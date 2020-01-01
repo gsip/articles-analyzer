@@ -14,9 +14,6 @@ ENV VIRTUAL_ENV=/opt/venv
 RUN python3 -m virtualenv $VIRTUAL_ENV
 ENV PATH="$VIRTUAL_ENV/bin:$PATH"
 
-# Install http server
-RUN pip install gunicorn
-
 # Install dependencies
 COPY requirements.txt requirements.txt
 RUN pip install -r requirements.txt
@@ -31,6 +28,5 @@ ENV FLASK_APP app.py
 RUN chown -R dog:dog ./
 USER dog
 
-EXPOSE 5000
-
-ENTRYPOINT ["./boot.sh"]
+#ENTRYPOINT ["./boot.sh"]
+CMD gunicorn -b 0.0.0.0:$PORT --access-logfile - --error-logfile - app:app
