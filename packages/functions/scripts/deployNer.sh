@@ -1,1 +1,0 @@
-gcloud beta functions deploy ner --vpc-connector projects/articles-summary-239/locations/us-central1/connectors/gf2gce --set-env-vars NER_API=NER_API

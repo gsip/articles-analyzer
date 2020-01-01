@@ -8,8 +8,7 @@
     "build": "npx lerna run build '--ignore=@reservoir-dogs/*(ner|summarization)' --stream",
     "build:docker": "npx lerna run build '--scope=@reservoir-dogs/*(ner|summarization)' --stream",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "lint": "npx lerna run lint",
-    "deploy-ner": "gcloud app deploy packages/ner/app.yaml"
+    "lint": "npx lerna run lint"
   },
   "author": "",
   "private": true,
