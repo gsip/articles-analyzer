@@ -11,6 +11,7 @@ This is a mono repository of browser extension which can analyze any web page an
  - Typescript
  - React
  - Node.js
+ - Docker
  - Python
  - Heroku
 
