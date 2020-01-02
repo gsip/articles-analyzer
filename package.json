@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "npx lerna run start '--ignore=@reservoir-dogs/*(functions|showcase)' --stream --parallel",
-    "build": "npx lerna run build '--ignore=@reservoir-dogs/*(ner|summarization)' --stream",
-    "build:docker": "npx lerna run build '--scope=@reservoir-dogs/*(ner|summarization)' --stream",
+    "start": "npx lerna run start '--ignore=@reservoir-dogs/*(showcase)' --stream --parallel",
+    "build": "npx lerna run build --stream",
+    "build-ci": "npx lerna run build '--ignore=@reservoir-dogs/*(ner|summarization)' --stream",
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "npx lerna run lint"
   },
