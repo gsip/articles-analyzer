@@ -19,7 +19,7 @@ jobs: # a collection of steps
             - ~/.cache/yarn
       - run:
           run: build
-          command: yarn run build
+          command: yarn run build-ci
       - run:
           name: lint
           command: yarn run lint

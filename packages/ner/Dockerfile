@@ -14,16 +14,12 @@ ENV VIRTUAL_ENV=/opt/venv
 RUN python3 -m virtualenv $VIRTUAL_ENV
 ENV PATH="$VIRTUAL_ENV/bin:$PATH"
 
-# Install http server
-RUN pip install gunicorn
-
 # Install dependencies
 COPY requirements.txt requirements.txt
 RUN pip install -r requirements.txt
 
 # Copy py-files
-COPY app.py entities_converter.py boot.sh ./
-RUN chmod +x boot.sh
+COPY app.py entities_converter.py ./
 
 # Specify app to run (if we run `python app.py` it'll start in development mode)
 ENV FLASK_APP app.py
@@ -31,6 +27,4 @@ ENV FLASK_APP app.py
 RUN chown -R dog:dog ./
 USER dog
 
-EXPOSE 5000
-
-ENTRYPOINT ["./boot.sh"]
+CMD gunicorn -b 0.0.0.0:$PORT --access-logfile - --error-logfile - app:app

@@ -3,8 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
+    "deploy": "heroku container:push web -a rd-ner && heroku container:release web -a rd-ner",
     "build": "docker build -t ner:v1.0 .",
-    "start": "docker run -p 5001:5000 ner:v1.0"
+    "start": "docker run -e PORT=5000 -p 5001:5000 ner:v1.0"
   },
   "author": "",
   "private": true
