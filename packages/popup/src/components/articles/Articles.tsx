@@ -15,9 +15,9 @@ const getHostname = (url: string): string => {
     }
 };
 
-export function Articles({ articlesMeta = [] }: Props): React.ReactElement | string {
+export function Articles({ articlesMeta = [] }: Props): React.ReactElement {
     if (articlesMeta.length === 0) {
-        return 'Nothing found ¯\\_(ツ)_/¯';
+        return <span>Nothing found ¯\\_(ツ)_/¯</span>;
     }
 
     return (
