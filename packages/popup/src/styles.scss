@@ -78,24 +78,24 @@ h3 {
 
 .nav-link {
   color: black;
-  text-decoration: none;
-  border: solid 1px;
-  border-bottom: none;
-
   background: #28a745;
-  width: 140px;
-  height: 40px;
-  margin-right: 10px;
+  text-decoration: none;
 
   display: flex;
   align-items: center;
   justify-content: center;
 
+  width: 140px;
+  height: 40px;
+  margin-right: 10px;
+
+  border: solid 1px;
+  border-bottom: none;
+
   border-top-left-radius: 4px;
   border-top-right-radius: 30px;
 
   &.active {
-    color: black;
     font-weight: bold;
     background: white;
   }
