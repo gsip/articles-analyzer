@@ -3,11 +3,7 @@ export type ParserResponse = {
     htmlElements: HTMLElement[];
 };
 
-export type Parser = (
-    document: Document,
-    selector?: string,
-    options?: { ignoredSelectors: string[] },
-) => ParserResponse;
+export type Parser = (document: Document, selector?: string, options?: HtmlToTextOptions) => ParserResponse;
 
 export interface ParserByURL {
     url: RegExp;

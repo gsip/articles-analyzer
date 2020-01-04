@@ -12,7 +12,7 @@ const parserByURLS: ParserByURL[] = [
     },
     {
         url: /bloomberg.com/,
-        parser: (document) => greatParser(document, '.middle-column', { ignoredSelectors: ['.left-column'] }),
+        parser: (document) => greatParser(document, '.middle-column'),
     },
 ];
 
