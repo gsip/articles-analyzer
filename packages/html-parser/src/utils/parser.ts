@@ -14,6 +14,7 @@ export const getHTMLStringContent = (outerHTML: string, options: HtmlToTextOptio
             ignoreHref: true,
             ignoreImage: true,
             preserveNewlines: true,
+            uppercaseHeadings: false,
             ...options,
         }) || '';
 
