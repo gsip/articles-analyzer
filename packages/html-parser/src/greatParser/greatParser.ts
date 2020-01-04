@@ -1,16 +1,24 @@
 import { Parser, ParserResponse } from '../types';
-import { deleteElementsByTagName, deleteElementsBySelector, getText } from '../utils/parser';
+import {
+    deleteElementsByTagName,
+    deleteElementsBySelector,
+    getText,
+    deleteElementsByTagNameAndMinTextLength,
+} from '../utils/parser';
 import { getRootContentNode } from './rootNode';
 import { getBestElement } from './recursiveParsing';
 
 function filterNotSemanticElements(element: Element): Element {
+    const MIN_TEXT_LENGTH = 400;
     const clonedElement = element.cloneNode(true) as Element;
 
-    ['script', 'figure', 'iframe', 'img', 'header', 'footer', 'aside', 'table', 'nav', 'ul'].forEach(
-        (name: string): void => {
-            deleteElementsByTagName(clonedElement, name);
-        },
-    );
+    ['script', 'figure', 'iframe', 'img', 'header', 'footer', 'aside', 'table', 'nav'].forEach((name: string): void => {
+        deleteElementsByTagName(clonedElement, name);
+    });
+
+    ['ul'].forEach((name: string): void => {
+        deleteElementsByTagNameAndMinTextLength(clonedElement, name, MIN_TEXT_LENGTH);
+    });
 
     deleteElementsBySelector(clonedElement, '[aria-hidden=true]');
 
