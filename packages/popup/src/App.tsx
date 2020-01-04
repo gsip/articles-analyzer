@@ -1,5 +1,7 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { messenger } from '@reservoir-dogs/browser-transport';
+import { ArticleMeta } from '@reservoir-dogs/articles-search';
+import { Router, navigate } from '@reach/router';
 import {
     CommonTextResponse,
     parsePageRequest,
@@ -11,8 +13,8 @@ import { PenguinLoader } from './components/penguinLoader/PenguinLoader';
 import { Summary } from './components/summary/Summary';
 import { Entities } from './components/entities/Entities';
 import { Articles } from './components/articles/Articles';
+import { NavLink } from './components/NavLink';
 import './styles.scss';
-import { ArticleMeta } from '@reservoir-dogs/articles-search';
 
 const LOADER_DELAY_TIME = 150;
 
@@ -24,6 +26,9 @@ export const App: React.FC = () => {
     const handleWordClick = useCallback((title) => messenger.sendToActiveTab(keywordPopupClick(title)), []);
 
     useEffect(() => {
+        const path = '/' + (localStorage.getItem('path') || 'keywords');
+        navigate(path);
+
         messenger
             .sendToActiveTab<CommonTextResponse>(parsePageRequest())
             .then(({ ner, summary }) => {
@@ -48,11 +53,18 @@ export const App: React.FC = () => {
                 {!summary || !entities ? (
                     <PenguinLoader delay={LOADER_DELAY_TIME} />
                 ) : (
-                    <>
-                        <Summary summary={summary} />
-                        <Entities entities={entities} onWordClick={handleWordClick} />
-                        <Articles articlesMeta={articlesMeta} />
-                    </>
+                    <div>
+                        <div className="links">
+                            <NavLink to="summary">Summary</NavLink>
+                            <NavLink to="keywords">Keywords</NavLink>
+                            <NavLink to="see-also">See also</NavLink>
+                        </div>
+                        <Router>
+                            <Summary summary={summary} path="summary" />
+                            <Entities entities={entities} onWordClick={handleWordClick} path="keywords" />
+                            <Articles articlesMeta={articlesMeta} path="see-also" />
+                        </Router>
+                    </div>
                 )}
             </div>
         </div>

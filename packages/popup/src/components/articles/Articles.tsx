@@ -1,7 +1,8 @@
 import React from 'react';
 import { ArticleMeta } from '@reservoir-dogs/articles-search';
+import { RouteComponentProps } from '@reach/router';
 
-type Props = {
+type Props = RouteComponentProps & {
     articlesMeta: ArticleMeta[];
 };
 
@@ -14,17 +15,16 @@ const getHostname = (url: string): string => {
     }
 };
 
-export function Articles({ articlesMeta = [] }: Props): React.ReactElement | null {
+export function Articles({ articlesMeta = [] }: Props): React.ReactElement {
     if (articlesMeta.length === 0) {
-        return null;
+        return <span>Nothing found ¯\\_(ツ)_/¯</span>;
     }
 
     return (
         <div className="articles">
-            <h3>See also</h3>
             <div>
                 {articlesMeta.map(({ title, url, summary }) => (
-                    <div key={title}>
+                    <div className="article" key={title}>
                         <a href={url} target="_blank" rel="noopener noreferrer">
                             <div>
                                 <h4>{title}</h4>
