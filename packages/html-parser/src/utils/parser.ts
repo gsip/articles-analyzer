@@ -7,15 +7,29 @@ const deleteNonASCIICharacters = (text: string): string => {
     return text.replace(NON_ASCII_CHARACTERS, '');
 };
 
+const fixSiblings = (outerHTML: string): string => {
+    const addSpaceAfterDivs = outerHTML.replace(/<\/div>/g, '</div></br>');
+    const addSpaceBeforeDivs = addSpaceAfterDivs.replace(/<div/g, '</br><div');
+
+    return addSpaceBeforeDivs;
+};
+
 export const getHTMLStringContent = (outerHTML: string, options: HtmlToTextOptions = {}): string => {
+    const fixSiblingsOuterHTML = fixSiblings(outerHTML);
+
     const text =
-        htmlToText.fromString(outerHTML, {
-            wordwrap: false,
-            ignoreHref: true,
-            ignoreImage: true,
-            preserveNewlines: true,
-            ...options,
-        }) || '';
+        htmlToText
+            .fromString(fixSiblingsOuterHTML, {
+                wordwrap: false,
+                ignoreHref: true,
+                ignoreImage: true,
+                preserveNewlines: true,
+                uppercaseHeadings: false,
+                ...options,
+            })
+            .replace(/\n/g, '\n ')
+            .replace(/\s+/g, ' ')
+            .trim() || '';
 
     return deleteNonASCIICharacters(text);
 };
@@ -40,6 +54,21 @@ export function deleteElementsBySelector(element: Element, selector: string): vo
 export function deleteElementsByTagName(element: Element, selector: string): void {
     const elementsToDelete = element.getElementsByTagName(selector);
     deleteElements(elementsToDelete);
+}
+
+export function deleteElementsByTagNameAndMinTextLength(
+    element: Element,
+    selector: string,
+    minTextLength: number,
+): void {
+    const elementsToDelete = element.getElementsByTagName(selector);
+    const textLength = Array.from(elementsToDelete).reduce((textLength, element) => {
+        return element?.textContent?.length || 0 + textLength;
+    }, 0);
+
+    if (textLength < minTextLength) {
+        deleteElements(elementsToDelete);
+    }
 }
 
 export const getHtmlElements = (doc: Document | Element, selector: string): HTMLElement[] => {
