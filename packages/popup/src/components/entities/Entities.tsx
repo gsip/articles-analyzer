@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Word } from '../word';
 import {
     NERConfig,
@@ -9,29 +9,45 @@ import {
 } from '@reservoir-dogs/model';
 import { RouteComponentProps } from '@reach/router';
 import { messenger } from '@reservoir-dogs/browser-transport';
+import './Entities.scss';
 
 type Props = RouteComponentProps & {
     entities: NEREntities;
     onWordClick: (str: string) => void;
 };
 
-export function Entities({ entities, onWordClick }: Props): React.ReactElement {
+function HighlightColor(): React.ReactElement {
+    const activeColorType = localStorage.getItem('colorType') as ColorType;
+    const [colorType, setColorType] = useState<ColorType>(activeColorType);
+    const setActiveColorType = async (colorType: ColorType): Promise<void> => {
+        await messenger.sendToActiveTab(wantToChangeKeywordsHighlightColor(colorType));
+        localStorage.setItem('colorType', colorType);
+        setColorType(colorType);
+    };
+
     return (
-        <div className="ner">
+        <div className="highlight-page-color">
+            <h4>Highlight page color</h4>
             <button
-                onClick={() => {
-                    messenger.sendToActiveTab(wantToChangeKeywordsHighlightColor(ColorType.MONO));
-                }}
+                className={colorType === ColorType.MONO ? 'active' : ''}
+                onClick={() => setActiveColorType(ColorType.MONO)}
             >
                 Mono
             </button>
             <button
-                onClick={() => {
-                    messenger.sendToActiveTab(wantToChangeKeywordsHighlightColor(ColorType.MULTI));
-                }}
+                className={colorType === ColorType.MULTI ? 'active' : ''}
+                onClick={() => setActiveColorType(ColorType.MULTI)}
             >
                 Multi
             </button>
+        </div>
+    );
+}
+
+export function Entities({ entities, onWordClick }: Props): React.ReactElement {
+    return (
+        <div className="ner">
+            <HighlightColor />
             {entities
                 .filter(([entityName, words]) => {
                     const entity = NERConfig[entityName as keyof typeof NERConfig];

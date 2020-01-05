@@ -30,8 +30,10 @@ export const App: React.FC = () => {
         const path = '/' + (localStorage.getItem('path') || 'keywords');
         navigate(path);
 
+        const colorType = (localStorage.getItem('colorType') as ColorType) || ColorType.MONO;
+
         messenger
-            .sendToActiveTab<CommonTextResponse>(parsePageRequest(ColorType.MONO))
+            .sendToActiveTab<CommonTextResponse>(parsePageRequest(colorType))
             .then(({ ner, summary }) => {
                 setSummary(summary);
 
