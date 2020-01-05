@@ -14,16 +14,20 @@ function addStyle(rule: string): CSSStyleSheet | undefined {
     return sheet;
 }
 
-let sheetWithGray: CSSStyleSheet | void;
+let monoSheet: CSSStyleSheet | void;
 
 export function enableMonoColorize(): void {
     const style = '.articles-summary-keyword { border-bottom: 1px solid #ccc !important; }';
-    sheetWithGray = addStyle(style);
+    if (monoSheet) {
+        monoSheet.disabled = false;
+    } else {
+        monoSheet = addStyle(style);
+    }
 }
 
 export function disableMonoColorize(): void {
-    if (sheetWithGray) {
-        sheetWithGray.deleteRule(0);
+    if (monoSheet) {
+        monoSheet.disabled = true;
     }
 }
 
