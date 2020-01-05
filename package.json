@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "npx lerna run start '--ignore=@reservoir-dogs/*(showcase)' --stream --parallel",
+    "start-no-docker": "npx lerna run start '--ignore=@reservoir-dogs/*(ner|summarization|showcase)' --stream --parallel",
     "build": "npx lerna run build --stream",
     "build-ci": "npx lerna run build '--ignore=@reservoir-dogs/*(ner|summarization)' --stream",
     "test": "echo \"Error: no test specified\" && exit 1",

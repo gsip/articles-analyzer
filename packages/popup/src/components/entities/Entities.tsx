@@ -1,7 +1,8 @@
 import React from 'react';
 import { Word } from '../word';
-import { NERConfig, NEREntity, NEREntities } from '@reservoir-dogs/model';
+import { NERConfig, NEREntity, NEREntities, wantToChangeKeywordsHighlightColor } from '@reservoir-dogs/model';
 import { RouteComponentProps } from '@reach/router';
+import { messenger } from '@reservoir-dogs/browser-transport';
 
 type Props = RouteComponentProps & {
     entities: NEREntities;
@@ -11,6 +12,20 @@ type Props = RouteComponentProps & {
 export function Entities({ entities, onWordClick }: Props): React.ReactElement {
     return (
         <div className="ner">
+            <button
+                onClick={() => {
+                    messenger.sendToActiveTab(wantToChangeKeywordsHighlightColor('mono'));
+                }}
+            >
+                Mono
+            </button>
+            <button
+                onClick={() => {
+                    messenger.sendToActiveTab(wantToChangeKeywordsHighlightColor('multi'));
+                }}
+            >
+                Multi
+            </button>
             {entities
                 .filter(([entityName, words]) => {
                     const entity = NERConfig[entityName as keyof typeof NERConfig];
