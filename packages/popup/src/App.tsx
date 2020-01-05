@@ -8,6 +8,7 @@ import {
     keywordPopupClick,
     wantToGetSimilarArticles,
     NEREntities,
+    ColorType,
 } from '@reservoir-dogs/model';
 import { PenguinLoader } from './components/penguinLoader/PenguinLoader';
 import { Summary } from './components/summary/Summary';
@@ -30,7 +31,7 @@ export const App: React.FC = () => {
         navigate(path);
 
         messenger
-            .sendToActiveTab<CommonTextResponse>(parsePageRequest())
+            .sendToActiveTab<CommonTextResponse>(parsePageRequest(ColorType.MONO))
             .then(({ ner, summary }) => {
                 setSummary(summary);
 

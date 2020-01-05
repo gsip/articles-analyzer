@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 
 import { NEREntities } from '../ner';
+import { ColorType } from '../colorize';
 
 export enum ContentPageEvent {
     KEYWORD_HOVER = 'KEYWORD_HOVER',
@@ -33,7 +34,7 @@ export function wantToGetSimilarArticles(nerEntities: NEREntities) {
     } as const;
 }
 
-export function wantToChangeKeywordsHighlightColor(type: 'multi' | 'mono') {
+export function wantToChangeKeywordsHighlightColor(type: ColorType) {
     return {
         type: PopupPageEvent.WANT_TO_CHANGE_KEYWORDS_HIGHLIGHT_COLOR,
         payload: type,

@@ -1,6 +1,12 @@
 import React from 'react';
 import { Word } from '../word';
-import { NERConfig, NEREntity, NEREntities, wantToChangeKeywordsHighlightColor } from '@reservoir-dogs/model';
+import {
+    NERConfig,
+    NEREntity,
+    NEREntities,
+    wantToChangeKeywordsHighlightColor,
+    ColorType,
+} from '@reservoir-dogs/model';
 import { RouteComponentProps } from '@reach/router';
 import { messenger } from '@reservoir-dogs/browser-transport';
 
@@ -14,14 +20,14 @@ export function Entities({ entities, onWordClick }: Props): React.ReactElement {
         <div className="ner">
             <button
                 onClick={() => {
-                    messenger.sendToActiveTab(wantToChangeKeywordsHighlightColor('mono'));
+                    messenger.sendToActiveTab(wantToChangeKeywordsHighlightColor(ColorType.MONO));
                 }}
             >
                 Mono
             </button>
             <button
                 onClick={() => {
-                    messenger.sendToActiveTab(wantToChangeKeywordsHighlightColor('multi'));
+                    messenger.sendToActiveTab(wantToChangeKeywordsHighlightColor(ColorType.MULTI));
                 }}
             >
                 Multi

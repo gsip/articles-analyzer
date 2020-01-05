@@ -1,4 +1,4 @@
-import { colorizeWords } from '../../modules/markHTML/markHTML';
+import { colorizeWords, enableMonoColorize } from '../../modules/markHTML/markHTML';
 import {
     CommonTextResponse,
     extractRequest,
@@ -6,6 +6,8 @@ import {
     NEREntitiesTypesList,
     NEREntity,
     ParsePageType,
+    ParsePageActionsType,
+    ColorType,
 } from '@reservoir-dogs/model';
 import { messenger } from '@reservoir-dogs/browser-transport';
 import { parseMainContent } from '@reservoir-dogs/html-parser';
@@ -49,5 +51,13 @@ async function parsePage(href: string): Promise<CommonTextResponse | undefined> 
 const memoizedParsePage = memoize((url: string) => parsePage(url));
 
 export const initializeParsePage = (): void => {
-    messenger.subscribe(ParsePageType.PARSE_PAGE_REQUEST, () => memoizedParsePage(location.href));
+    messenger.subscribe(ParsePageType.PARSE_PAGE_REQUEST, async ({ payload: colorType }: ParsePageActionsType) => {
+        const response = await memoizedParsePage(location.href);
+
+        if (colorType === ColorType.MONO) {
+            enableMonoColorize();
+        }
+
+        return response;
+    });
 };
