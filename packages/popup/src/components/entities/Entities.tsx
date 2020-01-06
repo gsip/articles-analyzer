@@ -21,6 +21,7 @@ type HighlightColorProps = { activeColorType: ColorType };
 
 function HighlightColor({ activeColorType }: HighlightColorProps): React.ReactElement {
     const [colorType, setColorType] = useState<ColorType>(activeColorType);
+    // TODO move up or to global state
     const setActiveColorType = async (colorType: ColorType): Promise<void> => {
         await messenger.sendToActiveTab(wantToChangeKeywordsHighlightColor(colorType));
         localStorage.setItem('colorType', colorType);
