@@ -21,7 +21,7 @@ import { Settings } from './components/settings/Settings';
 const LOADER_DELAY_TIME = 150;
 
 export const App: React.FC = () => {
-    const activeColorType = (localStorage.getItem('colorType') as ColorType) || ColorType.MONO;
+    const activeColorType = (localStorage.getItem('colorType') as ColorType) || ColorType.MULTI;
 
     const [entities, setEntities] = useState<NEREntities>([]);
     const [summary, setSummary] = useState('');

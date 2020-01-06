@@ -26,7 +26,7 @@ function HighlightColor({ activeColorType }: HighlightColorProps): React.ReactEl
                     checked={colorType === ColorType.MONO}
                     onChange={useCallback(() => setActiveColorType(ColorType.MONO), [])}
                 />
-                <span>One </span>
+                <span>Gray </span>
             </label>
             <label>
                 <input
