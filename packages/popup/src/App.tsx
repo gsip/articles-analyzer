@@ -3,7 +3,7 @@ import { messenger } from '@reservoir-dogs/browser-transport';
 import { ArticleMeta } from '@reservoir-dogs/articles-search';
 import { Router, navigate } from '@reach/router';
 import {
-    CommonTextResponse,
+    TextMeta,
     parsePageRequest,
     keywordPopupClick,
     wantToGetSimilarArticles,
@@ -33,7 +33,7 @@ export const App: React.FC = () => {
         navigate(path);
 
         messenger
-            .sendToActiveTab<CommonTextResponse>(parsePageRequest(activeColorType))
+            .sendToActiveTab<TextMeta>(parsePageRequest(activeColorType))
             .then(({ ner, summary }) => {
                 setSummary(summary);
 

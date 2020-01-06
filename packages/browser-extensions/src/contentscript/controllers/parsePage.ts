@@ -1,6 +1,6 @@
 import { colorizeWords, enableMonoColorize } from '../../modules/markHTML/markHTML';
 import {
-    CommonTextResponse,
+    TextMeta,
     extractRequest,
     NERConfig,
     NEREntitiesTypesList,
@@ -13,8 +13,8 @@ import { messenger } from '@reservoir-dogs/browser-transport';
 import { parseMainContent } from '@reservoir-dogs/html-parser';
 import { memoize } from 'lodash-es';
 
-function colorizeText(response: CommonTextResponse, htmlElements: HTMLElement[]): void {
-    const NERList = Object.entries(response.ner) as [NEREntitiesTypesList, NEREntity[] | undefined][];
+function colorizeText(textMeta: TextMeta, htmlElements: HTMLElement[]): void {
+    const NERList = Object.entries(textMeta.ner) as [NEREntitiesTypesList, NEREntity[] | undefined][];
 
     NERList.forEach(([NEREntityName, NEREntities]) => {
         const color = NERConfig[NEREntityName] ? NERConfig[NEREntityName].color : '';
@@ -28,7 +28,7 @@ function colorizeText(response: CommonTextResponse, htmlElements: HTMLElement[])
 }
 
 type ParsePageResponse = {
-    response: CommonTextResponse;
+    textMeta: TextMeta;
     htmlElements: HTMLElement[];
 };
 
@@ -42,13 +42,13 @@ async function parsePage(href: string): Promise<ParsePageResponse> {
     // TODO #92: Delete it
     console.log(text); // Very useful. This schedule should be while the project is being developed.
 
-    const response = await messenger.send<CommonTextResponse>(extractRequest(text));
+    const textMeta = await messenger.send<TextMeta>(extractRequest(text));
 
-    if (!response) {
-        throw new Error('response is empty');
+    if (!textMeta) {
+        throw new Error('textMeta is empty');
     }
 
-    return { response, htmlElements };
+    return { textMeta, htmlElements };
 }
 
 const memoizedParsePage = memoize((url: string) => parsePage(url));
@@ -56,14 +56,14 @@ const memoizedParsePage = memoize((url: string) => parsePage(url));
 export const initializeParsePage = (): void => {
     messenger.subscribe(ParsePageType.PARSE_PAGE_REQUEST, async ({ payload: colorType }: ParsePageActionsType) => {
         try {
-            const { response, htmlElements } = await memoizedParsePage(location.href);
+            const { textMeta, htmlElements } = await memoizedParsePage(location.href);
 
-            colorizeText(response, htmlElements);
+            colorizeText(textMeta, htmlElements);
             if (colorType === ColorType.MONO) {
                 enableMonoColorize();
             }
 
-            return response;
+            return textMeta;
         } catch (e) {
             return;
         }

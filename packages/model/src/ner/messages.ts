@@ -14,7 +14,7 @@ export function extractRequest(parsedText: string) {
 
 export type ExtractActionsType = ReturnType<typeof extractRequest>;
 
-export type CommonTextResponse = {
+export type TextMeta = {
     ner: NEREntitiesBackendResponse;
     summary: string;
 };
