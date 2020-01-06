@@ -17,6 +17,7 @@ function addStyle(rule: string): CSSStyleSheet | undefined {
 let monoSheet: CSSStyleSheet | void;
 
 export function enableMonoColorize(): void {
+    console.log(monoSheet);
     const style = '.articles-summary-keyword { border-bottom: 1px solid #ccc !important; }';
     if (monoSheet) {
         monoSheet.disabled = false;

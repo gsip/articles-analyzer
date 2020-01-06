@@ -23,12 +23,7 @@ function colorizeText(textMeta: TextMeta, htmlElements: HTMLElement[]): void {
     });
 }
 
-type ParsePageResponse = {
-    textMeta: TextMeta;
-    htmlElements: HTMLElement[];
-};
-
-async function parsePage(href: string): Promise<ParsePageResponse> {
+async function parsePage(href: string, colorType: ColorType): Promise<TextMeta> {
     const { text, htmlElements } = parseMainContent(document, href);
 
     if (text.length === 0) {
@@ -44,22 +39,20 @@ async function parsePage(href: string): Promise<ParsePageResponse> {
         throw new Error('textMeta is empty');
     }
 
-    return { textMeta, htmlElements };
+    colorizeText(textMeta, htmlElements);
+    if (colorType === ColorType.MONO) {
+        enableMonoColorize();
+    }
+
+    return textMeta;
 }
 
-const memoizedParsePage = memoize((url: string) => parsePage(url));
+const memoizedParsePage = memoize((url: string, colorType: ColorType) => parsePage(url, colorType));
 
 export const initializeParsePage = (): void => {
     messenger.subscribe(ParsePageType.PARSE_PAGE_REQUEST, async ({ payload: colorType }: ParsePageActionsType) => {
         try {
-            const { textMeta, htmlElements } = await memoizedParsePage(location.href);
-
-            colorizeText(textMeta, htmlElements);
-            if (colorType === ColorType.MONO) {
-                enableMonoColorize();
-            }
-
-            return textMeta;
+            return await memoizedParsePage(location.href, colorType);
         } catch (e) {
             return {};
         }
