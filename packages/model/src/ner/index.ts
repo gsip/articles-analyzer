@@ -87,7 +87,7 @@ export type NEREntitiesBackendResponse<T extends NEREntitiesTypesList = NEREntit
     NEREntity[] | undefined
 >;
 
-export type NEREntities = [string, NEREntity[] | undefined][];
+export type NEREntities = [NEREntitiesTypesList, NEREntity[] | undefined][];
 
 export function getMainKeywords(entities: NEREntities, length = 4): string[] {
     const words = entities.map(([_entity, words]) => (words ? words : [])).flat() as NEREntity[];

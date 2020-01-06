@@ -3,11 +3,12 @@ import { messenger } from '@reservoir-dogs/browser-transport';
 import { ArticleMeta } from '@reservoir-dogs/articles-search';
 import { Router, navigate } from '@reach/router';
 import {
-    CommonTextResponse,
+    TextMeta,
     parsePageRequest,
     keywordPopupClick,
     wantToGetSimilarArticles,
     NEREntities,
+    ColorType,
 } from '@reservoir-dogs/model';
 import { PenguinLoader } from './components/penguinLoader/PenguinLoader';
 import { Summary } from './components/summary/Summary';
@@ -15,10 +16,13 @@ import { Entities } from './components/entities/Entities';
 import { Articles } from './components/articles/Articles';
 import { NavLink } from './components/NavLink';
 import './styles.scss';
+import { Settings } from './components/settings/Settings';
 
 const LOADER_DELAY_TIME = 150;
 
 export const App: React.FC = () => {
+    const activeColorType = (localStorage.getItem('colorType') as ColorType) || ColorType.MULTI;
+
     const [entities, setEntities] = useState<NEREntities>([]);
     const [summary, setSummary] = useState('');
     const [articlesMeta, setArticlesMeta] = useState<ArticleMeta[]>([]);
@@ -30,22 +34,23 @@ export const App: React.FC = () => {
         navigate(path);
 
         messenger
-            .sendToActiveTab<CommonTextResponse>(parsePageRequest())
-            .then(({ ner, summary }) => {
+            .sendToActiveTab<TextMeta>(parsePageRequest(activeColorType))
+            .then((response) => {
+                const { nerEntities, summary } = response;
                 setSummary(summary);
 
-                if (!ner) {
+                if (!nerEntities) {
                     return [];
                 }
 
-                const nerEntities = Object.entries(ner);
                 setEntities(nerEntities);
 
                 return nerEntities;
             })
             .then((nerEntities) => messenger.send<ArticleMeta[]>(wantToGetSimilarArticles(nerEntities)))
-            .then(setArticlesMeta);
-    }, []);
+            .then(setArticlesMeta)
+            .catch(console.error);
+    }, [activeColorType]);
 
     return (
         <div className="app">
@@ -58,11 +63,13 @@ export const App: React.FC = () => {
                             <NavLink to="summary">Summary</NavLink>
                             <NavLink to="keywords">Keywords</NavLink>
                             <NavLink to="see-also">See also</NavLink>
+                            <NavLink to="settings">Settings</NavLink>
                         </div>
                         <Router>
                             <Summary summary={summary} path="summary" />
                             <Entities entities={entities} onWordClick={handleWordClick} path="keywords" />
                             <Articles articlesMeta={articlesMeta} path="see-also" />
+                            <Settings activeColorType={activeColorType} path="settings" />
                         </Router>
                     </div>
                 )}

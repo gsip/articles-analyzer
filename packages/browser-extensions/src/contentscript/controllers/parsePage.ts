@@ -1,20 +1,18 @@
-import { colorizeWords } from '../../modules/markHTML/markHTML';
+import { colorizeWords, enableMonoColorize } from '../../modules/markHTML/markHTML';
 import {
-    CommonTextResponse,
+    TextMeta,
     extractRequest,
     NERConfig,
-    NEREntitiesTypesList,
-    NEREntity,
     ParsePageType,
+    ParsePageActionsType,
+    ColorType,
 } from '@reservoir-dogs/model';
 import { messenger } from '@reservoir-dogs/browser-transport';
 import { parseMainContent } from '@reservoir-dogs/html-parser';
 import { memoize } from 'lodash-es';
 
-function colorizeText(response: CommonTextResponse, htmlElements: HTMLElement[]): void {
-    const NERList = Object.entries(response.ner) as [NEREntitiesTypesList, NEREntity[] | undefined][];
-
-    NERList.forEach(([NEREntityName, NEREntities]) => {
+function colorizeText(textMeta: TextMeta, htmlElements: HTMLElement[]): void {
+    textMeta.nerEntities.forEach(([NEREntityName, NEREntities]) => {
         const color = NERConfig[NEREntityName] ? NERConfig[NEREntityName].color : '';
 
         if (NEREntities && color) {
@@ -25,30 +23,39 @@ function colorizeText(response: CommonTextResponse, htmlElements: HTMLElement[])
     });
 }
 
-async function parsePage(href: string): Promise<CommonTextResponse | undefined> {
+async function parsePage(href: string, colorType: ColorType): Promise<TextMeta> {
     const { text, htmlElements } = parseMainContent(document, href);
 
     if (text.length === 0) {
-        return;
+        throw new Error('text is empty');
     }
 
     if (process.env.NODE_ENV === 'development') {
         console.log(text);
     }
 
-    const response = await messenger.send<CommonTextResponse>(extractRequest(text));
+    const textMeta = await messenger.send<TextMeta>(extractRequest(text));
 
-    if (!response) {
-        return;
+    if (!textMeta) {
+        throw new Error('textMeta is empty');
     }
 
-    colorizeText(response, htmlElements);
+    colorizeText(textMeta, htmlElements);
+    if (colorType === ColorType.MONO) {
+        enableMonoColorize();
+    }
 
-    return response;
+    return textMeta;
 }
 
-const memoizedParsePage = memoize((url: string) => parsePage(url));
+const memoizedParsePage = memoize((url: string, colorType: ColorType) => parsePage(url, colorType));
 
 export const initializeParsePage = (): void => {
-    messenger.subscribe(ParsePageType.PARSE_PAGE_REQUEST, () => memoizedParsePage(location.href));
+    messenger.subscribe(ParsePageType.PARSE_PAGE_REQUEST, async ({ payload: colorType }: ParsePageActionsType) => {
+        try {
+            return await memoizedParsePage(location.href, colorType);
+        } catch (e) {
+            return {};
+        }
+    });
 };
