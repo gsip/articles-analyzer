@@ -47,7 +47,8 @@ export const App: React.FC = () => {
                 return nerEntities;
             })
             .then((nerEntities) => messenger.send<ArticleMeta[]>(wantToGetSimilarArticles(nerEntities)))
-            .then(setArticlesMeta);
+            .then(setArticlesMeta)
+            .catch(console.error);
     }, [activeColorType]);
 
     return (
