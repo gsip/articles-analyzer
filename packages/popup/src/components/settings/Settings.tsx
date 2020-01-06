@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { RouteComponentProps } from '@reach/router';
 import { ColorType, wantToChangeKeywordsHighlightColor } from '@reservoir-dogs/model';
 import { messenger } from '@reservoir-dogs/browser-transport';
@@ -24,7 +24,7 @@ function HighlightColor({ activeColorType }: HighlightColorProps): React.ReactEl
                     name="highlight-page-color"
                     type="radio"
                     checked={colorType === ColorType.MONO}
-                    onChange={() => setActiveColorType(ColorType.MONO)}
+                    onChange={useCallback(() => setActiveColorType(ColorType.MONO), [])}
                 />
                 <span>One </span>
             </label>
@@ -33,7 +33,7 @@ function HighlightColor({ activeColorType }: HighlightColorProps): React.ReactEl
                     name="highlight-page-color"
                     type="radio"
                     checked={colorType === ColorType.MULTI}
-                    onChange={() => setActiveColorType(ColorType.MULTI)}
+                    onChange={useCallback(() => setActiveColorType(ColorType.MULTI), [])}
                 />
                 <span>Multi</span>
             </label>
