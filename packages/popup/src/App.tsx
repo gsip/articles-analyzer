@@ -16,6 +16,7 @@ import { Entities } from './components/entities/Entities';
 import { Articles } from './components/articles/Articles';
 import { NavLink } from './components/NavLink';
 import './styles.scss';
+import { Settings } from './components/settings/Settings';
 
 const LOADER_DELAY_TIME = 150;
 
@@ -61,16 +62,13 @@ export const App: React.FC = () => {
                             <NavLink to="summary">Summary</NavLink>
                             <NavLink to="keywords">Keywords</NavLink>
                             <NavLink to="see-also">See also</NavLink>
+                            <NavLink to="settings">Settings</NavLink>
                         </div>
                         <Router>
                             <Summary summary={summary} path="summary" />
-                            <Entities
-                                activeColorType={activeColorType}
-                                entities={entities}
-                                onWordClick={handleWordClick}
-                                path="keywords"
-                            />
+                            <Entities entities={entities} onWordClick={handleWordClick} path="keywords" />
                             <Articles articlesMeta={articlesMeta} path="see-also" />
+                            <Settings activeColorType={activeColorType} path="settings" />
                         </Router>
                     </div>
                 )}

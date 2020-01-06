@@ -55,17 +55,22 @@ h3 {
 .nav-link {
   color: black;
   text-decoration: none;
-
-  &.active {
-    font-weight: bold;
-  }
 }
 
 .links {
-  margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
   font-size: 18px;
+  margin-bottom: 15px;
 
   .nav-link {
-    margin-right: 30px;
+    text-wrap: none;
+    padding: 0 15px 15px;
+    border-bottom: 2px solid black;
+
+    &.active {
+      color: #00278e;
+      border-color: #00278e;
+    }
   }
 }
