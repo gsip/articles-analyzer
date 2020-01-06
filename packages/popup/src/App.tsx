@@ -35,7 +35,8 @@ export const App: React.FC = () => {
 
         messenger
             .sendToActiveTab<TextMeta>(parsePageRequest(activeColorType))
-            .then(({ nerEntities, summary }) => {
+            .then((response) => {
+                const { nerEntities, summary } = response;
                 setSummary(summary);
 
                 if (!nerEntities) {
