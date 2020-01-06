@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { Word } from '../word';
 import { NERConfig, NEREntity, NEREntities } from '@reservoir-dogs/model';
 import { RouteComponentProps } from '@reach/router';
@@ -9,7 +9,7 @@ type Props = RouteComponentProps & {
     onWordClick: (str: string) => void;
 };
 
-export function Entities({ entities, onWordClick }: Props): React.ReactElement {
+export const Entities = memo(function Entities({ entities, onWordClick }: Props): React.ReactElement {
     return (
         <div className="ner">
             {entities.map(([entityName, words]) => {
@@ -35,4 +35,4 @@ export function Entities({ entities, onWordClick }: Props): React.ReactElement {
             })}
         </div>
     );
-}
+});
