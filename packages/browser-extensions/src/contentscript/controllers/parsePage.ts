@@ -3,8 +3,6 @@ import {
     TextMeta,
     extractRequest,
     NERConfig,
-    NEREntitiesTypesList,
-    NEREntity,
     ParsePageType,
     ParsePageActionsType,
     ColorType,
@@ -14,9 +12,7 @@ import { parseMainContent } from '@reservoir-dogs/html-parser';
 import { memoize } from 'lodash-es';
 
 function colorizeText(textMeta: TextMeta, htmlElements: HTMLElement[]): void {
-    const NERList = Object.entries(textMeta.ner) as [NEREntitiesTypesList, NEREntity[] | undefined][];
-
-    NERList.forEach(([NEREntityName, NEREntities]) => {
+    textMeta.nerEntities.forEach(([NEREntityName, NEREntities]) => {
         const color = NERConfig[NEREntityName] ? NERConfig[NEREntityName].color : '';
 
         if (NEREntities && color) {
@@ -65,7 +61,7 @@ export const initializeParsePage = (): void => {
 
             return textMeta;
         } catch (e) {
-            return;
+            return {};
         }
     });
 };

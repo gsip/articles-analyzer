@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
-import { NEREntitiesBackendResponse } from './index';
+import { NEREntities } from './index';
 
 export enum ExtractType {
     EXTRACT_REQUEST = 'EXTRACT_REQUEST',
@@ -15,6 +15,6 @@ export function extractRequest(parsedText: string) {
 export type ExtractActionsType = ReturnType<typeof extractRequest>;
 
 export type TextMeta = {
-    ner: NEREntitiesBackendResponse;
+    nerEntities: NEREntities;
     summary: string;
 };
