@@ -1,6 +1,6 @@
 import Mark from 'mark.js';
 
-function addStyle(rule: string): void {
+function addStyle(rule: string): CSSStyleSheet | undefined {
     const style = document.createElement('style');
     document.head.appendChild(style);
 
@@ -10,6 +10,26 @@ function addStyle(rule: string): void {
 
     const sheet = style.sheet as CSSStyleSheet;
     sheet.insertRule(rule);
+
+    return sheet;
+}
+
+let monoSheet: CSSStyleSheet | void;
+
+export function enableMonoColorize(): void {
+    console.log(monoSheet);
+    const style = '.articles-summary-keyword { border-bottom: 1px solid #ccc !important; }';
+    if (monoSheet) {
+        monoSheet.disabled = false;
+    } else {
+        monoSheet = addStyle(style);
+    }
+}
+
+export function disableMonoColorize(): void {
+    if (monoSheet) {
+        monoSheet.disabled = true;
+    }
 }
 
 function addClassNameToWords(htmlElement: HTMLElement, words: string[], className: string): void {
