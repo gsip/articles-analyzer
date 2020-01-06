@@ -1,5 +1,19 @@
-.highlight-page-color {
-  .active {
-    color: red;
+.ner {
+  .highlight-page-color {
+    .active {
+      color: red;
+    }
+  }
+
+  .word {
+    padding: 5px;
+    display: inline-block;
+    margin-right: 5px;
+    margin-bottom: 5px;
+    cursor: pointer;
+  }
+
+  h4 {
+    margin: 10px 0;
   }
 }

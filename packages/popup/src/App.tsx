@@ -20,6 +20,8 @@ import './styles.scss';
 const LOADER_DELAY_TIME = 150;
 
 export const App: React.FC = () => {
+    const activeColorType = (localStorage.getItem('colorType') as ColorType) || ColorType.MONO;
+
     const [entities, setEntities] = useState<NEREntities>([]);
     const [summary, setSummary] = useState('');
     const [articlesMeta, setArticlesMeta] = useState<ArticleMeta[]>([]);
@@ -30,10 +32,8 @@ export const App: React.FC = () => {
         const path = '/' + (localStorage.getItem('path') || 'keywords');
         navigate(path);
 
-        const colorType = (localStorage.getItem('colorType') as ColorType) || ColorType.MONO;
-
         messenger
-            .sendToActiveTab<CommonTextResponse>(parsePageRequest(colorType))
+            .sendToActiveTab<CommonTextResponse>(parsePageRequest(activeColorType))
             .then(({ ner, summary }) => {
                 setSummary(summary);
 
@@ -48,7 +48,7 @@ export const App: React.FC = () => {
             })
             .then((nerEntities) => messenger.send<ArticleMeta[]>(wantToGetSimilarArticles(nerEntities)))
             .then(setArticlesMeta);
-    }, []);
+    }, [activeColorType]);
 
     return (
         <div className="app">
@@ -64,7 +64,12 @@ export const App: React.FC = () => {
                         </div>
                         <Router>
                             <Summary summary={summary} path="summary" />
-                            <Entities entities={entities} onWordClick={handleWordClick} path="keywords" />
+                            <Entities
+                                activeColorType={activeColorType}
+                                entities={entities}
+                                onWordClick={handleWordClick}
+                                path="keywords"
+                            />
                             <Articles articlesMeta={articlesMeta} path="see-also" />
                         </Router>
                     </div>

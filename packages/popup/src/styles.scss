@@ -7,18 +7,6 @@
   font-size: 14px;
 }
 
-.word {
-  padding: 5px;
-  display: inline-block;
-  margin-right: 5px;
-  margin-bottom: 5px;
-  cursor: pointer;
-}
-
-.description {
-  margin: 10px 0;
-}
-
 .summary {
   .row {
     margin: 5px 0;
@@ -64,20 +52,20 @@ h3 {
   }
 }
 
-.links {
-  margin-bottom: 20px;
-  font-size: 18px;
-
-  a {
-    margin-right: 10px;
-  }
-}
-
 .nav-link {
   color: black;
   text-decoration: none;
 
   &.active {
     font-weight: bold;
+  }
+}
+
+.links {
+  margin-bottom: 20px;
+  font-size: 18px;
+
+  .nav-link {
+    margin-right: 30px;
   }
 }

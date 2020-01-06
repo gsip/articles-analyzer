@@ -27,11 +27,16 @@ function colorizeText(response: CommonTextResponse, htmlElements: HTMLElement[])
     });
 }
 
-async function parsePage(href: string): Promise<CommonTextResponse | undefined> {
+type ParsePageResponse = {
+    response: CommonTextResponse;
+    htmlElements: HTMLElement[];
+};
+
+async function parsePage(href: string): Promise<ParsePageResponse> {
     const { text, htmlElements } = parseMainContent(document, href);
 
     if (text.length === 0) {
-        return;
+        throw new Error('text is empty');
     }
 
     // TODO #92: Delete it
@@ -40,24 +45,27 @@ async function parsePage(href: string): Promise<CommonTextResponse | undefined> 
     const response = await messenger.send<CommonTextResponse>(extractRequest(text));
 
     if (!response) {
-        return;
+        throw new Error('response is empty');
     }
 
-    colorizeText(response, htmlElements);
-
-    return response;
+    return { response, htmlElements };
 }
 
 const memoizedParsePage = memoize((url: string) => parsePage(url));
 
 export const initializeParsePage = (): void => {
     messenger.subscribe(ParsePageType.PARSE_PAGE_REQUEST, async ({ payload: colorType }: ParsePageActionsType) => {
-        const response = await memoizedParsePage(location.href);
+        try {
+            const { response, htmlElements } = await memoizedParsePage(location.href);
 
-        if (colorType === ColorType.MONO) {
-            enableMonoColorize();
+            colorizeText(response, htmlElements);
+            if (colorType === ColorType.MONO) {
+                enableMonoColorize();
+            }
+
+            return response;
+        } catch (e) {
+            return;
         }
-
-        return response;
     });
 };

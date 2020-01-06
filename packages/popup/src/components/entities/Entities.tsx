@@ -14,10 +14,12 @@ import './Entities.scss';
 type Props = RouteComponentProps & {
     entities: NEREntities;
     onWordClick: (str: string) => void;
+    activeColorType: ColorType;
 };
 
-function HighlightColor(): React.ReactElement {
-    const activeColorType = localStorage.getItem('colorType') as ColorType;
+type HighlightColorProps = { activeColorType: ColorType };
+
+function HighlightColor({ activeColorType }: HighlightColorProps): React.ReactElement {
     const [colorType, setColorType] = useState<ColorType>(activeColorType);
     const setActiveColorType = async (colorType: ColorType): Promise<void> => {
         await messenger.sendToActiveTab(wantToChangeKeywordsHighlightColor(colorType));
@@ -27,27 +29,33 @@ function HighlightColor(): React.ReactElement {
 
     return (
         <div className="highlight-page-color">
-            <h4>Highlight page color</h4>
-            <button
-                className={colorType === ColorType.MONO ? 'active' : ''}
-                onClick={() => setActiveColorType(ColorType.MONO)}
-            >
-                Mono
-            </button>
-            <button
-                className={colorType === ColorType.MULTI ? 'active' : ''}
-                onClick={() => setActiveColorType(ColorType.MULTI)}
-            >
-                Multi
-            </button>
+            <h4>Highlight keywords color</h4>
+            <label>
+                <input
+                    name="highlight-page-color"
+                    type="radio"
+                    checked={colorType === ColorType.MONO}
+                    onChange={() => setActiveColorType(ColorType.MONO)}
+                />
+                <span> One </span>
+            </label>
+            <label>
+                <input
+                    name="highlight-page-color"
+                    type="radio"
+                    checked={colorType === ColorType.MULTI}
+                    onChange={() => setActiveColorType(ColorType.MULTI)}
+                />
+                <span> Multi</span>
+            </label>
         </div>
     );
 }
 
-export function Entities({ entities, onWordClick }: Props): React.ReactElement {
+export function Entities({ entities, onWordClick, activeColorType }: Props): React.ReactElement {
     return (
         <div className="ner">
-            <HighlightColor />
+            <HighlightColor activeColorType={activeColorType} />
             {entities
                 .filter(([entityName, words]) => {
                     const entity = NERConfig[entityName as keyof typeof NERConfig];
