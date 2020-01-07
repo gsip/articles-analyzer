@@ -2,7 +2,7 @@ import htmlToText from 'html-to-text';
 
 const deleteNonASCIICharacters = (text: string): string => {
     // eslint-disable-next-line no-control-regex,no-useless-escape
-    const NON_ASCII_CHARACTERS = /[^A-Za-z 0-9 \.,\?""!@#\$%\^&\*\(\)-_=\+;:<>\/\\\|\}\{\[\]`~]*/g;
+    const NON_ASCII_CHARACTERS = /[^A-Za-z 0-9 \.,\?""!@#'\$%\^&\*\(\)-_=\+;:<>\/\\\|\}\{\[\]`~]*/g;
 
     return text.replace(NON_ASCII_CHARACTERS, '');
 };
