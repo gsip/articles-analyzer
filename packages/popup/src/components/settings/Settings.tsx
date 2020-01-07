@@ -2,8 +2,7 @@ import React, { useState, useCallback } from 'react';
 import { RouteComponentProps } from '@reach/router';
 import { ColorType, wantToChangeKeywordsHighlightColor } from '@reservoir-dogs/model';
 import { messenger } from '@reservoir-dogs/browser-transport';
-
-type Props = RouteComponentProps & { activeColorType: ColorType };
+import './Settings.scss';
 
 type HighlightColorProps = { activeColorType: ColorType };
 
@@ -40,6 +39,8 @@ function HighlightColor({ activeColorType }: HighlightColorProps): React.ReactEl
         </div>
     );
 }
+
+type Props = RouteComponentProps & { activeColorType: ColorType };
 
 export function Settings({ activeColorType }: Props): React.ReactElement {
     return (
