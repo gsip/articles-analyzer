@@ -1,5 +1,5 @@
 {
-  "name": "articles-analyzer",
+  "name": "Articles Analyzer",
   "description": "This extension analyzes the page and gives you a summary, keywords, and similar articles.",
   "version": "0.1.0",
   "manifest_version": 2,
