@@ -10,7 +10,7 @@ import {
 import { messenger } from '@reservoir-dogs/browser-transport';
 import { parseMainContent } from '@reservoir-dogs/html-parser';
 import { memoize } from 'lodash-es';
-import { deleteDuplicates, notEmpty } from './utils';
+import { getWithoutDuplicates, isNotEmpty } from './utils';
 
 function colorizeText(textMeta: TextMeta, htmlElements: HTMLElement[]): void {
     const wordsWithColor = textMeta.nerEntities.map(([NEREntityName, NEREntities]) => {
@@ -23,7 +23,7 @@ function colorizeText(textMeta: TextMeta, htmlElements: HTMLElement[]): void {
     });
 
     const sortedWordsWithColor = wordsWithColor
-        .filter(notEmpty)
+        .filter(isNotEmpty)
         .flat()
         .sort(
             (wordWithColorLeft, wordWithColorRight) => wordWithColorRight.word.length - wordWithColorLeft.word.length,
@@ -31,7 +31,7 @@ function colorizeText(textMeta: TextMeta, htmlElements: HTMLElement[]): void {
 
     const colors = sortedWordsWithColor.map((sortedWordWithColor) => sortedWordWithColor.color);
 
-    deleteDuplicates(colors).forEach((color) => {
+    getWithoutDuplicates(colors).forEach((color) => {
         createStyleForColor(color);
     });
 
