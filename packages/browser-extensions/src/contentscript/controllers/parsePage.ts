@@ -1,4 +1,4 @@
-import { colorizeWords, enableMonoColorize } from '../../modules/markHTML/markHTML';
+import { colorizeWord, createStyleForColor, enableMonoColorize } from '../../modules/markHTML/markHTML';
 import {
     TextMeta,
     extractRequest,
@@ -10,16 +10,33 @@ import {
 import { messenger } from '@reservoir-dogs/browser-transport';
 import { parseMainContent } from '@reservoir-dogs/html-parser';
 import { memoize } from 'lodash-es';
+import { deleteDuplicates, notEmpty } from './utils';
 
 function colorizeText(textMeta: TextMeta, htmlElements: HTMLElement[]): void {
-    textMeta.nerEntities.forEach(([NEREntityName, NEREntities]) => {
+    const wordsWithColor = textMeta.nerEntities.map(([NEREntityName, NEREntities]) => {
         const color = NERConfig[NEREntityName] ? NERConfig[NEREntityName].color : '';
-
-        if (NEREntities && color) {
-            const words = NEREntities.map((entity) => entity.word);
-
-            colorizeWords(htmlElements, words, color);
+        if (!NEREntities || !color) {
+            return null;
         }
+
+        return NEREntities.map((entity) => ({ word: entity.word, color }));
+    });
+
+    const sortedWordsWithColor = wordsWithColor
+        .filter(notEmpty)
+        .flat()
+        .sort(
+            (wordWithColorLeft, wordWithColorRight) => wordWithColorRight.word.length - wordWithColorLeft.word.length,
+        );
+
+    const colors = sortedWordsWithColor.map((sortedWordWithColor) => sortedWordWithColor.color);
+
+    deleteDuplicates(colors).forEach((color) => {
+        createStyleForColor(color);
+    });
+
+    sortedWordsWithColor.forEach((sortedWordWithColor) => {
+        colorizeWord(htmlElements, sortedWordWithColor.word, sortedWordWithColor.color);
     });
 }
 
