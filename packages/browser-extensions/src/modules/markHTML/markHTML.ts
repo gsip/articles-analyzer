@@ -33,24 +33,36 @@ export function disableMonoColorize(): void {
 }
 
 function addClassNameToWords(htmlElement: HTMLElement, words: string[], className: string): void {
+    const KEYWORD_CLASS_NAME = 'articles-summary-keyword';
     const instance = new Mark(htmlElement);
     instance.mark(words, {
         element: 'span',
-        className: `articles-summary-keyword ${className}`,
+        className: `${KEYWORD_CLASS_NAME} ${className}`,
         accuracy: {
             value: 'exactly',
             limiters: [',', '.', ':', ':', '(', ')'],
         },
         separateWordSearch: false,
+        filter: (node) => {
+            const isInsideAnotherKeyword = node?.parentElement?.className.includes(KEYWORD_CLASS_NAME);
+            return !isInsideAnotherKeyword;
+        },
     });
 }
 
-export function colorizeWords(htmlElements: HTMLElement[], words: string[], color: string): void {
-    const className = `mark-${color.replace('#', '')}`;
+function generateClassName(color: string): string {
+    return `mark-${color.replace('#', '')}`;
+}
+
+export function createStyleForColor(color: string): void {
+    const className = generateClassName(color);
     const style = `.${className} { border-bottom: 1px solid ${color} !important; }`;
     addStyle(style);
+}
+export function colorizeWord(htmlElements: HTMLElement[], word: string, color: string): void {
+    const className = generateClassName(color);
 
     htmlElements.forEach((htmlElement) => {
-        addClassNameToWords(htmlElement, words, className);
+        addClassNameToWords(htmlElement, [word], className);
     });
 }
