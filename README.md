@@ -1,4 +1,6 @@
 # Articles analyzer
+https://chrome.google.com/webstore/detail/articles-analyzer/ielddloiipbhhkaiioemkmphbohlddfa
+
 This is a mono repository of browser extension which can analyze any web page and show summary, keywords and similar articles.
  
 **Summary** - Summary of the main text.
